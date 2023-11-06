@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('adherents', function (Blueprint $table) {
             $table->id();
-            $table->string('identifiant', 255);
+            $table->string('name');
             $table->string('raison_sociale', 255);
             $table->string('civilite', 255);
+            $table->string('email')->unique();
             $table->string('nom', 255);
             $table->string('prenom', 255);
             $table->string('ville', 255);
@@ -23,13 +24,16 @@ return new class extends Migration
             $table->string('code_postal', 255);
             $table->string('adresse_mail', 255);
             $table->string('numeros_telephone', 255);
-            $table->string('numeros_telephone2', 255)->nullable()->cascadeOnDelete();
-            $table->string('numeros_telephone3', 255)->nullable()->cascadeOnDelete();
-            $table->string('profession', 255)->nullable()->cascadeOnDelete();
-            $table->date('date_naissance')->nullable()->cascadeOnDelete();
-            $table->string('password', 255);
-            $table->string('date_premiere_adhesion', 255)->nullable()->cascadeOnDelete();
+            $table->string('numeros_telephone2', 255)->nullable();
+            $table->string('numeros_telephone3', 255)->nullable();
+            $table->string('profession', 255)->nullable();
+            $table->date('date_naissance')->nullable();
+            $table->string('date_premiere_adhesion', 255)->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
+
         });
     }
 

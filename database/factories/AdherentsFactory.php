@@ -2,13 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Adherents;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
-class UserFactory extends Factory
+class AdherentsFactory extends Factory
 {
     /**
      * Define the model's default state.
