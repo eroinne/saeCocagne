@@ -29,46 +29,41 @@ Route::get('/', function () {
 
 //-------route combine--------
 
-//route home
+// Route home
 Route::get('/', [IndexController::class, 'home'])->name('home');
-
-//route about cogagne
 Route::get('/presentation', [IndexController::class, 'about'])->name('about');
-
-//route contact
+Route::get('/faq', [IndexController::class, 'faq'])->name('faq');
 Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 
-//route for all product
+// Route products
 Route::get('/produits', [ProductController::class, 'index'])->name('products.index');
 
-//route conection
+// Route auth
 Route::get('/connexion', [AuthController::class, 'login'])->name('login');
 Route::post('/connexion', [AuthController::class, 'authenticate'])->name('login.authenticate');
-
-//route inscription
 Route::get('/inscription', [AuthController::class, 'register'])->name('register');
 Route::post('/inscription/cree', [AuthController::class, 'create'])->name('register.add');
 
-//route faq
-Route::get('/faq', [IndexController::class, 'faq'])->name('faq');
 
-//route for subsciption
+// Route subscription
 Route::get('/abonnement', [SubscriptionController::class, 'subscription'])->name('subscription');
 Route::post('/abonnement', [SubscriptionController::class, 'subscription'])->name('subscription.add');
 
-//-------route  user--------
+//------- Route User --------//
+
+//TODO: Middleware
 
 //route setting
-Route::get('/parametre', [UserController::class, 'setting'])->name('setting');
+Route::get('/parametre', [UserController::class, 'setting'])->name('dashboard.setting');
 
 //route membership
-Route::get('/Adhesion', [SubscriptionController::class, 'membership'])->name('membership');
-Route::post('/Adhesion', [SubscriptionController::class, 'membership'])->name('membership.add');
+Route::get('/Adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership');
+Route::post('/Adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership.add');
 
 //route history of order
-Route::get('/historique', [UserController::class, 'history'])->name('history');
+Route::get('/historique', [UserController::class, 'history'])->name('dashboard.history');
 //route calendar of delivery
-Route::get('/calendrier', [CalendarController::class, 'calendar'])->name('calendar');
+Route::get('/calendrier', [CalendarController::class, 'calendar'])->name('dashboard.calendar');
 
 
 
