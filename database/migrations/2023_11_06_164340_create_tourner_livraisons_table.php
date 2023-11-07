@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tournées_de_livraison', function (Blueprint $table) {
+        Schema::create('tournees_de_livraison', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_structure');
             $table->foreign('id_structure')->references('id')->on('structures')->cascadeOnDelete();
