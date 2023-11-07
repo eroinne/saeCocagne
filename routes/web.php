@@ -8,7 +8,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdherentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,20 +46,22 @@ Route::post('/inscription/cree', [AuthController::class, 'create'])->name('regis
 Route::get('/abonnement', [SubscriptionController::class, 'subscription'])->name('subscription');
 Route::post('/abonnement', [SubscriptionController::class, 'subscription'])->name('subscription.add');
 
-//------- Route User --------//
+//------- Route Adherents --------//
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/dashboard', [AdherentController::class, 'dashboard'])->name('dashboard');
 
-    Route::get('/parametre', [UserController::class, 'setting'])->name('dashboard.setting');
+
+    Route::get('/parametre', [AdherentController::class, 'setting'])->name('dashboard.setting');
 
     Route::get('/adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership');
     Route::post('/adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership.add');
 
-    Route::get('/historique', [UserController::class, 'history'])->name('dashboard.history');
+    Route::get('/historique', [AdherentController::class, 'history'])->name('dashboard.history');
     Route::get('/calendrier', [CalendarController::class, 'calendar'])->name('dashboard.calendar');
 });
 
@@ -95,9 +97,6 @@ Route::get('/resume', [DeliveryController::class, 'summary'])->name('summary');
 
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 
