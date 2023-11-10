@@ -17,9 +17,11 @@ return new class extends Migration
             $table->unsignedBigInteger('id_adherent');
             $table->foreign('id_adherent')->references('id')->on('adherents')->cascadeOnDelete();
             $table->foreign('id_structure')->references('id')->on('structures')->cascadeOnDelete();
+            //number of days of the subscription
             $table->integer('duree');
             $table->string('periodicite', 255);
             $table->string('type_abonnement', 255);
+            $table->string('moyen_paiement', 255);
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_abonnement');
             $table->foreign('id_abonnement')->references('id')->on('abonnements')->cascadeOnDelete();
             $table->date('date_commande');
+            $table->date('date_preparation');
             $table->timestamps();
         });
     }

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nom', 255);
             $table->string('type', 255);
-            $table->string('unite', 255)->nullable()->cascadeOnDelete();
-            $table->string('valeur_unite', 255)->nullable()->cascadeOnDelete();
-            $table->string('prix', 255);
+            $table->string('unite', 255)->nullable();
+            $table->string('valeur_unite', 255)->nullable();
+            $table->integer('prix');
             $table->timestamps();
         });
     }

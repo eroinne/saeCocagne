@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('structures', function (Blueprint $table) {
             $table->id();
+            $table->string('nom', 255);
             $table->string('ville', 255);
             $table->string('raison_sociale', 255);
             $table->string('siege_social', 255);
             $table->string('adresse_gestion', 255);
             $table->string('telephone', 255);
             $table->string('mail', 255);
-            $table->string('nom_referent', 255)->nullable()->cascadeOnDelete();
+            $table->string('nom_referent', 255)->nullable();
             $table->string('site_web', 255);
             $table->timestamps();
         });
