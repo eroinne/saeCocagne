@@ -22,9 +22,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('index');
+});
 
 
-//------- Route Combine --------//
+//-------route combine--------
 
 // Route home
 Route::get('/', [IndexController::class, 'home'])->name('home');
@@ -48,47 +51,42 @@ Route::post('/abonnement', [SubscriptionController::class, 'subscription'])->nam
 
 //------- Route User --------//
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//TODO: Middleware
+
+//route setting
+Route::get('/parametre', [UserController::class, 'setting'])->name('dashboard.setting');
+
+//route membership
+Route::get('/Adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership');
+Route::post('/Adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership.add');
+
+//route history of order
+Route::get('/historique', [UserController::class, 'history'])->name('dashboard.history');
+//route calendar of delivery
+Route::get('/calendrier', [CalendarController::class, 'calendar'])->name('dashboard.calendar');
 
 
-    Route::get('/parametre', [UserController::class, 'setting'])->name('dashboard.setting');
 
-    Route::get('/adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership');
-    Route::post('/adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership.add');
-
-    Route::get('/historique', [UserController::class, 'history'])->name('dashboard.history');
-    Route::get('/calendrier', [CalendarController::class, 'calendar'])->name('dashboard.calendar');
-});
-
-
-
-//-------- Route Admin --------//
-
-//TODO: Middleware admin
-
-
+//--------route  admin--------
 //route setting
 Route::get('/parametre', [AdminController::class, 'account'])->name('account');
 
 //route visulisation of delivery turn
-Route::get('/livraison/suivi', [DeliveryController::class, 'tracking'])->name('delivery.tracking');
+Route::get('/visualisationDelivery', [DeliveryController::class, 'visualisation'])->name('delivery.visualisation');
 
-//route edit of delivery turn
-Route::get('/livraison/modifier', [DeliveryController::class, 'edit_view'])->name('delivery.edit-view');
-Route::post('/livraison/modifier', [DeliveryController::class, 'edit'])->name('delivery.edit');
+//route modification of delivery turn
+Route::get('/modificationDelivery', [DeliveryController::class, 'modification'])->name('delivery.modification');
+Route::post('/modificationDelivery', [DeliveryController::class, 'modification'])->name('delivery.modification.add');
 
 //route add product
-Route::get('/produit/ajouter', [ProductController::class, 'create_view'])->name('products.create-view');
-Route::post('/produit/ajouter', [ProductController::class, 'create'])->name('products.create');
+Route::get('/ajouterProduits', [ProductController::class, 'add'])->name('products.add');
+Route::post('/ajouterProduits', [ProductController::class, 'add'])->name('products.add.add');
 
 //route delete product
-Route::post('/produit/supprimer', [ProductController::class, 'delete'])->name('products.delete');
+Route::post('/ajouterProduits', [ProductController::class, 'add'])->name('products.delete');
 
-//route edit of product
-Route::post('/produit/modifier', [ProductController::class, 'edit'])->name('products.edit');
+//route modification of product
+Route::post('/modificationProduits', [ProductController::class, 'modification'])->name('products.modification');
 //route summary of orders to prepare and deliver
 Route::get('/resume', [DeliveryController::class, 'summary'])->name('summary');
 
@@ -99,6 +97,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 require __DIR__.'/auth.php';
