@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('abonnements', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_structure');
-            $table->unsignedBigInteger('id_adherent');
-            $table->foreign('id_adherent')->references('id')->on('adherents')->cascadeOnDelete();
             $table->foreign('id_structure')->references('id')->on('structures')->cascadeOnDelete();
             //number of days of the subscription
             $table->integer('duree');

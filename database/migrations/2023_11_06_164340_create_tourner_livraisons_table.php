@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //pass if exists
         Schema::create('tournees_de_livraison', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_structure');

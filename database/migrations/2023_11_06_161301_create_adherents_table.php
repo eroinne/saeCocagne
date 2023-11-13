@@ -31,6 +31,8 @@ return new class extends Migration
             $table->string('date_premiere_adhesion', 255)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('id_structure');
+            $table->foreign('id_structure')->references('id')->on('structures')->cascadeOnDelete();
             $table->rememberToken();
             $table->timestamps();
 

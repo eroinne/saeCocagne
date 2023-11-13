@@ -42,4 +42,40 @@ class Adherents extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    // has many commandes
+    /**
+     * Get the adherent's commandes.
+     */
+    public function commandes()
+    {
+        return $this->hasMany(Commandes::class);
+    }
+
+    // belongs To abonnements
+    /**
+     * Get the adherent's abonnements.
+     */
+    public function abonnements()
+    {
+        return $this->belongsTo(Abonnements::class);
+    }
+
+    // belongs To structure
+    /**
+     * Get the adherent's structure.
+     */
+
+    public function structure()
+    {
+        return $this->belongsTo(Structure::class);
+    }
+
+
+
+
+
+
+
 }

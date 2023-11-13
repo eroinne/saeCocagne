@@ -24,6 +24,7 @@ class CartController extends Controller
         $panier->id_structure = $request->id_structure;
         $panier->nom = $request->name;
         $panier->type = $request->type;
+        $panier->abonnements = $request->abonnements;
         $result = $panier->save();
 
         //TODO change wen view is complete
@@ -53,6 +54,7 @@ class CartController extends Controller
         $panier->id_structure = $request->id_structure;
         $panier->nom = $request->name;
         $panier->type = $request->type;
+        $panier->abonnements = $request->abonnements;
         $result = $panier->save();
 
         //TODO change wen view is complete

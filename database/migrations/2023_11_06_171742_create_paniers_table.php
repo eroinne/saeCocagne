@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreign('id_structure')->references('id')->on('structures')->cascadeOnDelete();
             $table->string('type',255);
             $table->string('nom',255);
+            $table->unsignedBigInteger('id_abonnements');
+            $table->foreign('id_abonnements')->references('id')->on('abonnements')->cascadeOnDelete();
             $table->timestamps();
         });
     }

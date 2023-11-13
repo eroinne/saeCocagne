@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('calendriers');
         Schema::create('calendriers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_structure');
@@ -19,6 +20,10 @@ return new class extends Migration
             $table->string('jours_livraison', 255);
             //num of weeks that aren't possible for delivery
             $table->integer('semaines_non_livrables');
+            //foreing key to tournees_de_livraison
+            $table->unsignedBigInteger('id_tournee_livraison');
+            $table->foreign('id_tournee_livraison')->references('id')->on('tournees_de_livraison')->cascadeOnDelete();
+
             $table->timestamps();
         });
     }

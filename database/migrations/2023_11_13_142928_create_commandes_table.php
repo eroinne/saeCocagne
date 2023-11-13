@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_structure');
+            $table->foreign('id_structure')->references('id')->on('structures')->cascadeOnDelete();
             $table->unsignedBigInteger('id_adherent');
             $table->foreign('id_adherent')->references('id')->on('adherents')->cascadeOnDelete();
             $table->unsignedBigInteger('id_tournee');
             $table->foreign('id_tournee')->references('id')->on('tournees_de_livraison')->cascadeOnDelete();
-            $table->unsignedBigInteger('id_abonnement');
+            $table->unsignedBigInteger('id_abonnement')->nullable();
             $table->foreign('id_abonnement')->references('id')->on('abonnements')->cascadeOnDelete();
+            $table->unsignedBigInteger('id_produit')->nullable();
+            $table->foreign('id_produit')->references('id')->on('produits')->cascadeOnDelete();
             $table->date('date_commande');
             $table->date('date_preparation');
             $table->timestamps();
