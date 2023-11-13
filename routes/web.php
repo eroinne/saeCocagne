@@ -54,9 +54,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/dashboard', [AdherentController::class, 'dashboard'])->name('dashboard');
-
-
-    Route::get('/parametre', [AdherentController::class, 'setting'])->name('dashboard.setting');
+    Route::get('/compte', [AdherentController::class, 'account'])->name('dashboard.account');
+    Route::get('/boutique', [AdherentController::class, 'shop'])->name('dashboard.shop');
 
     Route::get('/adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership');
     Route::post('/adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership.add');

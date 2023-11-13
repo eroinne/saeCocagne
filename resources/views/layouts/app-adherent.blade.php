@@ -7,13 +7,20 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
         <title>Document</title>
+
         @vite('resources/css/app.css')
+
+        @livewireStyles
         @stack('styles')
         @stack('head-scripts')
     </head>
 
     <body>
         @vite('resources/js/app.js')
+        @php
+            // Get the current route name.
+            $routeName = Route::currentRouteName();
+        @endphp
 
         <div x-data="{openSidebar: false}">
             <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
@@ -72,7 +79,7 @@
                                         <ul role="list" class="-mx-2 space-y-1">
                                             <li>
                                                 <!-- Current: "bg-green-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-green-800" -->
-                                                <a href="#" class="bg-green-800 text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <a href="{{ route('dashboard') }}" class=" {{ $routeName == 'dashboard' ? 'text-white bg-green-800' : 'text-gray-400 hover:text-white hover:bg-green-800' }} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
                                                     <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                                                     </svg>
@@ -80,19 +87,19 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#" class="text-gray-400 hover:text-white hover:bg-green-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                                    <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                                                <a href="{{ route('dashboard.account') }}" class="{{ $routeName == 'dashboard.account' ? 'text-white bg-green-800' : 'text-gray-400 hover:text-white hover:bg-green-800' }} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                                                        <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
                                                     </svg>
-                                                    Team
+                                                    Mon compte
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#" class="text-gray-400 hover:text-white hover:bg-green-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                                    <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+                                                <a href="{{ route('dashboard.shop') }}" class="{{ $routeName == 'dashboard.shop' ? 'text-white bg-green-800' : 'text-gray-400 hover:text-white hover:bg-green-800' }} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512">
+                                                        <path d="M36.8 192H603.2c20.3 0 36.8-16.5 36.8-36.8c0-7.3-2.2-14.4-6.2-20.4L558.2 21.4C549.3 8 534.4 0 518.3 0H121.7c-16 0-31 8-39.9 21.4L6.2 134.7c-4 6.1-6.2 13.2-6.2 20.4C0 175.5 16.5 192 36.8 192zM64 224V384v80c0 26.5 21.5 48 48 48H336c26.5 0 48-21.5 48-48V384 224H320V384H128V224H64zm448 0V480c0 17.7 14.3 32 32 32s32-14.3 32-32V224H512z"/>
                                                     </svg>
-                                                    Projects
+                                                    Boutique
                                                 </a>
                                             </li>
                                             <li>
@@ -100,7 +107,7 @@
                                                     <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                                                     </svg>
-                                                    Calendar
+                                                    Calendrier
                                                 </a>
                                             </li>
                                             <li>
@@ -175,7 +182,7 @@
                                 <ul role="list" class="-mx-2 space-y-1">
                                     <li>
                                         <!-- Current: "bg-green-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-green-800" -->
-                                        <a href="#" class="bg-green-800 text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                        <a href="{{ route('dashboard') }}" class=" {{ $routeName == 'dashboard' ? 'text-white bg-green-800' : 'text-gray-400 hover:text-white hover:bg-green-800' }} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
                                             <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                                             </svg>
@@ -183,19 +190,19 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" class="text-gray-400 hover:text-white hover:bg-green-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                            <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                                        <a href="{{ route('dashboard.account') }}" class=" {{ $routeName == 'dashboard.account' ? 'text-white bg-green-800' : 'text-gray-400 hover:text-white hover:bg-green-800' }} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                            <svg class="h-6 w-6 shrink-0 {{ $routeName == 'dashboard.account' ? 'fill-white' : 'fill-gray-400' }} group-hover:fill-white" stroke-width="1" viewBox="0 0 448 512" stroke="currentColor" aria-hidden="true">
+                                                <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/>
                                             </svg>
-                                            Team
+                                            Mon compte
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" class="text-gray-400 hover:text-white hover:bg-green-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                            <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+                                        <a href="{{ route('dashboard.shop') }}" class="{{ $routeName == 'dashboard.shop' ? 'text-white bg-green-800' : 'text-gray-400 hover:text-white hover:bg-green-800' }} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                            <svg class="h-6 w-6 shrink-0 {{ $routeName == 'dashboard.shop' ? 'fill-white' : 'fill-gray-400' }} group-hover:fill-white" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
+                                                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
                                             </svg>
-                                            Projects
+                                            Boutique
                                         </a>
                                     </li>
                                     <li>
@@ -203,7 +210,7 @@
                                             <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                                             </svg>
-                                            Calendar
+                                            Calendrier
                                         </a>
                                     </li>
                                     <li>
@@ -341,6 +348,7 @@
             [x-cloak] { display: none !important; }
         </style>
 
+        @livewireScripts
     </body>
 
 
