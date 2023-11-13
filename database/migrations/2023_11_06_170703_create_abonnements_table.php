@@ -18,7 +18,7 @@ return new class extends Migration
             //number of days of the subscription
             $table->integer('duree');
             $table->string('periodicite', 255);
-            $table->string('type_abonnement', 255);
+            $table->string('type', 255);
             $table->string('moyen_paiement', 255);
             $table->integer('prix');
             $table->timestamps();

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('structures_id');
             $table->foreign('structures_id')->references('id')->on('structures')->cascadeOnDelete();
             $table->integer('prix');
+            $table->string('chemin_image', 255)->nullable();
             $table->timestamps();
         });
     }
