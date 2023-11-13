@@ -14,8 +14,8 @@ return new class extends Migration
         //pass if exists
         Schema::create('tournees_de_livraison', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_structure');
-            $table->foreign('id_structure')->references('id')->on('structures')->cascadeOnDelete();
+            $table->unsignedBigInteger('structures_id');
+            $table->foreign('structures_id')->references('id')->on('structures')->cascadeOnDelete();
             $table->date('jour_preparation');
             $table->date('jour_livraison');
             $table->string('couleur', 255);

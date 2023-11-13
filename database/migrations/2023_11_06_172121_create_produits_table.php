@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('type', 255);
             $table->string('unite', 255)->nullable();
             $table->string('valeur_unite', 255)->nullable();
+            $table->unsignedBigInteger('structures_id');
+            $table->foreign('structures_id')->references('id')->on('structures')->cascadeOnDelete();
             $table->integer('prix');
             $table->timestamps();
         });

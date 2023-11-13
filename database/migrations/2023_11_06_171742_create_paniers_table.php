@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::dropIfExists('paniers');
         Schema::create('paniers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_structure');
-            $table->foreign('id_structure')->references('id')->on('structures')->cascadeOnDelete();
+            $table->unsignedBigInteger('structures_id');
+            $table->foreign('structures_id')->references('id')->on('structures')->cascadeOnDelete();
             $table->string('type',255);
             $table->string('nom',255);
             $table->unsignedBigInteger('id_abonnements');

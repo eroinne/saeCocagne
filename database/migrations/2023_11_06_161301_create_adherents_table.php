@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('ville', 255);
             $table->string('adresse', 255);
             $table->string('code_postal', 255);
-            $table->string('adresse_mail', 255);
             $table->string('numeros_telephone', 255);
             $table->string('numeros_telephone2', 255)->nullable();
             $table->string('numeros_telephone3', 255)->nullable();
@@ -31,8 +30,8 @@ return new class extends Migration
             $table->string('date_premiere_adhesion', 255)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('id_structure');
-            $table->foreign('id_structure')->references('id')->on('structures')->cascadeOnDelete();
+            $table->unsignedBigInteger('structures_id');
+            $table->foreign('structures_id')->references('id')->on('structures')->cascadeOnDelete();
             $table->rememberToken();
             $table->timestamps();
 

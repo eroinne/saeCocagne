@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('depot_tournee', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_depot');
-            $table->foreign('id_depot')->references('id')->on('depot')->cascadeOnDelete();
-            $table->unsignedBigInteger('id_tournee');
-            $table->foreign('id_tournee')->references('id')->on('tournees_de_livraison')->cascadeOnDelete();
+            $table->unsignedBigInteger('depot_id');
+            $table->foreign('depot_id')->references('id')->on('depot')->cascadeOnDelete();
+            $table->unsignedBigInteger('tournee_id');
+            $table->foreign('tournee_id')->references('id')->on('tournees_de_livraison')->cascadeOnDelete();
             $table->timestamps();
         });
     }

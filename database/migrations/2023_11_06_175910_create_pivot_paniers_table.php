@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('pivot_paniers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_panier');
-            $table->unsignedBigInteger('id_produit');
-            $table->foreign('id_panier')->references('id')->on('paniers')->cascadeOnDelete();
-            $table->foreign('id_produit')->references('id')->on('produits')->cascadeOnDelete();
+            $table->unsignedBigInteger('paniers_id');
+            $table->unsignedBigInteger('produits_id');
+            $table->foreign('paniers_id')->references('id')->on('paniers')->cascadeOnDelete();
+            $table->foreign('produits_id')->references('id')->on('produits')->cascadeOnDelete();
             $table->timestamps();
 
         });
