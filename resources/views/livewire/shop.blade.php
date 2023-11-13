@@ -64,7 +64,7 @@
                                 <div class="pt-6" id="filter-section-1" x-cloak x-show="open">
                                     <div class="space-y-6">
                                         <div class="flex items-center">
-                                            <input wire:model.live='type' value="legumes" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='type' value="legume" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label class="ml-3 text-sm text-gray-500">Légumes</label>
                                         </div>
                                         <div class="flex items-center">
@@ -219,11 +219,11 @@
                                 <div x-cloak x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none" x-ref="panel" >
                                     <form class="space-y-4">
                                         <div class="flex items-center">
-                                            <input wire:model.live='type' value="legumes" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='type' value="legume" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label class="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900">Légumes</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input wire:model.live='type' value="fruits" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='type' value="fruit" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label class="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900">Fruits</label>
                                         </div>
                                     </form>
@@ -299,9 +299,33 @@
                         </div>
                     </div>
                 </section>
-                <section>
-                    qzdqzd
-                </section>
+
+                <div class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8 pt-5 pb-10">
+
+                    @foreach ($products as $product)
+
+                        <div class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white">
+                            <div class="aspect-h-4 aspect-w-3 bg-gray-200 sm:aspect-none group-hover:opacity-75 sm:h-96">
+                                <img src="https://www.longchamp.com/dw/image/v2/BCVX_PRD/on/demandware.static/-/Sites-LC-master-catalog/default/dwe3a4a125/images/DIS/L2605089001_3.png?sw=2000&sh=2000&sm=fit" alt="Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green." class="h-full w-full object-cover object-center sm:h-full sm:w-full">
+                            </div>
+                            <div class="flex flex-1 flex-col space-y-2 p-4">
+                                <h3 class="text-sm font-medium text-gray-900">
+                                    <a href="#">
+                                        <span aria-hidden="true" class="absolute inset-0"></span>
+                                        {{ $product->nom }}
+                                    </a>
+                                </h3>
+                                <p class="text-sm text-gray-500">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
+                                <div class="flex flex-1 flex-col justify-end">
+                                    <p class="text-sm italic text-gray-500"> {{$product->valeur_unite}} {{$product->unite}} </p>
+                                    <p class="text-base font-medium text-gray-900">{{ $product->prix }} €</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    @endforeach
+
+                </div>
             </div>
         </div>
 
