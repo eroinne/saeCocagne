@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('couleur', 255);
             //we manage the repository list in a string by separating the repositories from one ;
             $table->string('point_depots', 500);
+
             $table->timestamps();
         });
     }
