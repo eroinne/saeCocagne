@@ -29,7 +29,7 @@ class TournerLivraison extends Model
      */
     public function commandes()
     {
-        return $this->hasMany(Commande::class);
+        return $this->hasMany(Commandes::class);
     }
 
 

@@ -13,7 +13,7 @@ class Structures extends Model
     // has many paniers
     public function paniers(): HasMany
     {
-        return $this->hasMany(Panier::class);
+        return $this->hasMany(Paniers::class);
     }
 
     // has many adherents

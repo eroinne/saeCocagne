@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('abonnement_panier', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_abonnement');
-            $table->foreign('id_abonnement')->references('id')->on('abonnements')->cascadeOnDelete();
-            $table->unsignedBigInteger('id_panier');
-            $table->foreign('id_panier')->references('id')->on('paniers')->cascadeOnDelete();
+            $table->unsignedBigInteger('abonnements_id');
+            $table->foreign('abonnements_id')->references('id')->on('abonnements')->cascadeOnDelete();
+            $table->unsignedBigInteger('paniers_id');
+            $table->foreign('paniers_id')->references('id')->on('paniers')->cascadeOnDelete();
             $table->timestamps();
         });
     }

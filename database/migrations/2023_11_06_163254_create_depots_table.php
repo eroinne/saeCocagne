@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('depot', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_structure');
-            $table->foreign('id_structure')->references('id')->on('structures');
+            $table->unsignedBigInteger('structures_id');
+            $table->foreign('structures_id')->references('id')->on('structures');
             $table->string('nom', 255);
             $table->string('ville', 255);
             $table->string('adresse', 255);

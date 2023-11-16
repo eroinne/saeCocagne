@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Panier extends Model
+class Paniers extends Model
 {
     use HasFactory;
 
@@ -22,12 +22,12 @@ class Panier extends Model
      */
     public function structure()
     {
-        return $this->belongsTo(Structure::class);
+        return $this->belongsTo(Structures::class);
     }
 
     //belong to many produits
     /**
-     * The produits that belong to the Panier
+     * The produits that belong to the Paniers
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

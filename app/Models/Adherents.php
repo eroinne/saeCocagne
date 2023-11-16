@@ -69,7 +69,7 @@ class Adherents extends Authenticatable
 
     public function structure()
     {
-        return $this->belongsTo(Structure::class);
+        return $this->belongsTo(Structures::class);
     }
 
 

@@ -24,7 +24,7 @@ class Abonnements extends Model
      */
     public function structure()
     {
-        return $this->belongsTo(Structure::class);
+        return $this->belongsTo(Structures::class);
     }
 
     //belong to many panier
@@ -33,7 +33,7 @@ class Abonnements extends Model
      */
     public function paniers()
     {
-        return $this->belongsToMany(Panier::class);
+        return $this->belongsToMany(Paniers::class);
     }
 
     //has many commandes
@@ -44,6 +44,6 @@ class Abonnements extends Model
      */
     public function commandes()
     {
-        return $this->hasMany(Commande::class);
+        return $this->hasMany(Commandes::class);
     }
 }
