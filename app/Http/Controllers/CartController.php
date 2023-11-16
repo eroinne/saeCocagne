@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Panier;
+use App\Models\Paniers;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -20,7 +20,7 @@ class CartController extends Controller
 
         ]);
 
-        $panier = new Panier();
+        $panier = new Paniers();
         $panier->id_structure = $request->id_structure;
         $panier->nom = $request->name;
         $panier->type = $request->type;
@@ -50,7 +50,7 @@ class CartController extends Controller
 
         ]);
 
-        $panier = Panier::find($id);
+        $panier = Paniers::find($id);
         $panier->id_structure = $request->id_structure;
         $panier->nom = $request->name;
         $panier->type = $request->type;
@@ -71,7 +71,7 @@ class CartController extends Controller
      * @return string[]
      */
     public function destroy($id){
-        $panier = Panier::find($id);
+        $panier = Paniers::find($id);
         $nom_panier= $panier->nom;
         $result = $panier->delete();
 

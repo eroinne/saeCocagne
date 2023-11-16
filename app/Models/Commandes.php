@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Commande extends Model
+class Commandes extends Model
 {
     use HasFactory;
 
@@ -25,7 +25,7 @@ class Commande extends Model
      */
     public function structure(): BelongsTo
     {
-        return $this->belongsTo(Structure::class);
+        return $this->belongsTo(Structures::class);
     }
 
     // belonge to tournerLivraison

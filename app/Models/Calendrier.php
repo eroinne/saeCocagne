@@ -15,7 +15,7 @@ class Calendrier extends Model
      */
     public function structure()
     {
-        return $this->belongsTo(Structure::class);
+        return $this->belongsTo(Structures::class);
     }
 
     //has many tournerLivraison

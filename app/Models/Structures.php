@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Structure extends Model
+class Structures extends Model
 {
     use HasFactory;
 
     // has many paniers
     public function paniers(): HasMany
     {
-        return $this->hasMany(Panier::class);
+        return $this->hasMany(Paniers::class);
     }
 
     // has many adherents

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Structure;
+use App\Models\Structures;
 use Illuminate\Http\Request;
 
 class StructureContorller extends Controller
@@ -25,7 +25,7 @@ class StructureContorller extends Controller
             'web_site' => 'required|string|max:255',
         ]);
 
-        $structure = new Structure();
+        $structure = new Structures();
         $structure->nom = $request->name;
         $structure->type = $request->city;
         $structure->mail = $request->mail;
@@ -66,7 +66,7 @@ class StructureContorller extends Controller
             'web_site' => 'required|string|max:255',
         ]);
 
-        $structure = Structure::find($id);
+        $structure = Structures::find($id);
         $structure->nom = $request->name;
         $structure->type = $request->city;
         $structure->mail = $request->mail;
@@ -93,7 +93,7 @@ class StructureContorller extends Controller
      * @return string[]
      */
     public function destroy($id){
-        $structure = Structure::find($id);
+        $structure = Structures::find($id);
         $nom_structure = $structure->nom;
         $result = $structure->delete();
 
