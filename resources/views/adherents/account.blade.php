@@ -38,13 +38,39 @@
                     <label for="photo" class="block text-sm font-medium leading-6 text-gray-900">Photo</label>
                     <div class="mt-2 flex items-center gap-x-3">
                         @if(isset(Auth::user()->photo))
-                            <img src="data:image/png;base64,{{ Auth::user()->photo }}" alt="">
+                            <img class="h-8 w-8 rounded-full" id="image-preview" src="data:image/png;base64,{{ Auth::user()->photo }}" alt="Photo de profil">
+                            <span id="default-svg" class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100 hidden">
+                                <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                            </span>
                         @else
-                            <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
-                            </svg>
+                            <span id="default-svg" class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100">
+                                <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                            </span>
+                            <img class="h-8 w-8 rounded-full hidden" id="image-preview" src="" alt="">
                         @endif
+
+                        <svg
+                            class="h-5 w-5 cursor-pointer text-red-500"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                            onclick="removeImage()"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"
+                            ></path>
+                        </svg>
+
                     </div>
+
                 </div>
 
                 <div class="col-span-full">
@@ -56,16 +82,21 @@
                             </svg>
                             <div class="mt-4 flex text-sm leading-6 text-gray-600 justify-center">
                                 <label for="photo" class="relative cursor-pointer rounded-md bg-white font-semibold text-green-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-green-600 focus-within:ring-offset-2 hover:text-green-500">
-                                    <span class="text-center">Upload a file</span>
+                                    <span class="text-center file-label">Upload a file</span>
                                     <input id="photo" name="photo" type="file" class="sr-only">
                                 </label>
                             </div>
                             <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
                         </div>
                     </div>
+
                     <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+                    <button type="button" onclick="updatePhoto()" class="mt-4 rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                        Changer l'image
+                    </button>
 
                 </div>
+
             </div>
         </div>
 
@@ -175,6 +206,97 @@
         <button type="submit" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Save</button>
     </div>
 </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputFile = document.getElementById('photo');
+        const fileLabel = document.querySelector('.file-label');
+        const imagePreview = document.getElementById('image-preview');
+
+        inputFile.addEventListener('change', function () {
+            const file = this.files[0];
+
+            // Check if the file is an image
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imagePreview.classList.remove('hidden');
+                    //if #default-svg exist hide it
+                    if (document.getElementById('default-svg')) {
+                        document.getElementById('default-svg').classList.add('hidden');
+                    }
+                    // Display the image on the page
+                    imagePreview.src = e.target.result;
+                };
+
+                // Read the uploaded image file
+                reader.readAsDataURL(file);
+            }
+
+            // Update the text label
+            fileLabel.textContent = file ? file.name : 'Upload a file';
+        });
+    });
+
+    function removeImage() {
+        // Hide actual image
+        const imagePreview = document.getElementById('image-preview');
+        imagePreview.classList.add('hidden');
+
+        // Empty the input file
+        const photoInput = document.getElementById('photo');
+        photoInput.value = '';
+
+        // Display default svg
+        const defaultSvg = document.getElementById('default-svg');
+        if (defaultSvg.classList.contains('hidden')) {
+            defaultSvg.classList.remove('hidden');
+        }
+
+        fetch("{{ route('adherents.delete.photo') }}", {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
+            },
+        })
+        .then()
+        .then(data => {
+            // Refresh the page
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête AJAX :', error);
+        });
+    }
+
+    function updatePhoto() {
+        // Récupère le fichier photo
+        const photoInput = document.getElementById('photo');
+        const photoFile = photoInput.files[0];
+
+        // Crée une requête FormData
+        const formData = new FormData();
+        formData.append('photo', photoFile);
+
+        // Effectue une requête AJAX vers la route de mise à jour de la photo
+        fetch("{{ route('adherents.update.photo') }}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
+            },
+        })
+        .then()
+        .then(data => {
+            //Refresh the page
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête AJAX :', error);
+        });
+    }
+</script>
 
 
 @endsection

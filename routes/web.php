@@ -64,6 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/calendrier', [CalendarController::class, 'calendar'])->name('dashboard.calendar');
 
     Route::post('/update', [AdherentController::class, 'update'])->name('adherents.update');
+    Route::post('/update-photo', [AdherentController::class, 'updatePhoto'])->name('adherents.update.photo');
+    Route::post('/delete-photo', [AdherentController::class, 'deletePhoto'])->name('adherents.delete.photo');
 
 });
 

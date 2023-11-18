@@ -95,4 +95,52 @@ class AdherentController extends Controller
         }
 
     }
+
+    /**
+     * Update the user's profile photo.
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function updatePhoto(Request $request): RedirectResponse
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+        ]);
+
+        $photo = $request->file('photo');
+
+        if ($photo !== null) {
+            $base64Photo = base64_encode(file_get_contents($photo));
+            $user->update(['photo' => $base64Photo]);
+        }else{
+            $user->update(['photo' => null]);
+        }
+
+        if($user->save()){
+            return back()->with('success', 'Votre photo de profil a bien été mise à jour.');
+        }else{
+            return back()->with('error', 'Une erreur est survenue lors de la mise à jour de votre photo de profil.');
+        }
+
+    }
+
+    /**
+     * Delete the user's profile photo.
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function deletePhoto(Request $request): RedirectResponse
+    {
+        $user = Auth::user();
+
+        $user->update(['photo' => null]);
+
+        if($user->save()){
+            return back()->with('success', 'Votre photo de profil a bien été supprimée.');
+        }else{
+            return back()->with('error', 'Une erreur est survenue lors de la suppression de votre photo de profil.');
+        }
+
+    }
+
 }
