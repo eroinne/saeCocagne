@@ -20,7 +20,7 @@
                         Mon compte
                     </a>
                 </h3>
-                <p class="mt-2 text-sm text-gray-500">Accéder a votre compte.</p>
+                <p class="mt-2 text-sm text-gray-500">Accédez a toutes vos informations.</p>
             </div>
             <span class="pointer-events-none absolute right-6 top-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -86,13 +86,13 @@
             </div>
             <div class="mt-8">
                 <h3 class="text-base font-semibold leading-6 text-gray-900">
-                    <a href="#" class="focus:outline-none">
+                    <a href="{{ route('dashboard.shop') }}" class="focus:outline-none">
                         <!-- Extend touch target to entire panel -->
                         <span class="absolute inset-0" aria-hidden="true"></span>
-                        Payroll
+                        Boutique
                     </a>
                 </h3>
-                <p class="mt-2 text-sm text-gray-500">Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae.</p>
+                <p class="mt-2 text-sm text-gray-500">Accédez a la boutique et parcourez les différents produits, abonnements ou encore paniers disponible !</p>
             </div>
             <span class="pointer-events-none absolute right-6 top-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">

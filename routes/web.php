@@ -62,6 +62,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/historique', [AdherentController::class, 'history'])->name('dashboard.history');
     Route::get('/calendrier', [CalendarController::class, 'calendar'])->name('dashboard.calendar');
+
+    Route::post('/update', [AdherentController::class, 'update'])->name('adherents.update');
+
 });
 
 
@@ -93,12 +96,6 @@ Route::post('/modificationProduits', [ProductController::class, 'modification'])
 //route summary of orders to prepare and deliver
 Route::get('/resume', [DeliveryController::class, 'summary'])->name('summary');
 
-
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 

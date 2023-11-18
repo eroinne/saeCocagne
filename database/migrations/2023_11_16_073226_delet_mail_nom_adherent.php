@@ -13,11 +13,17 @@ return new class extends Migration
     {
         Schema::table('adherents', function (Blueprint $table) {
             $table->dropColumn('nom');
-            $table->dropColumn('adresse_email');
-            //modifier le nom de la colonne
-            $table->renameColumn('numeros_telephone', 'numero_telephone');
-            $table->renameColumn('numeros_telephone2', 'numero_telephone2');
-            $table->renameColumn('numeros_telephone3', 'numero_telephone3');
+            $table->dropColumn('adresse_mail');
+
+            DB::statement("
+                ALTER TABLE adherents CHANGE COLUMN `numeros_telephone` numero_telephone VARCHAR(255) NOT NULL
+            ");
+            DB::statement("
+                ALTER TABLE adherents CHANGE COLUMN `numeros_telephone2` numero_telephone2 VARCHAR(255) NULL
+            ");
+            DB::statement("
+                ALTER TABLE adherents CHANGE COLUMN `numeros_telephone3` numero_telephone3 VARCHAR(255) NULL
+            ");
 
         });
     }

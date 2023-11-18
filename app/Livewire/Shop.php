@@ -19,9 +19,15 @@ class Shop extends Component
         // Logique de récupération des éléments en fonction des filtres
         $query = $modelClass::query();
 
+        // If it's Abonnements, then check if the structure_id is the same than the user
+        if ($modelClass == Abonnements::class) {
+            $query->where('structures_id', auth()->user()->structures_id);
+        }
+
         if (!empty($this->type)) {
             $query->whereIn('type', $this->type);
         }
+
 
         // if (!empty($this->delivery)) {
         //     $query->whereIn('delivery', $this->delivery);

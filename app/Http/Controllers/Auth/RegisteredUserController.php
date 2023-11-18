@@ -41,21 +41,22 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'prenom', ['required', 'string', 'max:255'],
-            'raison_sociale', ['required', 'string', 'max:255'],
-            'civilite', ['required', 'string', 'max:255', Rule::in(['Mme', 'M.'])],
+            'prenom' => ['required', 'string', 'max:255'],
+            'raison_sociale' => ['required', 'string', 'max:255'],
+            'civilite' => ['required', 'string', 'max:255', Rule::in(['mme', 'mr'])],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Adherents::class],
-            'ville', ['required', 'string', 'max:255'],
-            'adresse', ['required', 'string', 'max:255'],
-            'code_postal', ['required', 'numeric'],
-            'numero_telephone', ['required', 'numeric'],
-            'numero_telephone2', ['numeric'],
-            'numero_telephone3', ['numeric'],
-            'profession', ['string', 'max:255'],
-            'date_naissance', ['date'],
-            'structure_id', ['required', 'numeric'],
+            'ville' => ['required', 'string', 'max:255'],
+            'adresse' => ['required', 'string', 'max:255'],
+            'code_postal' => ['required', 'numeric'],
+            'numero_telephone' => ['required', 'numeric', 'regex:/^0[1-9]\d{8}$/'],
+            'numero_telephone2' => ['nullable', 'numeric', 'regex:/^0[1-9]\d{8}$/'],
+            'numero_telephone3' => ['nullable', 'numeric', 'regex:/^0[1-9]\d{8}$/'],
+            'profession' => ['nullable', 'string', 'max:255'],
+            'date_naissance' => ['nullable', 'date'],
+            'structures_id' => ['required', 'numeric'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+
 
         $user = Adherents::create([
             'name' => $request->name,
@@ -71,7 +72,7 @@ class RegisteredUserController extends Controller
             'numero_telephone3' => $request->numero_telephone3,
             'profession' => $request->profession,
             'date_naissance' => $request->date_naissance,
-            'structure_id' => $request->structure_id,
+            'structures_id' => $request->structure_id,
             'password' => Hash::make($request->password),
         ]);
 
@@ -79,6 +80,8 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(route('dashboard'));
     }
+
+    
 }

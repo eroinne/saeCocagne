@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}" class="">
+    <form method="POST" action="{{ route('register') }}">
         @csrf
 
         <!-- Nom -->
@@ -26,7 +26,7 @@
         <!-- Civilite -->
         <div class="mt-4">
             <x-input-label for="civilite" :value="__('Civilite*')" />
-            <select name="structure" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-green-500 dark:focus:border-green-600 focus:ring-green-500 dark:focus:ring-green-600 rounded-md shadow-sm">
+            <select name="civilite" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-green-500 dark:focus:border-green-600 focus:ring-green-500 dark:focus:ring-green-600 rounded-md shadow-sm">
                 <option value="mr">Mr</option>
                 <option value="mme">Mme</option>
             </select>
@@ -64,23 +64,23 @@
 
         <!-- Telephone 1 -->
         <div class="mt-4">
-            <x-input-label for="telephone1" :value="__('Telephone 1*')" />
-            <x-text-input id="telephone1" class="block mt-1 w-full" type="number" name="telephone1" :value="old('telephone1')" required autocomplete="telephone1" />
-            <x-input-error :messages="$errors->get('telephone1')" class="mt-2" />
+            <x-input-label for="numero_telephone" :value="__('Telephone 1*')" />
+            <x-text-input id="numero_telephone" class="block mt-1 w-full" type="number" name="numero_telephone" :value="old('numero_telephone')" required autocomplete="numero_telephone" />
+            <x-input-error :messages="$errors->get('numero_telephone')" class="mt-2" />
         </div>
 
         <!-- Telephone 2 -->
         <div class="mt-4">
-            <x-input-label for="telephone2" :value="__('Telephone 2')" />
-            <x-text-input id="telephone2" class="block mt-1 w-full" type="number" name="telephone2" :value="old('telephone2')" autocomplete="telephone2" />
-            <x-input-error :messages="$errors->get('telephone2')" class="mt-2" />
+            <x-input-label for="numero_telephone2" :value="__('Telephone 2')" />
+            <x-text-input id="numero_telephone2" class="block mt-1 w-full" type="number" name="numero_telephone2" :value="old('numero_telephone2')" autocomplete="numero_telephone2" />
+            <x-input-error :messages="$errors->get('numero_telephone2')" class="mt-2" />
         </div>
 
         <!-- Telephone 3 -->
         <div class="mt-4">
-            <x-input-label for="telephone3" :value="__('Telephone 3')" />
-            <x-text-input id="telephone3" class="block mt-1 w-full" type="number" name="telephone3" :value="old('telephone3')" autocomplete="telephone3" />
-            <x-input-error :messages="$errors->get('telephone3')" class="mt-2" />
+            <x-input-label for="numero_telephone3" :value="__('Telephone 3')" />
+            <x-text-input id="numero_telephone3" class="block mt-1 w-full" type="number" name="numero_telephone3" :value="old('numero_telephone3')" autocomplete="numero_telephone3" />
+            <x-input-error :messages="$errors->get('numero_telephone3')" class="mt-2" />
         </div>
 
         <!-- Profession -->
