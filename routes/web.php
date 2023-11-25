@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\AdherentController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AdherentController::class, 'dashboard'])->name('dashboard');
     Route::get('/compte', [AdherentController::class, 'account'])->name('dashboard.account');
     Route::get('/boutique', [AdherentController::class, 'shop'])->name('dashboard.shop');
+    Route::get('/panier', [CartController::class, 'displayCart'])->name('dashboard.cart');
 
     Route::get('/adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership');
     Route::post('/adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership.add');
