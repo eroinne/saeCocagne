@@ -53,4 +53,15 @@ class Produits extends Model
         return $this->hasMany(Commandes::class);
     }
 
+    //belong to many panier utilisateur
+    /**
+     * Get the paniers associated with the Produits
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function panierUtilisateur()
+    {
+        return $this->belongsToMany(PanierUtilisateur::class);
+    }
+
 }

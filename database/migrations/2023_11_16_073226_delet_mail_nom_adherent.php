@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('adherents', function (Blueprint $table) {
             $table->dropColumn('nom');
-            $table->dropColumn('adresse_email');
+            $table->dropColumn('adresse_mail');
             //modifier le nom de la colonne
             $table->renameColumn('numeros_telephone', 'numero_telephone');
             $table->renameColumn('numeros_telephone2', 'numero_telephone2');
