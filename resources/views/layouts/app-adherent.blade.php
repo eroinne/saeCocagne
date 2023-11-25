@@ -320,6 +320,7 @@
                                             <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                         </svg>
                                     </span>
+
                                 </button>
 
 
@@ -339,6 +340,22 @@
                                     <a href="{{ route('dashboard') }}" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-0">Dashboard</a>
                                     <a href="{{ route('logout') }}" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-1">Déconnexion</a>
                                 </div>
+
+
+                            </div>
+                            <!-- Panier -->
+                            <div x-data="{ cartCount: 1 }">
+                                <a href="">
+                                    <div class="relative">
+                                        <!-- Icône de panier SVG -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 448 512"><path d="M160 112c0-35.3 28.7-64 64-64s64 28.7 64 64v48H160V112zm-48 48H48c-26.5 0-48 21.5-48 48V416c0 53 43 96 96 96H352c53 0 96-43 96-96V208c0-26.5-21.5-48-48-48H336V112C336 50.1 285.9 0 224 0S112 50.1 112 112v48zm24 48a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm152 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/></svg>
+
+                                        <!-- Nombre dans une bulle verte -->
+                                        <span x-cloak x-show="cartCount > 0" class="absolute -top-2 -right-2 -mt-1 -mr-1 w-4 h-4  text-white rounded-full p-1 text-xs">
+                                            <p x-text="cartCount" class="text-sm text-green-500"></p>
+                                        </span>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>

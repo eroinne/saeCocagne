@@ -14,7 +14,7 @@
                     <div x-cloak x-show="open" x-transition:enter="transition ease-in-out duration-300 transform" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in-out duration-300 transform" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full" x-description="Off-canvas menu, show/hide based on off-canvas menu state." class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-6 shadow-xl" @click.away="open = false">
                         <div class="flex items-center justify-between px-4">
                             <h2 class="text-lg font-medium text-gray-900">Filtres</h2>
-                            <button type="button" class="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500" @click="open = false">
+                            <button type="button" class="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500" @click="open = false">
                                 <span class="sr-only">Close menu</span>
                                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
@@ -38,11 +38,11 @@
                                 <div class="pt-6" id="filter-section-0" x-cloak x-show="open">
                                     <div class="space-y-6">
                                         <div class="flex items-center">
-                                            <input wire:model.live='type_purchase' value="abonnements" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='type_purchase' value="abonnements" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 text-sm text-gray-500">Abonnement</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input wire:model.live='type_purchase' value="produits" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='type_purchase' value="produits" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 text-sm text-gray-500">Produits</label>
                                         </div>
 
@@ -64,11 +64,11 @@
                                 <div class="pt-6" id="filter-section-1" x-cloak x-show="open">
                                     <div class="space-y-6">
                                         <div class="flex items-center">
-                                            <input wire:model.live='type' value="legume" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='type' value="legume" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 text-sm text-gray-500">Légumes</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input wire:model.live='type' value="fruit" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='type' value="fruit" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 text-sm text-gray-500">Fruits</label>
                                         </div>
                                     </div>
@@ -88,19 +88,19 @@
                                 <div class="pt-6" id="filter-section-2" x-cloak x-show="open">
                                     <div class="space-y-6">
                                         <div class="flex items-center">
-                                            <input wire:model.live='delivery' value="hebdomadaire" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='delivery' value="hebdomadaire" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 text-sm text-gray-500">Hebdomadaire</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input wire:model.live='delivery' value="15jours" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='delivery' value="15jours" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 text-sm text-gray-500">15 Jours</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input wire:model.live='delivery' value="mensuel" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='delivery' value="mensuel" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 text-sm text-gray-500">Mensuel</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input wire:model.live='delivery' value="trimestriel" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='delivery' value="trimestriel" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 text-sm text-gray-500">Trimestriel</label>
                                         </div>
                                     </div>
@@ -120,15 +120,15 @@
                                 <div class="pt-6" id="filter-section-3" x-cloak x-show="open">
                                     <div class="space-y-6">
                                         <div class="flex items-center">
-                                            <input id="filter-mobile-sizes-0" name="sizes[]" value="s" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input id="filter-mobile-sizes-0" name="sizes[]" value="s" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label for="filter-mobile-sizes-0" class="ml-3 text-sm text-gray-500">S</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input id="filter-mobile-sizes-1" name="sizes[]" value="m" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input id="filter-mobile-sizes-1" name="sizes[]" value="m" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label for="filter-mobile-sizes-1" class="ml-3 text-sm text-gray-500">M</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input id="filter-mobile-sizes-2" name="sizes[]" value="l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input id="filter-mobile-sizes-2" name="sizes[]" value="l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label for="filter-mobile-sizes-2" class="ml-3 text-sm text-gray-500">L</label>
                                         </div>
 
@@ -193,11 +193,11 @@
                                 <div x-cloak x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none" x-ref="panel">
                                     <form class="space-y-4">
                                         <div class="flex items-center">
-                                            <input wire:model.live='type_purchase' value="abonnements" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='type_purchase' value="abonnements" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900">Abonnements</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input wire:model.live='type_purchase' value="produits" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='type_purchase' value="produits" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900">Produits</label>
                                         </div>
                                     </form>
@@ -219,11 +219,11 @@
                                 <div x-cloak x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none" x-ref="panel" >
                                     <form class="space-y-4">
                                         <div class="flex items-center">
-                                            <input wire:model.live='type' value="legume" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='type' value="legume" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900">Légumes</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input wire:model.live='type' value="fruit" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='type' value="fruit" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900">Fruits</label>
                                         </div>
                                     </form>
@@ -245,19 +245,19 @@
                                 <div x-cloak x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none" x-ref="panel">
                                     <form class="space-y-4">
                                         <div class="flex items-center">
-                                            <input wire:model.live='delivery' value="hebdmoadaire" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='delivery' value="hebdmoadaire" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900">Hebdomadaire</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input wire:model.live='delivery' value="15jours" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='delivery' value="15jours" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900">15 Jours</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input wire:model.live='delivery' value="mensuel" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='delivery' value="mensuel" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900">Mensuel</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input wire:model.live='delivery' value="trimestriel" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input wire:model.live='delivery' value="trimestriel" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label class="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900">Trimestriel</label>
                                         </div>
 
@@ -279,15 +279,15 @@
                                 <div x-cloak x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none" x-ref="panel">
                                     <form class="space-y-4">
                                         <div class="flex items-center">
-                                            <input id="filter-sizes-0" name="sizes[]" value="s" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input id="filter-sizes-0" name="sizes[]" value="s" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label for="filter-sizes-0" class="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900">S</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input id="filter-sizes-1" name="sizes[]" value="m" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input id="filter-sizes-1" name="sizes[]" value="m" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label for="filter-sizes-1" class="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900">M</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input id="filter-sizes-2" name="sizes[]" value="l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input id="filter-sizes-2" name="sizes[]" value="l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500">
                                             <label for="filter-sizes-2" class="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900">L</label>
                                         </div>
 
@@ -303,26 +303,30 @@
                 <div class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8 pt-5 pb-10">
 
                     @foreach ($products as $product)
-
-                        <div class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white">
-                            <div class="aspect-h-4 aspect-w-3 bg-gray-200 sm:aspect-none group-hover:opacity-75 sm:h-96">
-                                <img src="https://www.longchamp.com/dw/image/v2/BCVX_PRD/on/demandware.static/-/Sites-LC-master-catalog/default/dwe3a4a125/images/DIS/L2605089001_3.png?sw=2000&sh=2000&sm=fit" alt="Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green." class="h-full w-full object-cover object-center sm:h-full sm:w-full">
-                            </div>
-                            <div class="flex flex-1 flex-col space-y-2 p-4">
-                                <h3 class="text-sm font-medium text-gray-900">
-                                    <a href="#">
-                                        <span aria-hidden="true" class="absolute inset-0"></span>
-                                        {{ $product->nom }}
-                                    </a>
-                                </h3>
-                                <p class="text-sm text-gray-500">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
-                                <div class="flex flex-1 flex-col justify-end">
-                                    <p class="text-sm italic text-gray-500"> {{$product->valeur_unite}} {{$product->unite}} </p>
-                                    <p class="text-base font-medium text-gray-900">{{ $product->prix }} €</p>
+                        <div x-data="{open: false}">
+                            <div class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white" @click="open = true">
+                                <div class="aspect-h-4 aspect-w-3 bg-gray-200 sm:aspect-none group-hover:opacity-75 sm:h-96">
+                                    <img src="https://www.longchamp.com/dw/image/v2/BCVX_PRD/on/demandware.static/-/Sites-LC-master-catalog/default/dwe3a4a125/images/DIS/L2605089001_3.png?sw=2000&sh=2000&sm=fit" alt="Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green." class="h-full w-full object-cover object-center sm:h-full sm:w-full">
+                                </div>
+                                <div class="flex flex-1 flex-col space-y-2 p-4">
+                                    <h3 class="text-sm font-medium text-gray-900">
+                                        <a href="#">
+                                            <span aria-hidden="true" class="absolute inset-0"></span>
+                                            {{ $product->nom }}
+                                        </a>
+                                    </h3>
+                                    <p class="text-sm text-gray-500">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
+                                    <div class="flex flex-1 flex-col justify-end">
+                                        <p class="text-sm italic text-gray-500"> {{$product->valeur_unite}} {{$product->unite}} </p>
+                                        <p class="text-base font-medium text-gray-900">{{ $product->prix }} €</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
+                            <div x-cloak x-show="open">
+                                <x-product-quickview :nom='$product->nom' :valeur_unite='$product->valeur_unite' :unite='$product->unite' :prix='$product->prix' />
+                            </div>
+                        </div>
                     @endforeach
 
                 </div>
