@@ -58,12 +58,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/compte', [AdherentController::class, 'account'])->name('dashboard.account');
     Route::get('/boutique', [AdherentController::class, 'shop'])->name('dashboard.shop');
     Route::get('/panier', [CartController::class, 'displayCart'])->name('dashboard.cart');
+    Route::get('/calendrier', [AdherentController::class, 'calendar'])->name('dashboard.calendar');
 
     Route::get('/adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership');
     Route::post('/adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership.add');
 
     Route::get('/historique', [AdherentController::class, 'history'])->name('dashboard.history');
-    Route::get('/calendrier', [CalendarController::class, 'calendar'])->name('dashboard.calendar');
 
     Route::post('/update', [AdherentController::class, 'update'])->name('adherents.update');
     Route::post('/update-photo', [AdherentController::class, 'updatePhoto'])->name('adherents.update.photo');

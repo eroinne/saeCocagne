@@ -143,4 +143,12 @@ class AdherentController extends Controller
 
     }
 
+    /**
+     * Function to return the calendar view
+     * @return View
+     */
+    public function calendar(){
+        return view('adherents.calendar');
+    }
+
 }
