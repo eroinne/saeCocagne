@@ -2,15 +2,15 @@
 
 @section('body')
 
-<div class="antialiased sans-serif bg-gray-100 h-screen">
+<div class="antialiased sans-serif">
 	<div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
-		<div class="container mx-auto px-4 py-2 md:py-24">
+		<div class="container mx-auto px-4 py-2">
 
 			<!-- <div class="font-bold text-gray-800 text-xl mb-4">
 				Schedule Tasks
 			</div> -->
 
-			<div class="bg-white rounded-lg shadow overflow-hidden">
+			<div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
 
 				<div class="flex items-center justify-between py-2 px-6">
 					<div>
@@ -147,7 +147,7 @@
 	</div>
 
 	<script>
-        const MONTH_NAMES = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septmebre', 'Octobre', 'Novembre', 'Décembre'];
+        const MONTH_NAMES = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
         const DAYS = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
 
         function app() {
