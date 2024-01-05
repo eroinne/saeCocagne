@@ -70,20 +70,26 @@
 										x-show="events.filter(e => e.event_date === new Date(year, month, date).toDateString()).length"
 										x-text="events.filter(e => e.event_date === new Date(year, month, date).toDateString()).length"></div> -->
 
-									<template x-for="event in events.filter(e => new Date(e.event_date).toDateString() ===  new Date(year, month, date).toDateString() )">
-										<div
-											class="px-2 py-1 rounded-lg mt-1 overflow-hidden border"
-											:class="{
-												'border-blue-200 text-blue-800 bg-blue-100': event.event_theme === 'blue',
-												'border-red-200 text-red-800 bg-red-100': event.event_theme === 'red',
-												'border-yellow-200 text-yellow-800 bg-yellow-100': event.event_theme === 'yellow',
-												'border-green-200 text-green-800 bg-green-100': event.event_theme === 'green',
-												'border-purple-200 text-purple-800 bg-purple-100': event.event_theme === 'purple'
-											}"
-										>
-											<p x-text="event.event_title" class="text-sm truncate leading-tight"></p>
-										</div>
-									</template>
+                                    <template x-if="getLivraisonsForDate(date).length > 0">
+                                        <template x-for="livraison in getLivraisonsForDate(date)">
+                                            <div
+                                                x-bind:class="getLivraisonColor(livraison)"
+                                                class="px-2 py-1 rounded-lg mt-1 overflow-hidden border text-white"
+                                            >
+                                                <p>Livraison</p>
+                                                <!-- Afficher d'autres informations sur la livraison si nécessaire -->
+                                            </div>
+                                        </template>
+                                    </template>
+
+                                    <template x-if="getJoursFeriesForDate(date).length > 0">
+                                        <div
+                                            x-bind:class="getJourFerieColor(getJoursFeriesForDate(date)[0])"
+                                            class="px-2 py-1 rounded-lg mt-1 overflow-hidden border text-white"
+                                        >
+                                            <p>Jour Férié</p>
+                                        </div>
+                                    </template>
 								</div>
 							</div>
 						</template>
@@ -149,6 +155,11 @@
 	<script>
         const MONTH_NAMES = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
         const DAYS = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+
+        const livraisons = @json($livraisons);
+
+        const feries = @json($feries);
+
 
         function app() {
             return {
@@ -220,6 +231,45 @@
                     return today.toDateString() === d.toDateString() ? true : false;
                 },
 
+                getLivraisonsForDate(date) {
+                    return livraisons.filter(livraison => {
+                        const livraisonDate = new Date(livraison.date);
+                        return (
+                            livraisonDate.getFullYear() === this.year &&
+                            livraisonDate.getMonth() === this.month &&
+                            livraisonDate.getDate() === date
+                        );
+                    });
+                },
+
+                getLivraisonColor(livraison) {
+                    switch (livraison.jour) {
+                        case 'mardi':
+                            return 'bg-amber-600';
+                        case 'mercredi':
+                            return 'bg-yellow-300';
+                        case 'vendredi':
+                            return 'bg-green-600';
+                        default:
+                            return 'gray';
+                    }
+                },
+
+                getJoursFeriesForDate(date) {
+                    return feries.filter(ferie => {
+                        const ferieDate = new Date(ferie);
+                        return (
+                            ferieDate.getFullYear() === this.year &&
+                            ferieDate.getMonth() === this.month &&
+                            ferieDate.getDate() === date
+                        );
+                    });
+                },
+
+                getJourFerieColor(ferie) {
+                    return 'bg-red-600';
+                },
+
                 showEventModal(date) {
                     // open the modal
                     this.openEventModal = true;
@@ -237,7 +287,6 @@
                         event_theme: this.event_theme
                     });
 
-                    console.log(this.events);
 
                     // clear the form data
                     this.event_title = '';

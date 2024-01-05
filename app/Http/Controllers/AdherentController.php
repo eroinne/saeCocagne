@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Adherents;
+use App\Models\Livraisons;
+use App\Models\Structures;
+use App\Models\Calendriers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\RedirectResponse;
 
 class AdherentController extends Controller
@@ -148,7 +152,31 @@ class AdherentController extends Controller
      * @return View
      */
     public function calendar(){
-        return view('adherents.calendar');
+
+        //Get the calendar of the structure of the user
+        $calendrier = Calendriers::where('id', 1)->first();
+
+        //Get the structure of the calendrier
+        $structure = Structures::where('id', $calendrier->structures_id)->first();
+
+        $cal = new Calendriers();
+
+        //Get closed days
+        $feries = $cal->getJoursFeries($structure->id);
+
+        $feries = array_keys($feries);
+
+        //Get the livraisons
+        $livraisons = Livraisons::where('calendriers_id', $calendrier->id)->get();
+
+
+        return view('adherents.calendar',
+            [
+                'calendrier' => $calendrier,
+                'livraisons' => $livraisons,
+                'feries' => $feries,
+            ]
+        );
     }
 
 }
