@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StaffsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DeliveryController;
@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\AdherentController;
 use App\Http\Controllers\CartController;
+use App\Http\Middleware\StaffsMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,12 +36,6 @@ Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 
 // Route products
 Route::get('/produits', [ProductController::class, 'index'])->name('products.index');
-
-// Route auth
-Route::get('/connexion', [AuthController::class, 'login'])->name('login');
-Route::post('/connexion', [AuthController::class, 'authenticate'])->name('login.authenticate');
-Route::get('/inscription', [AuthController::class, 'register'])->name('register');
-Route::post('/inscription/cree', [AuthController::class, 'create'])->name('register.add');
 
 
 // Route subscription
@@ -75,11 +70,23 @@ Route::middleware('auth')->group(function () {
 
 //-------- Route Admin --------//
 
-//TODO: Middleware admin
+Route::middleware(StaffsMiddleware::class)->group(function () {
+    Route::get('staffs/panel', [StaffsController::class, 'panel'])->name('staffs.panel');
+    Route::get('staffs/compte', [StaffsController::class, 'account'])->name('staffs.account');
+    Route::post('staffs/compte', [StaffsController::class, 'update'])->name('staffs.update');
+
+    Route::get('staffs/panel/adherents', [StaffsController::class, 'adherents'])->name('staffs.adherents');
+    Route::get('staffs/panel/adherents/{id}', [StaffsController::class, 'adherent'])->name('staffs.adherent');
+    Route::post('staffs/panel/adherents/{id}/edit', [StaffsController::class, 'updateAdherent'])->name('staffs.adherent.update');
+
+    Route::delete('staffs/panel/adherents/{id}/delete', [StaffsController::class, 'deleteAdherent'])->name('staffs.adherent.delete');
+    Route::post('staffs/panel/adherents/{id}/delete/photo', [StaffsController::class, 'deletePhotoAdherent'])->name('staffs.adherent.delete.photo');
+
+});
 
 
 //route setting
-Route::get('/parametre', [AdminController::class, 'account'])->name('account');
+Route::get('/parametre', [StaffsController::class, 'account'])->name('account');
 
 //route visulisation of delivery turn
 Route::get('/visualisationDelivery', [DeliveryController::class, 'visualisation'])->name('delivery.visualisation');
