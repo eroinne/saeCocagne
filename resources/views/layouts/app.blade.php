@@ -12,9 +12,10 @@
         @stack('head-scripts')
     </head>
 
-    <body>
+    <body class="min-h-full">
+
         <header>
-            @include('layouts.navbar')
+                @include('layouts.navbar')
         </header>
         @yield('body')
 
@@ -22,8 +23,13 @@
 
         @include('layouts.footer')
 
+        <style>
+            [x-cloak] { display: none !important; }
+        </style>
+
         @stack('scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.js" integrity="sha512-MiIhpeQSr5AO2P1c/3vME/XhtuoDMIH/qtCHusokwCgsjVLzSKaNiNYEeDM1PhFpi6HLuocZmaZ21R0MS+rEyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </body>
+
 
 </html>

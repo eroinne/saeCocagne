@@ -7,8 +7,17 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    //add a shopping cart
+
     /**
+     * Function to display the cart of the Adherent
+     */
+    public function displayCart(){
+        return view('adherents.cart');
+    }
+
+
+    /**
+     * Function to add element on cart
      * @param Request $request
      * @return string[]
      */

@@ -19,7 +19,7 @@ return new class extends Migration
             //string where day are separated by ;
             $table->string('jours_livraison', 255);
             //num of weeks that aren't possible for delivery
-            $table->integer('semaines_non_livrables');
+            $table->integer('semaines_non_livrable');
             //foreing key to tournees_de_livraison
             $table->unsignedBigInteger('tournee_id');
             $table->foreign('tournee_id')->references('id')->on('tournees_de_livraison')->cascadeOnDelete();

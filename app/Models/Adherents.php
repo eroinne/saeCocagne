@@ -19,8 +19,21 @@ class Adherents extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'raison_sociale',
+        'civilite',
         'email',
+        'prenom',
+        'ville',
+        'adresse',
+        'code_postal',
+        'numero_telephone',
+        'numero_telephone2',
+        'numero_telephone3',
+        'profession',
+        'date_naissance',
         'password',
+        'structures_id',
+        'photo',
     ];
 
     /**

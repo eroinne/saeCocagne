@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Staffs;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Structures extends Model
 {
@@ -38,6 +39,12 @@ class Structures extends Model
     public function commandes(): HasMany
     {
         return $this->hasMany(Commandes::class);
+    }
+
+    //has many staffs
+    public function staffs(): HasMany
+    {
+        return $this->hasMany(Staffs::class);
     }
 
     //has many tournerLivraison

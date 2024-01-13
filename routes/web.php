@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StaffsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DeliveryController;
@@ -8,7 +8,9 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdherentController;
+use App\Http\Controllers\CartController;
+use App\Http\Middleware\StaffsMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,9 +24,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
 
 
 //-------route combine--------
@@ -38,38 +37,56 @@ Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 // Route products
 Route::get('/produits', [ProductController::class, 'index'])->name('products.index');
 
-// Route auth
-Route::get('/connexion', [AuthController::class, 'login'])->name('login');
-Route::post('/connexion', [AuthController::class, 'authenticate'])->name('login.authenticate');
-Route::get('/inscription', [AuthController::class, 'register'])->name('register');
-Route::post('/inscription/cree', [AuthController::class, 'create'])->name('register.add');
-
 
 // Route subscription
 Route::get('/abonnement', [SubscriptionController::class, 'subscription'])->name('subscription');
 Route::post('/abonnement', [SubscriptionController::class, 'subscription'])->name('subscription.add');
 
-//------- Route User --------//
+//------- Route Adherents --------//
 
-//TODO: Middleware
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/dashboard', [AdherentController::class, 'dashboard'])->name('dashboard');
+    Route::get('/compte', [AdherentController::class, 'account'])->name('dashboard.account');
+    Route::get('/boutique', [AdherentController::class, 'shop'])->name('dashboard.shop');
+    Route::get('/panier', [CartController::class, 'displayCart'])->name('dashboard.cart');
+    Route::get('/calendrier', [AdherentController::class, 'calendar'])->name('dashboard.calendar');
+
+    Route::get('/adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership');
+    Route::post('/adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership.add');
+
+    Route::get('/historique', [AdherentController::class, 'history'])->name('dashboard.history');
+
+    Route::post('/update', [AdherentController::class, 'update'])->name('adherents.update');
+    Route::post('/update-photo', [AdherentController::class, 'updatePhoto'])->name('adherents.update.photo');
+    Route::post('/delete-photo', [AdherentController::class, 'deletePhoto'])->name('adherents.delete.photo');
+
+});
+
+
+
+//-------- Route Admin --------//
+
+Route::middleware(StaffsMiddleware::class)->group(function () {
+    Route::get('staffs/panel', [StaffsController::class, 'panel'])->name('staffs.panel');
+    Route::get('staffs/compte', [StaffsController::class, 'account'])->name('staffs.account');
+    Route::post('staffs/compte', [StaffsController::class, 'update'])->name('staffs.update');
+
+    Route::get('staffs/panel/adherents', [StaffsController::class, 'adherents'])->name('staffs.adherents');
+    Route::get('staffs/panel/adherents/{id}', [StaffsController::class, 'adherent'])->name('staffs.adherent');
+    Route::post('staffs/panel/adherents/{id}/edit', [StaffsController::class, 'updateAdherent'])->name('staffs.adherent.update');
+
+    Route::delete('staffs/panel/adherents/{id}/delete', [StaffsController::class, 'deleteAdherent'])->name('staffs.adherent.delete');
+    Route::post('staffs/panel/adherents/{id}/delete/photo', [StaffsController::class, 'deletePhotoAdherent'])->name('staffs.adherent.delete.photo');
+
+});
+
 
 //route setting
-Route::get('/parametre', [UserController::class, 'setting'])->name('dashboard.setting');
-
-//route membership
-Route::get('/Adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership');
-Route::post('/Adhesion', [SubscriptionController::class, 'membership'])->name('dashboard.membership.add');
-
-//route history of order
-Route::get('/historique', [UserController::class, 'history'])->name('dashboard.history');
-//route calendar of delivery
-Route::get('/calendrier', [CalendarController::class, 'calendar'])->name('dashboard.calendar');
-
-
-
-//--------route  admin--------
-//route setting
-Route::get('/parametre', [AdminController::class, 'account'])->name('account');
+Route::get('/parametre', [StaffsController::class, 'account'])->name('account');
 
 //route visulisation of delivery turn
 Route::get('/visualisationDelivery', [DeliveryController::class, 'visualisation'])->name('delivery.visualisation');
@@ -92,15 +109,5 @@ Route::get('/resume', [DeliveryController::class, 'summary'])->name('summary');
 
 
 
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
 require __DIR__.'/auth.php';
