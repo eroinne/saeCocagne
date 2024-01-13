@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Staffs;
 use App\Models\Adherents;
+use App\Models\Livraisons;
+use App\Models\Structures;
+use App\Models\Calendriers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +44,15 @@ class StaffsController extends Controller
     public function adherent($id){
         $adherent = Adherents::find($id);
         return view('staffs.adherent-info', compact('adherent'));
+    }
+
+    /**
+     * Display the view of the list of calendar
+     * @return View
+     */
+    public function calendars(){
+        $calendriers = Calendriers::all();
+        return view('staffs.list-calendar', compact('calendriers'));
     }
 
     /**

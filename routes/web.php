@@ -82,6 +82,12 @@ Route::middleware(StaffsMiddleware::class)->group(function () {
     Route::delete('staffs/panel/adherents/{id}/delete', [StaffsController::class, 'deleteAdherent'])->name('staffs.adherent.delete');
     Route::post('staffs/panel/adherents/{id}/delete/photo', [StaffsController::class, 'deletePhotoAdherent'])->name('staffs.adherent.delete.photo');
 
+    Route::get('staffs/panel/calendriers', [StaffsController::class, 'calendars'])->name('staffs.calendars');
+    Route::get('staffs/panel/calendriers/{structures_id}', [CalendarController::class, 'calendar'])->name('staffs.calendar');
+    Route::get('staffs/panel/calendrier/{structures_id}/edit', [CalendarController::class, 'editCalendar'])->name('staffs.calendar.edit');
+    Route::post('staffs/panel/calendrier/{structures_id}/edit', [CalendarController::class, 'updateCalendar'])->name('staffs.calendar.update');
+
+
 });
 
 
