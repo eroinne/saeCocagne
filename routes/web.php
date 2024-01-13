@@ -86,6 +86,8 @@ Route::middleware(StaffsMiddleware::class)->group(function () {
     Route::get('staffs/calendriers/{structures_id}', [CalendarController::class, 'calendar'])->name('staffs.calendar');
     Route::get('staffs/calendrier/{structures_id}/edit', [CalendarController::class, 'editCalendar'])->name('staffs.calendar.edit');
     Route::post('staffs/calendrier/livraison/edit', [CalendarController::class, 'updateLivraison'])->name('staffs.livraison.update');
+    Route::post('staffs/calendrier/livraison/delete', [CalendarController::class, 'deleteLivraison'])->name('staffs.livraison.delete');
+    Route::post('staffs/calendrier/livraison/store', [CalendarController::class, 'storeLivraison'])->name('staffs.livraison.store');
 
 
 });

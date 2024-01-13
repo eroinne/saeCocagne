@@ -108,11 +108,31 @@ class CalendarController extends Controller
 
             if (!$livraison) {
                 // If nothing found
-                return response()->json(['error' => 'Livraison non trouvée'], 404);
+                return back()->with('error', 'Livraison non trouvée');
+            }
+
+            $structure = Structures::where('id', $request->structures_id)->first();
+
+            if (!$structure) {
+                // If nothing found
+                return back()->with('error', 'Structure non trouvée');
+            }
+
+            if(!$request->input('newDate')){
+                // If nothing found
+                return back()->with('error', 'Veuillez renseigner une date');
             }
 
             // Update the date of livraison
             $livraison->date = $request->input('newDate');
+
+            // Get the calendrier of the year for the structure
+            $calendrier = Calendriers::where('structures_id', $structure->id)->where('annee', date('Y', strtotime($request->input('newDate'))))->first();
+
+            if(!$calendrier){
+                // If nothing found
+                return back()->with('error', 'Calendrier non trouvé pour l\'année sélectionnée: ' . date('Y', strtotime($request->input('newDate'))));
+            }
 
             // Get the number of the week in the year, and the number of the month
             $week = date('W', strtotime($request->input('newDate')));
@@ -123,25 +143,25 @@ class CalendarController extends Controller
 
             switch ($day) {
                 case 'Monday':
-                    $day = 'Lundi';
+                    $day = 'lundi';
                     break;
                 case 'Tuesday':
-                    $day = 'Mardi';
+                    $day = 'mardi';
                     break;
                 case 'Wednesday':
-                    $day = 'Mercredi';
+                    $day = 'mercredi';
                     break;
                 case 'Thursday':
-                    $day = 'Jeudi';
+                    $day = 'jeudi';
                     break;
                 case 'Friday':
-                    $day = 'Vendredi';
+                    $day = 'vendredi';
                     break;
                 case 'Saturday':
-                    $day = 'Samedi';
+                    $day = 'samedi';
                     break;
                 case 'Sunday':
-                    $day = 'Dimanche';
+                    $day = 'dimanche';
                     break;
             }
 
@@ -149,6 +169,7 @@ class CalendarController extends Controller
             $livraison->numero_semaine = $week;
             $livraison->mois = $month;
             $livraison->jour = $day;
+            $livraison->calendriers_id = $calendrier->id;
 
             $livraison->save();
 
@@ -157,6 +178,118 @@ class CalendarController extends Controller
         } catch (\Exception $e) {
             // Error response
             return back()->with('error', 'Une erreur est survenue lors de la mise à jour de la livraison');
+        }
+    }
+
+    /**
+     * Function to store a new livraison
+     * @param Request $request
+     */
+    public function storeLivraison(Request $request)
+    {
+        try {
+            // Get the structure
+            $structure = Structures::where('id', $request->structures_id)->first();
+
+            if (!$structure) {
+                // If nothing found
+                return back()->with('error', 'Structure non trouvée');
+            }
+
+            if(!$request->input('date')){
+                // If nothing found
+                return back()->with('error', 'Veuillez renseigner une date');
+            }
+
+            // Create a new livraison
+            $livraison = new Livraisons();
+
+            // Get the date of the livraison
+            $livraison->date = $request->input('date');
+
+            // Get the calendrier of the year for the structure
+            $calendrier = Calendriers::where('structures_id', $structure->id)->where('annee', date('Y', strtotime($request->input('date'))))->first();
+
+            if(!$calendrier){
+                // If nothing found
+                return back()->with('error', 'Calendrier non trouvé pour l\'année sélectionnée: ' . date('Y', strtotime($request->input('date'))));
+            }
+
+            // Get the number of the week in the year, and the number of the month
+            $week = date('W', strtotime($request->input('date')));
+            $month = date('m', strtotime($request->input('date')));
+
+            // Get the name of the day in french
+            $day = date('l', strtotime($request->input('date')));
+
+
+            switch ($day) {
+                case 'Monday':
+                    $day = 'lundi';
+                    break;
+                case 'Tuesday':
+                    $day = 'mardi';
+                    break;
+                case 'Wednesday':
+                    $day = 'mercredi';
+                    break;
+                case 'Thursday':
+                    $day = 'jeudi';
+                    break;
+                case 'Friday':
+                    $day = 'vendredi';
+                    break;
+                case 'Saturday':
+                    $day = 'samedi';
+                    break;
+                case 'Sunday':
+                    $day = 'dimanche';
+                    break;
+            }
+
+            // Get the week and month of the livraison
+            $livraison->numero_semaine = (int) $week;
+            $livraison->mois = (int) $month;
+            $livraison->jour = $day;
+
+
+
+            $livraison->calendriers_id = $calendrier->id;
+
+
+            $livraison->save();
+
+            // Succes response
+            return back()->with('success', 'Livraison ajoutée avec succès');
+        } catch (\Exception $e) {
+            // Error response
+            return back()->with('error', 'Une erreur est survenue lors de l\'ajout de la livraison');
+        }
+    }
+
+    /**
+     * Function to delete a livraison
+     * @param Request $request
+     */
+    public function deleteLivraison(Request $request)
+    {
+        try {
+            // Get the livraison
+            $livraison = Livraisons::where('id', $request->livraison_id)->first();
+
+            if (!$livraison) {
+                // If nothing found
+                return back()->with('error', 'Livraison non trouvée');
+            }
+
+            // Delete the livraison
+            $livraison->delete();
+
+            // Succes response
+            return back()->with('success', 'Livraison supprimée avec succès');
+        } catch (\Exception $e) {
+            // Error response
+            return back()->with('error', 'Une erreur est survenue lors de la suppression de la livraison');
         }
     }
 }

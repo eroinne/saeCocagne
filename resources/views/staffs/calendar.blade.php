@@ -269,7 +269,7 @@
                         case 'vendredi':
                             return 'bg-green-600';
                         default:
-                            return 'gray';
+                            return 'bg-blue-600';
                     }
                 },
 
