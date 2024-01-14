@@ -143,6 +143,7 @@
             </div>
 
             <input type="hidden" name="livraison_id" x-model="selectedLivraison.id">
+            <input type="hidden" name="structures_id" value="{{$structure->id}}">
 
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
 

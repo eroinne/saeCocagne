@@ -88,6 +88,7 @@ Route::middleware(StaffsMiddleware::class)->group(function () {
     Route::post('staffs/calendrier/livraison/edit', [CalendarController::class, 'updateLivraison'])->name('staffs.livraison.update');
     Route::post('staffs/calendrier/livraison/delete', [CalendarController::class, 'deleteLivraison'])->name('staffs.livraison.delete');
     Route::post('staffs/calendrier/livraison/store', [CalendarController::class, 'storeLivraison'])->name('staffs.livraison.store');
+    Route::post('staffs/calendrier/livraison/generer', [CalendarController::class, 'genererLivraison'])->name('staffs.livraison.generer');
 
 
 });

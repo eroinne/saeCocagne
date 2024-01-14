@@ -6,6 +6,7 @@ use App\Models\Livraisons;
 use App\Models\Structures;
 use App\Models\Calendriers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CalendarController extends Controller
 {
@@ -103,6 +104,20 @@ class CalendarController extends Controller
     public function updateLivraison(Request $request)
     {
         try {
+
+            $structure = Structures::where('id', $request->structures_id)->first();
+
+            if (!$structure) {
+                // If nothing found
+                return back()->with('error', 'Structure non trouvée');
+            }
+
+            // Check if the user is admin or a moderator of the structure
+            if( Auth::guard('staffs')->user()->is_admin != 1 && Auth::guard('staffs')->user()->structures_id != $structure->id){
+                // If not admin
+                return back()->with('error', 'Vous n\'avez pas les droits pour effectuer cette action');
+            }
+
             // Get the livraison
             $livraison = Livraisons::where('id', $request->livraison_id)->first();
 
@@ -111,12 +126,7 @@ class CalendarController extends Controller
                 return back()->with('error', 'Livraison non trouvée');
             }
 
-            $structure = Structures::where('id', $request->structures_id)->first();
 
-            if (!$structure) {
-                // If nothing found
-                return back()->with('error', 'Structure non trouvée');
-            }
 
             if(!$request->input('newDate')){
                 // If nothing found
@@ -194,6 +204,12 @@ class CalendarController extends Controller
             if (!$structure) {
                 // If nothing found
                 return back()->with('error', 'Structure non trouvée');
+            }
+
+            // Check if the user is admin or a moderator of the structure
+            if( Auth::guard('staffs')->user()->is_admin != 1 && Auth::guard('staffs')->user()->structures_id != $structure->id){
+                // If not admin
+                return back()->with('error', 'Vous n\'avez pas les droits pour effectuer cette action');
             }
 
             if(!$request->input('date')){
@@ -274,6 +290,20 @@ class CalendarController extends Controller
     public function deleteLivraison(Request $request)
     {
         try {
+
+            $structure = Structures::where('id', $request->structures_id)->first();
+
+            if (!$structure) {
+                // If nothing found
+                return back()->with('error', 'Structure non trouvée');
+            }
+
+            // Check if the user is admin
+            if( Auth::guard('staffs')->user()->is_admin != 1 && Auth::guard('staffs')->user()->structures_id != $structure->id){
+                // If not admin
+                return back()->with('error', 'Vous n\'avez pas les droits pour effectuer cette action');
+            }
+
             // Get the livraison
             $livraison = Livraisons::where('id', $request->livraison_id)->first();
 
@@ -290,6 +320,57 @@ class CalendarController extends Controller
         } catch (\Exception $e) {
             // Error response
             return back()->with('error', 'Une erreur est survenue lors de la suppression de la livraison');
+        }
+    }
+
+
+    /**
+     * Function to generate the livraison of a structure for a year
+     * @param Request $request
+     */
+    public function genererLivraison(Request $request)
+    {
+        try {
+
+            $structure = Structures::where('id', $request->structures_id)->first();
+
+            if (!$structure) {
+                // If nothing found
+                return back()->with('error', 'Structure non trouvée');
+            }
+
+            // Check if the user is admin
+            if( Auth::guard('staffs')->user()->is_admin != 1 && Auth::guard('staffs')->user()->structures_id != $structure->id){
+                // If not admin
+                return back()->with('error', 'Vous n\'avez pas les droits pour effectuer cette action');
+            }
+
+            //Check if the year is set
+            if(!$request->input('year')){
+                // If nothing found
+                return back()->with('error', 'Veuillez renseigner une année');
+            }
+
+            //Check if the year is 20 year in past max or 5 in futur max
+            if($request->input('year') < date('Y') - 20 || $request->input('year') > date('Y') + 5){
+                // If nothing found
+                return back()->with('error', 'Veuillez renseigner une année entre ' . (date('Y') - 20) . ' et ' . (date('Y') + 5));
+            }
+
+            $response = Calendriers::generateLivraisons($structure->id, $request->input('year'));
+
+
+            if($response == 0){
+                // Error response
+                return back()->with('error', 'Une erreur est survenue lors de la génération des livraisons');
+            }else{
+                // Succes response
+                return back()->with('success', 'Livraisons générées avec succès');
+            }
+
+        } catch (\Exception $e) {
+            // Error response
+            return back()->with('error', 'Une erreur est survenue lors de la génération des livraisons');
         }
     }
 }

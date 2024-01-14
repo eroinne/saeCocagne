@@ -51,8 +51,8 @@ class StaffsController extends Controller
      * @return View
      */
     public function calendars(){
-        $calendriers = Calendriers::all();
-        return view('staffs.list-calendar', compact('calendriers'));
+        $structures = Structures::all();
+        return view('staffs.list-calendar', compact('structures'));
     }
 
     /**
@@ -62,7 +62,7 @@ class StaffsController extends Controller
     public function update(Request $request){
 
         //Check if the id of the request is the id of the staff member or if the staff member is an administator
-        if($request->id != Auth::guard('staffs')->user()->id && Auth::user()->is_admin != 0){
+        if($request->id != Auth::guard('staffs')->user()->id && Auth::user()->is_admin != 1){
             return redirect()->route('staffs.account')->with('error', 'Vous ne pouvez pas modifier ce compte');
         }
 

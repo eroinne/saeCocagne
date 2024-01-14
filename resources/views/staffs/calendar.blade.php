@@ -14,12 +14,6 @@
                         Modifier
                     </button>
                 </a>
-
-                <a href="">
-                    <button class="py-1.5 px-2 bg-green-800 hover:bg-green-600 text-white rounded-lg">
-                        Générer un calendrier
-                    </button>
-                </a>
             </div>
 
 			<!-- <div class="font-bold text-gray-800 text-xl mb-4">

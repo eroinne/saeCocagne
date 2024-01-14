@@ -44,6 +44,7 @@ class Calendriers extends Model
      * Function to generate all the livraisons of the calendriers
      * @param $structure_id
      * @param $year
+     * @return 1 if the generation is successful, 0 otherwise
      */
     public static function generateLivraisons($structure_id, $year)
     {
@@ -51,11 +52,14 @@ class Calendriers extends Model
         //Check if the calendrier already exists
         $calendrier = Calendriers::where('structures_id', $structure_id)->where('annee', $year)->first();
 
-        if (!$calendrier) {
-            return;
+        if (isset($calendrier)) {
+            return 0;
+        }else{
+            $calendrier = Calendriers::create([
+                'structures_id' => $structure_id,
+                'annee' => $year,
+            ]);
         }
-
-
 
         // Get the start date for the year
         $startDate = Carbon::create($year, 1, 1);
@@ -63,7 +67,6 @@ class Calendriers extends Model
         Carbon::setLocale('fr');
 
         $feries = self::getJoursFeries($structure_id, $year);
-
 
         // Create livraisons for each Tuesday, Wednesday, and Friday every 2 weeks
         for ($i = 0; $i < 52; $i++) {
@@ -81,7 +84,6 @@ class Calendriers extends Model
                 $deliveryDateWednesday,
                 $deliveryDateFriday,
             ];
-
             foreach ($deliveryDates as $deliveryDate) {
                 // Convert the date to a string for use in creating the delivery
                 $formattedDate = $deliveryDate->toDateString();
@@ -117,6 +119,8 @@ class Calendriers extends Model
                 }
             }
         }
+
+        return 1;
     }
 
 
