@@ -29,6 +29,10 @@ class CalendarController extends Controller
         //Get the structure of the calendrier
         $structure = Structures::where('id', $structures_id)->first();
 
+        if($structure == null)
+            return redirect()->route('staffs.depots')->with('error', 'La structure n\'existe pas');
+
+
         $cal = new Calendriers();
 
         //Get closed days

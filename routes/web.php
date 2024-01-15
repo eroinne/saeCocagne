@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\AdherentController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\DepotController;
 use App\Http\Middleware\StaffsMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -89,6 +90,9 @@ Route::middleware(StaffsMiddleware::class)->group(function () {
     Route::post('staffs/calendrier/livraison/delete', [CalendarController::class, 'deleteLivraison'])->name('staffs.livraison.delete');
     Route::post('staffs/calendrier/livraison/store', [CalendarController::class, 'storeLivraison'])->name('staffs.livraison.store');
     Route::post('staffs/calendrier/livraison/generer', [CalendarController::class, 'genererLivraison'])->name('staffs.livraison.generer');
+
+    Route::get('staffs/depots', [DepotController::class, 'depots'])->name('staffs.depots');
+    Route::get('staffs/depots/{structures_id}', [DepotController::class, 'depot'])->name('staffs.depot');
 
 
 });

@@ -16,10 +16,6 @@
                 </a>
             </div>
 
-			<!-- <div class="font-bold text-gray-800 text-xl mb-4">
-				Schedule Tasks
-			</div> -->
-
 			<div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
 
 				<div class="flex items-center justify-between py-2 px-6">

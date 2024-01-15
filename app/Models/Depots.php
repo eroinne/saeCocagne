@@ -9,7 +9,8 @@ class Depots extends Model
 {
     use HasFactory;
 
-    // belonge to structure
+    public $table = 'depot';
+
     /**
      * Get the structure that owns the depots.
      */
@@ -18,7 +19,6 @@ class Depots extends Model
         return $this->belongsTo(Structures::class);
     }
 
-    //belong to many tournerLivraison
     public function tournerLivraison()
     {
         return $this->belongsToMany(TournerLivraison::class);
