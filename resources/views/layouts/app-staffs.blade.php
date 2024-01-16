@@ -119,12 +119,12 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#" class="text-gray-400 hover:text-white hover:bg-green-900 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <a href="{{ route('staffs.tournees') }}" class="{{ $routeName == 'staffs.tournees' ? 'text-white bg-green-900' : 'text-gray-400 hover:text-white hover:bg-green-900' }} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
                                                     <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
                                                     </svg>
-                                                    Reports
+                                                    Tournees
                                                 </a>
                                             </li>
                                         </ul>
@@ -222,12 +222,12 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" class="text-gray-400 hover:text-white hover:bg-green-900 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                        <a href="{{ route('staffs.tournees') }}" class="{{ $routeName == 'staffs.tournees' ? 'text-white bg-green-900' : 'text-gray-400 hover:text-white hover:bg-green-900' }} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
                                             <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
                                             </svg>
-                                            Reports
+                                            Tournees
                                         </a>
                                     </li>
                                 </ul>

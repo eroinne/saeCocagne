@@ -116,11 +116,9 @@ class CalendarController extends Controller
                 return back()->with('error', 'Structure non trouvée');
             }
 
-            // Check if the user is admin or a moderator of the structure
-            if( Auth::guard('staffs')->user()->is_admin != 1 && Auth::guard('staffs')->user()->structures_id != $structure->id){
-                // If not admin
-                return back()->with('error', 'Vous n\'avez pas les droits pour effectuer cette action');
-            }
+            if(Auth::guard('staffs')->user()->canAct($structure->id) == 0)
+                return back()->with('error', 'Vous n\'avez pas les droits pour modifier ce dépôt');
+
 
             // Get the livraison
             $livraison = Livraisons::where('id', $request->livraison_id)->first();
@@ -128,6 +126,12 @@ class CalendarController extends Controller
             if (!$livraison) {
                 // If nothing found
                 return back()->with('error', 'Livraison non trouvée');
+            }
+
+            // Check if the structure->id is the same than livraison->structure_id
+            if($structure->id != $livraison->calendrier->structure->id){
+                // If not the same
+                return back()->with('error', 'Vous n\'avez pas les droits pour modifier cette livraison');
             }
 
 
@@ -210,11 +214,9 @@ class CalendarController extends Controller
                 return back()->with('error', 'Structure non trouvée');
             }
 
-            // Check if the user is admin or a moderator of the structure
-            if( Auth::guard('staffs')->user()->is_admin != 1 && Auth::guard('staffs')->user()->structures_id != $structure->id){
-                // If not admin
-                return back()->with('error', 'Vous n\'avez pas les droits pour effectuer cette action');
-            }
+            if(Auth::guard('staffs')->user()->canAct($structure->id) == 0)
+                return back()->with('error', 'Vous n\'avez pas les droits pour modifier ce dépôt');
+
 
             if(!$request->input('date')){
                 // If nothing found
@@ -302,11 +304,8 @@ class CalendarController extends Controller
                 return back()->with('error', 'Structure non trouvée');
             }
 
-            // Check if the user is admin
-            if( Auth::guard('staffs')->user()->is_admin != 1 && Auth::guard('staffs')->user()->structures_id != $structure->id){
-                // If not admin
-                return back()->with('error', 'Vous n\'avez pas les droits pour effectuer cette action');
-            }
+            if(Auth::guard('staffs')->user()->canAct($structure->id) == 0)
+                return back()->with('error', 'Vous n\'avez pas les droits pour modifier ce dépôt');
 
             // Get the livraison
             $livraison = Livraisons::where('id', $request->livraison_id)->first();
@@ -314,6 +313,12 @@ class CalendarController extends Controller
             if (!$livraison) {
                 // If nothing found
                 return back()->with('error', 'Livraison non trouvée');
+            }
+
+            // Check if the structure->id is the same than livraison->structure_id
+            if($structure->id != $livraison->calendrier->structure->id){
+                // If not the same
+                return back()->with('error', 'Vous n\'avez pas les droits pour modifier cette livraison');
             }
 
             // Delete the livraison
@@ -344,10 +349,9 @@ class CalendarController extends Controller
             }
 
             // Check if the user is admin
-            if( Auth::guard('staffs')->user()->is_admin != 1 && Auth::guard('staffs')->user()->structures_id != $structure->id){
-                // If not admin
-                return back()->with('error', 'Vous n\'avez pas les droits pour effectuer cette action');
-            }
+            if(Auth::guard('staffs')->user()->canAct($structure->id) == 0)
+                return back()->with('error', 'Vous n\'avez pas les droits pour modifier ce dépôt');
+
 
             //Check if the year is set
             if(!$request->input('year')){

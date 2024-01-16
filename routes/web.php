@@ -11,6 +11,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\AdherentController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DepotController;
+use App\Http\Controllers\TourneeController;
 use App\Http\Middleware\StaffsMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -96,6 +97,10 @@ Route::middleware(StaffsMiddleware::class)->group(function () {
     Route::post('staffs/depots/edit', [DepotController::class, 'updateDepot'])->name('staffs.depot.update');
     Route::post('staffs/depots/delete', [DepotController::class, 'deleteDepot'])->name('staffs.depot.delete');
     Route::post('staffs/depots/store', [DepotController::class, 'storeDepot'])->name('staffs.depot.store');
+
+    Route::get('staffs/tournees', [TourneeController::class, 'tournees'])->name('staffs.tournees');
+    Route::get('staffs/tournees/{structures_id}', [TourneeController::class, 'tournee'])->name('staffs.tournee');
+    Route::get('staffs/tournees/{structures_id}/edit/{tournee_id}', [TourneeController::class, 'editTournee'])->name('staffs.tournee.edit');
 
 });
 

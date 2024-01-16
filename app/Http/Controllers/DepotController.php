@@ -77,6 +77,11 @@ class DepotController extends Controller
             return back()->with('error', 'Le dépôt n\'existe pas');
         }
 
+        // Check if structures_id is the same than structure->id
+        if($structure->id != $depot->structures_id)
+            return back()->with('error', 'Vous n\'avez pas les droits pour modifier ce dépôt');
+
+
         // Update the depot
         $depot->nom = $request->nom;
         $depot->ville = $request->ville;

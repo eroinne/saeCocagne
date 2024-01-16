@@ -25,10 +25,10 @@
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Numéro de semaine</th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date</th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                                    <span class="sr-only">Edit</span>
+                                    <span class="sr-only">Modifier</span>
                                 </th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                                    <span class="sr-only">Delete</span>
+                                    <span class="sr-only">Suprimer</span>
                                 </th>
                             </tr>
                         </thead>
@@ -39,10 +39,10 @@
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{$livraison->numero_semaine}}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{$livraison->date}}</td>
                                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                    <a href="#" @click="openEditModal({{$livraison}})" class="text-green-600 hover:text-green-900">Edit</a>
+                                    <a href="#" @click="openEditModal({{$livraison}})" class="text-green-600 hover:text-green-900">Modifier</a>
                                 </td>
                                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                    <a href="#" @click="confirmDeleteLivraison({{$livraison}})" class="text-red-600 hover:text-red-900">Delete</a>
+                                    <a href="#" @click="confirmDeleteLivraison({{$livraison}})" class="text-red-600 hover:text-red-900">Suprimer</a>
                                 </td>
                             </tr>
                             @endforeach

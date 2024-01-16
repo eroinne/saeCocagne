@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Depots;
+use App\Models\Commandes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TournerLivraison extends Model
 {
     use HasFactory;
 
+    public $table = 'tournees_de_livraison';
 
-    //belong to many depots
+
+    protected $guarded = [];
+
     /**
      * The depots that belong to the TournerLivraison
      *
@@ -18,10 +23,9 @@ class TournerLivraison extends Model
      */
     public function depots()
     {
-        return $this->belongsToMany(Depots::class);
+        return explode(';', $this->point_depots);
     }
 
-    //has many commandes
     /**
      * Get all the commandes for the TournerLivraison
      *
