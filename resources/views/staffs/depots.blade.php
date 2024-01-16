@@ -27,6 +27,11 @@
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Code Postal</th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Téléphone</th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">E-mail</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Jour de livraison</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Heure de livraison</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Commentaire</th>
+
+
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                     <span class="sr-only">Edit</span>
                                 </th>
@@ -44,6 +49,10 @@
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{$depot->code_postal}}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{$depot->telephone}}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{$depot->mail}}</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{$depot->jour_livraison}}</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{$depot->heure_livraison}}</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{$depot->commentaire}}</td>
+
                                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                     <a href="#" @click="openEditModal({{$depot}})" class="text-green-600 hover:text-green-900">Edit</a>
                                 </td>
@@ -60,31 +69,144 @@
     </div>
 
     <!-- Edit Depot Modal -->
-    <div x-show="showEditModal" class="fixed inset-0 z-10 overflow-y-auto flex items-center justify-center" x-cloak>
+    <div x-show="showEditModal" class="fixed inset-0 z-50  flex items-center justify-center" x-cloak>
         <div class="fixed inset-0 transition-opacity" @click="closeEditModal" aria-hidden="true">
             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
 
-        <form action="{{ route("staffs.livraison.update") }}" method="POST" class="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:max-w-md sm:w-full">
+        <form action="{{ route("staffs.depot.update") }}" method="POST" class="bg-white h-[600px] overflow-y-auto rounded-lg text-left shadow-xl transform transition-all sm:max-w-md sm:w-full">
             @csrf
             <div class="bg-white px-4 py-5 sm:p-6">
                 <!-- Depot details go here -->
                 <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Modifier la Depot</h3>
 
-                <div class="mb-4">
-                    <!-- Display current Depot details -->
-                    <p class="text-sm font-medium text-gray-600">Jour actuel: <span class="text-gray-900" x-text="selectedDepot.jour"></span></p>
-                    <p class="text-sm font-medium text-gray-600">Date actuel: <span class="text-gray-900" x-text="selectedDepot.date"></span></p>
-                </div>
+                <!-- Display current Depot details -->
+                <div class="mb-4 grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="nom" class="block text-sm font-medium text-gray-700 mb-2">Nom<span class="text-red-500">*</span></label>
+                        <input type="text" name="nom" id="nom" x-model="selectedDepot.nom" class="mt-1 p-2 border rounded-md w-full" required>
+                        @error('nom')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="ville" class="block text-sm font-medium text-gray-700 mb-2">Ville<span class="text-red-500">*</span></label>
+                        <input type="text" name="ville" id="ville" x-model="selectedDepot.ville" class="mt-1 p-2 border rounded-md w-full" required>
+                        @error('ville')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                <!-- Barre de séparation -->
-                <div class="border-t border-gray-200 mb-4"></div>
+                    <div>
+                        <label for="adresse" class="block text-sm font-medium text-gray-700 mb-2">Adresse<span class="text-red-500">*</span></label>
+                        <input type="text" name="adresse" id="adresse" x-model="selectedDepot.adresse" class="mt-1 p-2 border rounded-md w-full" required>
+                        @error('adresse')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="code_postal" class="block text-sm font-medium text-gray-700 mb-2">Code Postal<span class="text-red-500">*</span></label>
+                        <input type="number" name="code_postal" id="code_postal" x-model="selectedDepot.code_postal" class="mt-1 p-2 border rounded-md w-full" required>
+                        @error('code_postal')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="telephone" class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
+                        <input type="text" name="telephone" id="telephone" x-model="selectedDepot.telephone" class="mt-1 p-2 border rounded-md w-full">
+                        @error('telephone')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="mail" class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
+                        <input type="email" name="mail" id="mail" x-model="selectedDepot.mail" class="mt-1 p-2 border rounded-md w-full">
+                        @error('mail')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="siteWeb" class="block text-sm font-medium text-gray-700 mb-2">Site Web</label>
+                        <input type="text" name="siteWeb" id="siteWeb" x-model="selectedDepot.siteWeb" class="mt-1 p-2 border rounded-md w-full">
+                        @error('siteWeb')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="mail_referent" class="block text-sm font-medium text-gray-700 mb-2">Mail referent<span class="text-red-500">*</span></label>
+                        <input type="email" name="mail_referent" id="mail_referent" x-model="selectedDepot.mail_referent" class="mt-1 p-2 border rounded-md w-full" required>
+                        @error('mail_referent')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="telephone_referent" class="block text-sm font-medium text-gray-700 mb-2">Telephone referent<span class="text-red-500">*</span></label>
+                        <input type="text" name="telephone_referent" id="telephone_referent" x-model="selectedDepot.telephone_referent" class="mt-1 p-2 border rounded-md w-full" required>
+                        @error('telephone_referent')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="jour_livraison" class="block text-sm font-medium text-gray-700 mb-2">Jour de livraison<span class="text-red-500">*</span></label>
+                        <select name="jour_livraison" id="jour_livraison" x-model="selectedDepot.jour_livraison" class="mt-1 p-2 border rounded-md w-full" required>
+                            <option value="lundi">lundi</option>
+                            <option value="mardi">mardi</option>
+                            <option value="mercredi">mercredi</option>
+                            <option value="jeudi">jeudi</option>
+                            <option value="vendredi">vendredi</option>
+                        </select>
+                        @error('jour_livraison')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="heure_livraison" class="block text-sm font-medium text-gray-700 mb-2">Heure de livraison<span class="text-red-500">*</span></label>
+                        <input type="text" name="heure_livraison" id="heure_livraison" x-model="selectedDepot.heure_livraison" class="mt-1 p-2 border rounded-md w-full" required>
+                        <p class="text-gray-500 text-xs italic">Format: hh:mm:ss</p>
+                        @error('heure_livraison')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="heure_paniers" class="block text-sm font-medium text-gray-700 mb-2">Heure récupération panier<span class="text-red-500">*</span></label>
+                        <input type="text" name="heure_paniers" id="heure_paniers" x-model="selectedDepot.heure_paniers" class="mt-1 p-2 border rounded-md w-full" required>
+                        <p class="text-gray-500 text-xs italic">Format: hh:mm:ss</p>
+                        @error('heure_paniers')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="text_presentation" class="block text-sm font-medium text-gray-700 mb-2">Text de presentation</label>
+                        <input type="text" name="text_presentation" id="text_presentation" x-model="selectedDepot.text_presentation" class="mt-1 p-2 border rounded-md w-full">
+                        @error('text_presentation')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="commentaire" class="block text-sm font-medium text-gray-700 mb-2">Commentaire</label>
+                        <textarea rows="5" type="text" name="commentaire" id="commentaire" x-model="selectedDepot.commentaire" class="mt-1 p-2 border rounded-md w-full"></textarea>
+                        @error('commentaire')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                </div>
 
                 <!-- Depot details form -->
                 <div>
-                    <label for="datePicker" class="block text-sm font-medium text-gray-700 mb-2">Nouvelle Date</label>
-                    <input type="date" name="newDate" class="mt-1 p-2 border rounded-md w-full">
-                    <input type="hidden" name="Depot_id" x-model="selectedDepot.id">
+                    <input type="hidden" name="depot_id" x-model="selectedDepot.id">
                     <input type="hidden" name="structures_id" value="{{$structure->id}}">
                 </div>
             </div>
@@ -101,38 +223,162 @@
     </div>
 
 
+
     <!-- Add Depot Modal -->
-    <div x-show="showAddModal" class="fixed inset-0 z-10 overflow-y-auto flex items-center justify-center" x-cloak>
+    <div x-show="showAddModal" class="fixed inset-0 z-50  flex items-center justify-center" x-cloak>
+        <!-- Modal overlay -->
         <div class="fixed inset-0 transition-opacity" @click="closeAddModal" aria-hidden="true">
             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
 
-        <form action="{{ route("staffs.livraison.store") }}" method="POST" class="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:max-w-md sm:w-full">
+        <!-- Add Depot form -->
+        <form action="{{ route("staffs.depot.store") }}" method="POST" class="bg-white h-[600px] overflow-y-auto rounded-lg text-left shadow-xl transform transition-all sm:max-w-md sm:w-full">
             @csrf
             <div class="bg-white px-4 py-5 sm:p-6">
-                <!-- Depot details form -->
-                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Ajouter une Depot</h3>
+                <!-- Depot details go here -->
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Add a New Depot</h3>
 
-                <!-- Barre de séparation -->
-                <div class="border-t border-gray-200 mb-4"></div>
+                <!-- Display current Depot details -->
+                <div class="mb-4 grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="nom" class="block text-sm font-medium text-gray-700 mb-2">Nom<span class="text-red-500">*</span></label>
+                        <input type="text" name="nom" id="nom" class="mt-1 p-2 border rounded-md w-full" required>
+                        @error('nom')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="ville" class="block text-sm font-medium text-gray-700 mb-2">Ville<span class="text-red-500">*</span></label>
+                        <input type="text" name="ville" id="ville" class="mt-1 p-2 border rounded-md w-full" required>
+                        @error('ville')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="adresse" class="block text-sm font-medium text-gray-700 mb-2">Adresse<span class="text-red-500">*</span></label>
+                        <input type="text" name="adresse" id="adresse" class="mt-1 p-2 border rounded-md w-full" required>
+                        @error('adresse')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="code_postal" class="block text-sm font-medium text-gray-700 mb-2">Code Postal<span class="text-red-500">*</span></label>
+                        <input type="number" name="code_postal" id="code_postal" class="mt-1 p-2 border rounded-md w-full" required>
+                        @error('code_postal')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="telephone" class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
+                        <input type="text" name="telephone" id="telephone" class="mt-1 p-2 border rounded-md w-full">
+                        @error('telephone')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="mail" class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
+                        <input type="email" name="mail" id="mail" class="mt-1 p-2 border rounded-md w-full">
+                        @error('mail')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="siteWeb" class="block text-sm font-medium text-gray-700 mb-2">Site Web</label>
+                        <input type="text" name="siteWeb" id="siteWeb" class="mt-1 p-2 border rounded-md w-full">
+                        @error('siteWeb')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="mail_referent" class="block text-sm font-medium text-gray-700 mb-2">Mail referent<span class="text-red-500">*</span></label>
+                        <input type="email" name="mail_referent" id="mail_referent" class="mt-1 p-2 border rounded-md w-full" required>
+                        @error('mail_referent')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="telephone_referent" class="block text-sm font-medium text-gray-700 mb-2">Telephone referent<span class="text-red-500">*</span></label>
+                        <input type="text" name="telephone_referent" id="telephone_referent" class="mt-1 p-2 border rounded-md w-full" required>
+                        @error('telephone_referent')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="jour_livraison" class="block text-sm font-medium text-gray-700 mb-2">Jour de livraison<span class="text-red-500">*</span></label>
+                        <select name="jour_livraison" id="jour_livraison" class="mt-1 p-2 border rounded-md w-full" required>
+                            <option value="lundi">lundi</option>
+                            <option value="mardi">mardi</option>
+                            <option value="mercredi">mercredi</option>
+                            <option value="jeudi">jeudi</option>
+                            <option value="vendredi">vendredi</option>
+                        </select>
+                        @error('jour_livraison')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="heure_livraison" class="block text-sm font-medium text-gray-700 mb-2">Heure de livraison<span class="text-red-500">*</span></label>
+                        <input type="text" name="heure_livraison" id="heure_livraison" class="mt-1 p-2 border rounded-md w-full" required>
+                            <p class="text-gray-500 text-xs italic">Format: hh:mm:ss</p>
+                        @error('heure_livraison')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="heure_paniers" class="block text-sm font-medium text-gray-700 mb-2">Heure récupération panier<span class="text-red-500">*</span></label>
+                        <input type="text" name="heure_paniers" id="heure_paniers" class="mt-1 p-2 border rounded-md w-full" required>
+                            <p class="text-gray-500 text-xs italic">Format: hh:mm:ss</p>
+                        @error('heure_paniers')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="text_presentation" class="block text-sm font-medium text-gray-700 mb-2">Text de presentation</label>
+                        <input type="text" name="text_presentation" id="text_presentation" class="mt-1 p-2 border rounded-md w-full">
+                        @error('text_presentation')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="commentaire" class="block text-sm font-medium text-gray-700 mb-2">Commentaire</label>
+                        <textarea rows="5" type="text" name="commentaire" id="commentaire" class="mt-1 p-2 border rounded-md w-full"></textarea>
+                        @error('commentaire')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                </div>
 
                 <div>
-                    <label for="date" class="block text-sm font-medium text-gray-700 mb-2">Date</label>
-                    <input type="date" name="date" id="date" class="mt-1 p-2 border rounded-md w-full">
-                    <input type="hidden" name="structures_id" value="{{$structure->id}}">
+                    <input type="hidden" name="structures_id" value="{{ $structure->id }}">
                 </div>
             </div>
 
+            <!-- Save and Cancel buttons -->
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring focus:border-green-700 sm:ml-3 sm:w-auto sm:text-sm mr-4">
-                    Ajouter
+                    Save
                 </button>
                 <button @click="closeAddModal" type="reset" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring focus:border-blue-300 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                    Annuler
+                    Cancel
                 </button>
             </div>
         </form>
     </div>
+
 
     <!-- Delete Depot Modal -->
     <div x-show="showDeleteModal" class="fixed inset-0 z-10 overflow-y-auto flex items-center justify-center" x-cloak>
@@ -140,14 +386,14 @@
             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
 
-        <form action="{{route('staffs.livraison.delete')}}" method="POST" class="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:max-w-md sm:w-full">
+        <form action="{{route('staffs.depot.delete')}}" method="POST" class="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:max-w-md sm:w-full">
             @csrf
             <div class="bg-white px-4 py-5 sm:p-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Confirmation de suppression</h3>
                 <p class="text-sm text-gray-600">Voulez-vous vraiment supprimer cette Depot?</p>
             </div>
 
-            <input type="hidden" name="Depot_id" x-model="selectedDepot.id">
+            <input type="hidden" name="depot_id" x-model="selectedDepot.id">
             <input type="hidden" name="structures_id" value="{{$structure->id}}">
 
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

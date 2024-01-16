@@ -93,7 +93,9 @@ Route::middleware(StaffsMiddleware::class)->group(function () {
 
     Route::get('staffs/depots', [DepotController::class, 'depots'])->name('staffs.depots');
     Route::get('staffs/depots/{structures_id}', [DepotController::class, 'depot'])->name('staffs.depot');
-
+    Route::post('staffs/depots/edit', [DepotController::class, 'updateDepot'])->name('staffs.depot.update');
+    Route::post('staffs/depots/delete', [DepotController::class, 'deleteDepot'])->name('staffs.depot.delete');
+    Route::post('staffs/depots/store', [DepotController::class, 'storeDepot'])->name('staffs.depot.store');
 
 });
 

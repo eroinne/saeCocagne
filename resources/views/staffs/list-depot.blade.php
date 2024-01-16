@@ -43,7 +43,7 @@
                     <div class="flex items-center gap-x-4">
                         <div class="hidden sm:flex sm:flex-col sm:items-end">
                         <p class="mt-1 text-xs leading-5 text-gray-500">
-                            Voir les calendriers
+                            Voir les dépôts
                         </p>
                         </div>
                         <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
