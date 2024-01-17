@@ -102,6 +102,10 @@ Route::middleware(StaffsMiddleware::class)->group(function () {
     Route::get('staffs/tournees/{structures_id}', [TourneeController::class, 'tournee'])->name('staffs.tournee');
     Route::get('staffs/tournees/{structures_id}/edit/{tournee_id}', [TourneeController::class, 'editTournee'])->name('staffs.tournee.edit');
     Route::post('staffs/tournees/edit', [TourneeController::class, 'updateTournee'])->name('staffs.tournee.update');
+    Route::post('staffs/tournees/delete', [TourneeController::class, 'deleteTournee'])->name('staffs.tournee.delete');
+    Route::post('staffs/tournees/store', [TourneeController::class, 'storeTournee'])->name('staffs.tournee.store');
+    Route::post('staffs/tournees/depot/delete', [TourneeController::class, 'deleteDepotTournee'])->name('staffs.tournee.depot.delete');
+    Route::post('staffs/tournees/depot/store', [TourneeController::class, 'storeDepotTournee'])->name('staffs.tournee.depot.store');
 
 });
 

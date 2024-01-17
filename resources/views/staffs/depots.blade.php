@@ -83,7 +83,7 @@
             @csrf
             <div class="bg-white px-4 py-5 sm:p-6">
                 <!-- Depot details go here -->
-                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Modifier la Depot</h3>
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Modifier le Depot</h3>
 
                 <!-- Display current Depot details -->
                 <div class="mb-4 grid grid-cols-2 gap-4">
@@ -241,7 +241,7 @@
             @csrf
             <div class="bg-white px-4 py-5 sm:p-6">
                 <!-- Depot details go here -->
-                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Add a New Depot</h3>
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Ajouter un nouveau Depot</h3>
 
                 <!-- Display current Depot details -->
                 <div class="mb-4 grid grid-cols-2 gap-4">

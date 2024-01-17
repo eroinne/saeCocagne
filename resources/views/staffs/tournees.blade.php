@@ -95,87 +95,30 @@
         </div>
 
         <!-- Add tournee form -->
-        <form action="{{ route("staffs.depot.store") }}" method="POST" class="bg-white h-[600px] overflow-y-auto rounded-lg text-left shadow-xl transform transition-all sm:max-w-md sm:w-full">
+        <form action="{{ route("staffs.tournee.store") }}" method="POST" class="bg-white overflow-y-auto rounded-lg text-left shadow-xl transform transition-all sm:max-w-md sm:w-full">
             @csrf
             <div class="bg-white px-4 py-5 sm:p-6">
                 <!-- tournee details go here -->
-                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Add a New tournee</h3>
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Ajouter une nouvelle tournée</h3>
 
                 <!-- Display current tournee details -->
                 <div class="mb-4 grid grid-cols-2 gap-4">
                     <div>
-                        <label for="nom" class="block text-sm font-medium text-gray-700 mb-2">Nom<span class="text-red-500">*</span></label>
-                        <input type="text" name="nom" id="nom" class="mt-1 p-2 border rounded-md w-full" required>
-                        @error('nom')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div>
-                        <label for="ville" class="block text-sm font-medium text-gray-700 mb-2">Ville<span class="text-red-500">*</span></label>
-                        <input type="text" name="ville" id="ville" class="mt-1 p-2 border rounded-md w-full" required>
-                        @error('ville')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="adresse" class="block text-sm font-medium text-gray-700 mb-2">Adresse<span class="text-red-500">*</span></label>
-                        <input type="text" name="adresse" id="adresse" class="mt-1 p-2 border rounded-md w-full" required>
-                        @error('adresse')
+                        <label for="jour_preparation" class="block text-sm font-medium text-gray-700 mb-2">Jour de preparation<span class="text-red-500">*</span></label>
+                        <select name="jour_preparation" id="jour_preparation" class="mt-1 p-2 border rounded-md w-full" required>
+                            <option value="lundi">lundi</option>
+                            <option value="mardi">mardi</option>
+                            <option value="mercredi">mercredi</option>
+                            <option value="jeudi">jeudi</option>
+                            <option value="vendredi">vendredi</option>
+                        </select>
+                        @error('jour_preparation')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div>
-                        <label for="code_postal" class="block text-sm font-medium text-gray-700 mb-2">Code Postal<span class="text-red-500">*</span></label>
-                        <input type="number" name="code_postal" id="code_postal" class="mt-1 p-2 border rounded-md w-full" required>
-                        @error('code_postal')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="telephone" class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
-                        <input type="text" name="telephone" id="telephone" class="mt-1 p-2 border rounded-md w-full">
-                        @error('telephone')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="mail" class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
-                        <input type="email" name="mail" id="mail" class="mt-1 p-2 border rounded-md w-full">
-                        @error('mail')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="siteWeb" class="block text-sm font-medium text-gray-700 mb-2">Site Web</label>
-                        <input type="text" name="siteWeb" id="siteWeb" class="mt-1 p-2 border rounded-md w-full">
-                        @error('siteWeb')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="mail_referent" class="block text-sm font-medium text-gray-700 mb-2">Mail referent<span class="text-red-500">*</span></label>
-                        <input type="email" name="mail_referent" id="mail_referent" class="mt-1 p-2 border rounded-md w-full" required>
-                        @error('mail_referent')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="telephone_referent" class="block text-sm font-medium text-gray-700 mb-2">Telephone referent<span class="text-red-500">*</span></label>
-                        <input type="text" name="telephone_referent" id="telephone_referent" class="mt-1 p-2 border rounded-md w-full" required>
-                        @error('telephone_referent')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="jour_livraison" class="block text-sm font-medium text-gray-700 mb-2">Jour de livraison<span class="text-red-500">*</span></label>
+                        <label for="jour_livraison" class="block text-sm font-medium text-gray-700 mb-2">Jour de preparation<span class="text-red-500">*</span></label>
                         <select name="jour_livraison" id="jour_livraison" class="mt-1 p-2 border rounded-md w-full" required>
                             <option value="lundi">lundi</option>
                             <option value="mardi">mardi</option>
@@ -189,38 +132,37 @@
                     </div>
 
                     <div>
-                        <label for="heure_livraison" class="block text-sm font-medium text-gray-700 mb-2">Heure de livraison<span class="text-red-500">*</span></label>
-                        <input type="text" name="heure_livraison" id="heure_livraison" class="mt-1 p-2 border rounded-md w-full" required>
-                            <p class="text-gray-500 text-xs italic">Format: hh:mm:ss</p>
-                        @error('heure_livraison')
+                        <label for="couleur" class="block text-sm font-medium text-gray-700 mb-2">Couleur<span class="text-red-500">*</span></label>
+                        <select name="couleur" id="couleur" class="mt-1 p-2 border rounded-md w-full" required>
+                            <option value="red">Rouge</option>
+                            <option value="green">Bleu</option>
+                            <option value="green">Vert</option>
+                            <option value="yellow">Jaune</option>
+                            <option value="purple">Violet</option>
+                            <option value="orange">Orange</option>
+                            <option value="pink">Rose</option>
+                            <option value="brown">Marron</option>
+                            <option value="gray">Gris</option>
+                            <option value="black">Noir</option>
+                        </select>
+                        @error('couleur')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
+
                     </div>
 
                     <div>
-                        <label for="heure_paniers" class="block text-sm font-medium text-gray-700 mb-2">Heure récupération panier<span class="text-red-500">*</span></label>
-                        <input type="text" name="heure_paniers" id="heure_paniers" class="mt-1 p-2 border rounded-md w-full" required>
-                            <p class="text-gray-500 text-xs italic">Format: hh:mm:ss</p>
-                        @error('heure_paniers')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="col-span-2">
-                        <label for="text_presentation" class="block text-sm font-medium text-gray-700 mb-2">Text de presentation</label>
-                        <input type="text" name="text_presentation" id="text_presentation" class="mt-1 p-2 border rounded-md w-full">
-                        @error('text_presentation')
+                        <label for="depot" class="block text-sm font-medium text-gray-700 mb-2">Ajouter un dépôt<span class="text-red-500">*</span></label>
+                        <select id="depot" name="depot" class="mt-1 p-2 border rounded-md w-full" required>
+                            <option value="" disabled selected>Sélectionner un dépôt</option>
+                            @foreach($allDepots as $depot)
+                                <option value="{{ $depot->id }}">{{ $depot->nom }} - {{ $depot->adresse }}</option>
+                            @endforeach
+                        </select>
+                        @error('depot')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
 
-                    </div>
-
-                    <div class="col-span-2">
-                        <label for="commentaire" class="block text-sm font-medium text-gray-700 mb-2">Commentaire</label>
-                        <textarea rows="5" type="text" name="commentaire" id="commentaire" class="mt-1 p-2 border rounded-md w-full"></textarea>
-                        @error('commentaire')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
                     </div>
 
                 </div>
@@ -249,14 +191,14 @@
             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
 
-        <form action="{{route('staffs.depot.delete')}}" method="POST" class="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:max-w-md sm:w-full">
+        <form action="{{route('staffs.tournee.delete')}}" method="POST" class="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:max-w-md sm:w-full">
             @csrf
             <div class="bg-white px-4 py-5 sm:p-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Confirmation de suppression</h3>
                 <p class="text-sm text-gray-600">Voulez-vous vraiment supprimer cette tournee?</p>
             </div>
 
-            <input type="hidden" name="tournee_id" x-model="selectedtournee.id">
+            <input type="hidden" name="tournee_id" x-model="selectedTournee.id">
             <input type="hidden" name="structures_id" value="{{$structure->id}}">
 
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -280,10 +222,10 @@
             showEditModal: false,
             showAddModal: false,
             showDeleteModal: false,
-            selectedtournee: null,
+            selectedTournee: null,
             openEditModal(tournee) {
                 if (tournee) {
-                    this.selectedtournee = { ...tournee }; // Copy tournee object to avoid modifying the original data
+                    this.selectedTournee = { ...tournee }; // Copy tournee object to avoid modifying the original data
                     this.showEditModal = true;
                 }
             },
@@ -298,7 +240,7 @@
             },
             confirmDeletetournee(tournee) {
                 if (tournee) {
-                    this.selectedtournee = { ...tournee }; // Copy tournee object to avoid modifying the original data
+                    this.selectedTournee = { ...tournee }; // Copy tournee object to avoid modifying the original data
                     this.showDeleteModal = true;
                 }
             },

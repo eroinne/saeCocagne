@@ -99,7 +99,7 @@
 </div>
 
 <script>
-    document.getElementById('search').addEventListener('input', function() {
+    document.getElementById('search').AjouterEventListener('input', function() {
         var searchTerm = this.value.toLowerCase();
         var listItems = document.querySelectorAll('.li');
 
