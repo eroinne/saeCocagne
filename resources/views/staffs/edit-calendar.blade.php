@@ -6,6 +6,9 @@
 
 
     <div class="px-4 sm:px-6 lg:px-8">
+        <a href="{{route('staffs.calendar', ['structures_id' => $structure->id])}}">
+            <button type="button" class=" block mb-10 rounded-md bg-white-600 px-3 py-2 text-center text-sm font-semibold text-black border shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"><- Retour</button>
+        </a>
         <div class="sm:flex sm:items-center justify-between">
             <div class="sm:flex-auto">
                 <h1 class="text-base font-semibold leading-6 text-gray-900">Livraisons</h1>

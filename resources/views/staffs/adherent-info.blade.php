@@ -2,6 +2,10 @@
 
 @section('body')
 
+<a href="{{route('staffs.adherents')}}">
+    <button type="button" class=" block mb-10 rounded-md bg-white-600 px-3 py-2 text-center text-sm font-semibold text-black border shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"><- Retour</button>
+</a>
+
 <form action="{{ route('staffs.adherent.update', ['id' => $adherent->id]) }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="space-y-12">

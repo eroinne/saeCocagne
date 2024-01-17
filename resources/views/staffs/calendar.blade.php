@@ -7,8 +7,11 @@
 <div class="antialiased sans-serif">
 	<div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
 		<div class="container mx-auto px-4 py-2">
+            <a href="{{route('staffs.calendars')}}">
+                <button type="button" class=" block rounded-md bg-white-600 px-3 py-2 text-center text-sm font-semibold text-black border shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"><- Retour</button>
+            </a>
 
-            <div class="py-2 flex justify-between">
+            <div class="py-2 flex justify-end">
                 <a href="{{route('staffs.calendar.edit', ['structures_id' => $structure->id])}}">
                     <button class="py-1.5 px-2 bg-green-800 hover:bg-green-600 text-white rounded-lg">
                         Modifier
