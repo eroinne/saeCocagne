@@ -44,7 +44,16 @@
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         @php
                                             $idArray = explode(';', $tournee->point_depots);
-                                            $depots = App\Models\Depots::whereIn('id', $idArray)->get();
+                                            $depots = collect();
+
+                                            foreach ($idArray as $depotId) {
+                                                $depot = App\Models\Depots::find($depotId);
+
+                                                if ($depot) {
+                                                    $depots->push($depot);
+                                                }
+                                            }
+
                                             $i = 1;
                                         @endphp
                                         <ul>

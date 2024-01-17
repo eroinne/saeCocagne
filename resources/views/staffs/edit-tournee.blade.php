@@ -2,7 +2,7 @@
 
 @section('body')
 
-<div x-data="livraisonApp()">
+<div x-data="tourneeApp()">
 
 
     <div class="px-4 sm:px-6 lg:px-8">
@@ -18,7 +18,136 @@
         <div class="mt-8 flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                    <form action="{{ route("staffs.tournee.update") }}" method="POST" class="bg-white rounded-lg text-left transform transition-all">
+                        @csrf
+                        <div class="bg-white px-4 py-5 sm:p-6">
+                            <div class="mb-4 grid grid-cols-2 xl:grid-cols-4 gap-4">
+                                <div>
+                                    <label for="structure" class="block text-sm font-medium text-gray-700 mb-2">Structure<span class="text-red-500">*</span></label>
+                                    <input type="text" name="structure" id="structure" value="{{$structure->nom}}" class="mt-1 p-2 border rounded-md w-full" readonly>
+                                </div>
+                                <div>
+                                    <label for="jour_preparation" class="block text-sm font-medium text-gray-700 mb-2">Jour de preparation<span class="text-red-500">*</span></label>
+                                    <select name="jour_preparation" id="jour_preparation" class="mt-1 p-2 border rounded-md w-full" required>
+                                        <option value="lundi" {{ $tournee->jour_preparation === 'lundi' ? 'selected' : '' }}>lundi</option>
+                                        <option value="mardi" {{ $tournee->jour_preparation === 'mardi' ? 'selected' : '' }}>mardi</option>
+                                        <option value="mercredi" {{ $tournee->jour_preparation === 'mercredi' ? 'selected' : '' }}>mercredi</option>
+                                        <option value="jeudi" {{ $tournee->jour_preparation === 'jeudi' ? 'selected' : '' }}>jeudi</option>
+                                        <option value="vendredi" {{ $tournee->jour_preparation === 'vendredi' ? 'selected' : '' }}>vendredi</option>
+                                    </select>
+                                    @error('jour_preparation')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
 
+                                <div>
+                                    <label for="jour_livraison" class="block text-sm font-medium text-gray-700 mb-2">Jour de preparation<span class="text-red-500">*</span></label>
+                                    <select name="jour_livraison" id="jour_livraison" class="mt-1 p-2 border rounded-md w-full" required>
+                                        <option value="lundi" {{ $tournee->jour_livraison === 'lundi' ? 'selected' : '' }}>lundi</option>
+                                        <option value="mardi" {{ $tournee->jour_livraison === 'mardi' ? 'selected' : '' }}>mardi</option>
+                                        <option value="mercredi" {{ $tournee->jour_livraison === 'mercredi' ? 'selected' : '' }}>mercredi</option>
+                                        <option value="jeudi" {{ $tournee->jour_livraison === 'jeudi' ? 'selected' : '' }}>jeudi</option>
+                                        <option value="vendredi" {{ $tournee->jour_livraison === 'vendredi' ? 'selected' : '' }}>vendredi</option>
+                                    </select>
+                                    @error('jour_livraison')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="couleur" class="block text-sm font-medium text-gray-700 mb-2">Couleur<span class="text-red-500">*</span></label>
+                                    <select name="couleur" id="couleur" class="mt-1 p-2 border rounded-md w-full" required>
+                                        <option value="red" {{ $tournee->couleur === 'red' ? 'selected' : '' }}>Rouge</option>
+                                        <option value="blue" {{ $tournee->couleur === 'blue' ? 'selected' : '' }}>Bleu</option>
+                                        <option value="green" {{ $tournee->couleur === 'green' ? 'selected' : '' }}>Vert</option>
+                                        <option value="yellow" {{ $tournee->couleur === 'yellow' ? 'selected' : '' }}>Jaune</option>
+                                        <option value="purple" {{ $tournee->couleur === 'purple' ? 'selected' : '' }}>Violet</option>
+                                        <option value="orange" {{ $tournee->couleur === 'orange' ? 'selected' : '' }}>Orange</option>
+                                        <option value="pink" {{ $tournee->couleur === 'pink' ? 'selected' : '' }}>Rose</option>
+                                        <option value="brown" {{ $tournee->couleur === 'brown' ? 'selected' : '' }}>Marron</option>
+                                        <option value="gray" {{ $tournee->couleur === 'gray' ? 'selected' : '' }}>Gris</option>
+                                        <option value="black" {{ $tournee->couleur === 'black' ? 'selected' : '' }}>Noir</option>
+                                    </select>
+                                    @error('couleur')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+
+                                </div>
+
+                                <!-- Inclure la bibliothèque Sortable -->
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+                                <div class="col-start-1 col-span-2">
+                                    @php
+                                        $idArray = explode(';', $tournee->point_depots);
+                                        $depots = collect();
+
+                                        foreach ($idArray as $depotId) {
+                                            $depot = App\Models\Depots::find($depotId);
+
+                                            if ($depot) {
+                                                $depots->push($depot);
+                                            }
+                                        }
+
+                                        $i = 1;
+                                    @endphp
+
+                                    <div id="sortable-list" class="mt-4">
+                                        @foreach($depots as $depot)
+                                            <div data-id="{{ $depot->id }}" class="bg-gray-200 mb-2 flex">
+                                                <div class="handle mr-4 bg-gray-400 h-full p-3">☰</div>
+                                                <p class="p-3">
+                                                    {{ $depot->nom }} - {{ $depot->adresse }}
+                                                </p>
+                                                <div class="ml-auto flex items-center">
+                                                    <button type="button" @click="confirmDeleteDepot({{ $depot->id }})" class="text-red-600 hover:text-red-900 px-5">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    @error('point_depots')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+
+                                </div>
+                                <script>
+                                    var sortable = new Sortable(document.getElementById('sortable-list'), {
+                                        handle: '.handle',
+                                        onEnd: function (evt) {
+                                            updateDepotOrder();
+                                        },
+                                    });
+
+                                    function updateDepotOrder() {
+                                        // Get Depot in new order
+                                        var depotsOrder = sortable.toArray();
+
+                                        // Update hidden input
+                                        document.getElementById('point_depots').value = depotsOrder.join(';');
+                                    }
+                                </script>
+
+                            </div>
+
+                            <div>
+                                <input type="hidden" name="structures_id" value="{{$structure->id}}">
+                                <input type="hidden" name="tournee_id" value="{{$tournee->id}}">
+                                <input type="hidden" name="point_depots" id="point_depots">
+                            </div>
+                        </div>
+
+                        <div class=" px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring focus:border-green-700 sm:ml-3 sm:w-auto sm:text-sm mr-4">
+                                Sauvegarder
+                            </button>
+                            <button @click="closeEditModal" type="reset" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring focus:border-blue-300 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                Annuler
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -69,7 +198,7 @@
             @csrf
             <div class="bg-white px-4 py-5 sm:p-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Confirmation de suppression</h3>
-                <p class="text-sm text-gray-600">Voulez-vous vraiment supprimer cette tournee?</p>
+                <p class="text-sm text-gray-600">Voulez-vous vraiment supprimer ce dépot de cette tournée?</p>
             </div>
 
             <input type="hidden" name="tournee_id" x-model="selectedtournee.id">
@@ -91,30 +220,20 @@
 </div>
 
 <script>
-    function livraisonApp() {
+    function tourneeApp() {
         return {
-            showEditModal: false,
             showAddModal: false,
             showDeleteModal: false,
-            selectedLivraison: null,
-            openEditModal(livraison) {
-                if (livraison) {
-                    this.selectedLivraison = { ...livraison }; // Copy livraison object to avoid modifying the original data
-                    this.showEditModal = true;
-                }
-            },
-            closeEditModal() {
-                this.showEditModal = false;
-            },
+            selectedTournee: null,
             closeAddModal() {
                 this.showAddModal = false;
             },
             openAddModal() {
                 this.showAddModal = true;
             },
-            confirmDeleteLivraison(livraison) {
-                if (livraison) {
-                    this.selectedLivraison = { ...livraison }; // Copy livraison object to avoid modifying the original data
+            confirmDeleteDepot(tournee) {
+                if (tournee) {
+                    this.selectedTournee = { ...tournee }; // Copy tournee object to avoid modifying the original data
                     this.showDeleteModal = true;
                 }
             },

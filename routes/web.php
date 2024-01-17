@@ -101,6 +101,7 @@ Route::middleware(StaffsMiddleware::class)->group(function () {
     Route::get('staffs/tournees', [TourneeController::class, 'tournees'])->name('staffs.tournees');
     Route::get('staffs/tournees/{structures_id}', [TourneeController::class, 'tournee'])->name('staffs.tournee');
     Route::get('staffs/tournees/{structures_id}/edit/{tournee_id}', [TourneeController::class, 'editTournee'])->name('staffs.tournee.edit');
+    Route::post('staffs/tournees/edit', [TourneeController::class, 'updateTournee'])->name('staffs.tournee.update');
 
 });
 
