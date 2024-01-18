@@ -3,83 +3,150 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\TournerLivraison;
+use App\Models\Livraisons;
 use Illuminate\Http\Request;
 
 /**
  * @OA\Tag(
- *     name="Livraisons",
- *     description="API Endpoints of Delivery Controller"
+ *     name="Livraison",
+ *     description="API Endpoints for Delivery Controller"
  * )
  * Class DeliveryController
  * @package App\Http\Controllers\Api
  */
-
 class DeliveryController extends Controller
 {
     /**
-     * Add a delivery
+     * Add a new delivery
      *
      * @OA\Post(
-     *     path="/api/livraisons",
-     *     summary="Add a delivery",
-     *     tags={"Livraisons"},
-     *     description="Add a delivery",
-     *     operationId="addDelivery",
+     *     path="/api/livraison",
+     *     summary="Add a new delivery",
+     *     tags={"Livraison"},
+     *     description="Add a new delivery",
+     *     operationId="addNewDelivery",
      *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
-     *         description="Delivery details",
      *         @OA\JsonContent(
-     *             @OA\Property(property="id_structure", type="integer", description="ID of the structure", example=1),
-     *             @OA\Property(property="days_delivery", type="string", format="date", description="Delivery date", example="2024-01-15"),
-     *             @OA\Property(property="days_preparation", type="string", format="date", description="Preparation date", example="2024-01-14"),
-     *             @OA\Property(property="color", type="string", maxLength=255, description="Color of the delivery", example="Blue"),
-     *             @OA\Property(property="repositories", type="string", maxLength=500, description="Repositories information", example="Repository A, Repository B"),
+     *             required={"jour", "mois", "date", "numero_semaine", "calendrier_id"},
+     *             @OA\Property(property="jour", type="string"),
+     *             @OA\Property(property="mois", type="string"),
+     *             @OA\Property(property="date", type="string"),
+     *             @OA\Property(property="numero_semaine", type="integer"),
+     *             @OA\Property(property="calendrier_id", type="integer"),
      *         )
      *     ),
-     *     @OA\Response(response="200", description="Successful operation"),
-     *     @OA\Response(response="405", description="Invalid input"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @OA\Response(response=404, description="Operation failed")
      * )
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
-            'id_structure' => 'required|numeric',
-            'days_delivery' => 'required|date|after:dateline_start',
-            'days_preparation' => 'required|date|before:dateline_end',
-            'color' => 'required|string|max:255',
-            'repositories' => 'required|string|max:500',
-
+            'jour' => 'required|string',
+            'mois' => 'required|string',
+            'date' => 'required|string',
+            'numero_semaine' => 'required|integer',
+            'calendrier_id' => 'required|integer',
         ]);
 
-        $delivery = new TournerLivraison();
-        $delivery->id_structure = $request->id_structure;
-        $delivery->date_livraison = $request->days_delivery;
-        $delivery->date_preparation = $request->days_preparation;
-        $delivery->couleur = $request->color;
-        $delivery->point_depots = $request->repositories;
+        $delivery = new Livraisons();
+        $delivery->jour = $request->jour;
+        $delivery->mois = $request->mois;
+        $delivery->date = $request->date;
+        $delivery->numero_semaine = $request->numero_semaine;
+        $delivery->calendrier_id = $request->calendrier_id;
         $result = $delivery->save();
 
-        //TODO change wen view is complete
-        if($result){
-            return response()->json(['message' => 'Delivery added successfully'], 200);
-        }else{
-            return response()->json(['message' => 'Error adding delivery'], 500);
+        if ($result) {
+            return response()->json(["Result" => "La livraison a bien été ajoutée"], 200);
+        } else {
+            return response()->json(["Result" => "Operation failed"], 404);
         }
     }
 
+    // Other methods for update, delete, index, show deliveries...
+
+    // Example for index method:
+    /**
+     * Get all deliveries
+     *
+     * @OA\Get(
+     *     path="/api/livraison",
+     *     summary="Get all deliveries",
+     *     tags={"Livraison"},
+     *     description="Get a list of all deliveries",
+     *     operationId="getAllDeliveries",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     )
+     * )
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
+    {
+        return response()->json(Livraisons::all(), 200);
+    }
+
+    // Example for show method:
+    /**
+     * Get a delivery
+     *
+     * @OA\Get(
+     *     path="/api/livraison/{id}",
+     *     summary="Get a delivery",
+     *     tags={"Livraison"},
+     *     description="Get a delivery by ID",
+     *     operationId="getDeliveryById",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the delivery to show",
+     *         required=true,
+     *         @OA\Schema(type="integer", format="int64")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Delivery not found",
+     *     )
+     * )
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+public function show($id)
+    {
+        $delivery = Livraisons::find($id);
+        if ($delivery) {
+            return response()->json($delivery, 200);
+        } else {
+            return response()->json(['message' => 'Delivery not found'], 404);
+        }
+    }
+
+    // Example for update method:
     /**
      * Update a delivery
      *
      * @OA\Put(
-     *     path="/api/livraisons/{id}",
+     *     path="/api/livraison/{id}",
      *     summary="Update a delivery",
-     *     tags={"Livraisons"},
+     *     tags={"Livraison"},
      *     description="Update a delivery by ID",
-     *     operationId="updateDelivery",
+     *     operationId="updateDeliveryById",
      *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
@@ -90,59 +157,61 @@ class DeliveryController extends Controller
      *     ),
      *     @OA\RequestBody(
      *         required=true,
-     *         description="Delivery details",
      *         @OA\JsonContent(
-     *             @OA\Property(property="id_structure", type="integer", description="ID of the structure", example=1),
-     *             @OA\Property(property="days_delivery", type="string", format="date", description="Delivery date", example="2024-01-15"),
-     *             @OA\Property(property="days_preparation", type="string", format="date", description="Preparation date", example="2024-01-14"),
-     *             @OA\Property(property="color", type="string", maxLength=255, description="Color of the delivery", example="Blue"),
-     *             @OA\Property(property="repositories", type="string", maxLength=500, description="Repositories information", example="Repository A, Repository B"),
+     *             required={"jour", "mois", "date", "numero_semaine", "calendrier_id"},
+     *             @OA\Property(property="jour", type="string"),
+     *             @OA\Property(property="mois", type="string"),
+     *             @OA\Property(property="date", type="string"),
+     *             @OA\Property(property="numero_semaine", type="integer"),
+     *             @OA\Property(property="calendrier_id", type="integer"),
      *         )
      *     ),
-     *     @OA\Response(response="200", description="Successful operation"),
-     *     @OA\Response(response="404", description="Delivery not found"),
-     *     @OA\Response(response="405", description="Invalid input"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @OA\Response(response=404, description="Delivery not found")
      * )
      *
      * @param Request $request
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id){
+public function update(Request $request, $id)
+    {
         $request->validate([
-            'id_structure' => 'required|numeric',
-            'days_delivery' => 'required|date|after:dateline_start',
-            'days_preparation' => 'required|date|before:dateline_end',
-            'color' => 'required|string|max:255',
-            'repositories' => 'required|string|max:500',
-
+            'jour' => 'required|string',
+            'mois' => 'required|string',
+            'date' => 'required|string',
+            'numero_semaine' => 'required|integer',
+            'calendrier_id' => 'required|integer',
         ]);
 
-        $delivery = TournerLivraison::find($id);
-        $delivery->id_structure = $request->id_structure;
-        $delivery->date_livraison = $request->days_delivery;
-        $delivery->date_preparation = $request->days_preparation;
-        $delivery->couleur = $request->color;
-        $delivery->point_depots = $request->repositories;
+        $delivery = Livraisons::find($id);
+        $delivery->jour = $request->jour;
+        $delivery->mois = $request->mois;
+        $delivery->date = $request->date;
+        $delivery->numero_semaine = $request->numero_semaine;
+        $delivery->calendrier_id = $request->calendrier_id;
         $result = $delivery->save();
 
-        //TODO change wen view is complete
-        if($result){
-            return response()->json(['message' => 'Delivery updated successfully'], 200);
-        }else{
-            return response()->json(['message' => 'Delivery not found'], 404);
+        if ($result) {
+            return response()->json(["Result" => "La livraison a bien été modifiée"], 200);
+        } else {
+            return response()->json(["Result" => "Operation failed"], 404);
         }
     }
 
+    // Example for delete method:
     /**
      * Delete a delivery
      *
      * @OA\Delete(
-     *     path="/api/livraisons/{id}",
+     *     path="/api/livraison/{id}",
      *     summary="Delete a delivery",
-     *     tags={"Livraisons"},
+     *     tags={"Livraison"},
      *     description="Delete a delivery by ID",
-     *     operationId="deleteDelivery",
+     *     operationId="deleteDeliveryById",
      *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
@@ -151,88 +220,28 @@ class DeliveryController extends Controller
      *         required=true,
      *         @OA\Schema(type="integer", format="int64")
      *     ),
-     *     @OA\Response(response="200", description="Delivery deleted successfully"),
+     *     @OA\Response(response="200", description="Successful operation"),
      *     @OA\Response(response="404", description="Delivery not found"),
      * )
      *
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function delete($id){
-        $delivery = TournerLivraison::find($id);
-        $id_delivery = $delivery->id;
+    public function delete($id)
+    {
+        $delivery = Livraisons::find($id);
+
+        if (!$delivery) {
+            return response()->json(['message' => 'Delivery not found'], 404);
+        }
+
         $result = $delivery->delete();
+
         if ($result) {
-            return response()->json(['message' => 'Delivery deleted successfully'], 200);
+            return response()->json(["Result" => "La livraison a bien été supprimée"], 200);
         } else {
-            return response()->json(['message' => 'Delivery not found'], 404);
+            return response()->json(["Result" => "Operation failed"], 404);
         }
     }
-
-    /**
-     * Show a delivery
-     *
-     * @OA\Get(
-     *     path="/api/livraisons/{id}",
-     *     summary="Show a delivery",
-     *     tags={"Livraisons"},
-     *     description="Get a delivery by ID",
-     *     operationId="showDelivery",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         description="ID of the delivery to show",
-     *         required=true,
-     *         @OA\Schema(type="integer", format="int64")
-     *     ),
-     *     @OA\Response(
-     *         response="200",
-     *         description="Successful operation"
-     *     ),
-     *     @OA\Response(response="404", description="Delivery not found"),
-     * )
-     *
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show($id)
-    {
-        $delivery = TournerLivraison::find($id);
-        if ($delivery) {
-            return response()->json($delivery, 200);
-        } else {
-            return response()->json(['message' => 'Delivery not found'], 404);
-        }
-    }
-
-    /**
-     * Show all deliveries
-     *
-     * @OA\Get(
-     *     path="/api/livraisons",
-     *     summary="Show all deliveries",
-     *     tags={"Livraisons"},
-     *     description="Get a list of all deliveries",
-     *     operationId="indexDeliveries",
-     *     @OA\Response(
-     *         response="200",
-     *         description="Successful operation"
-     *     ),
-     * )
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index()
-    {
-        $delivery = TournerLivraison::all();
-       if ($delivery) {
-            return response()->json($delivery, 200);
-        } else {
-            return response()->json(['message' => 'Delivery not found'], 404);
-        }
-    }
-
-
-
-
 }
+

@@ -75,12 +75,20 @@ Route::middleware(StaffsMiddleware::class)->group(function () {
     Route::get('staffs/compte', [StaffsController::class, 'account'])->name('staffs.account');
     Route::post('staffs/compte', [StaffsController::class, 'update'])->name('staffs.update');
 
-    Route::get('staffs/panel/adherents', [StaffsController::class, 'adherents'])->name('staffs.adherents');
-    Route::get('staffs/panel/adherents/{id}', [StaffsController::class, 'adherent'])->name('staffs.adherent');
-    Route::post('staffs/panel/adherents/{id}/edit', [StaffsController::class, 'updateAdherent'])->name('staffs.adherent.update');
+    Route::get('staffs/adherents', [StaffsController::class, 'adherents'])->name('staffs.adherents');
+    Route::get('staffs/adherents/{id}', [StaffsController::class, 'adherent'])->name('staffs.adherent');
+    Route::post('staffs/adherents/{id}/edit', [StaffsController::class, 'updateAdherent'])->name('staffs.adherent.update');
 
-    Route::delete('staffs/panel/adherents/{id}/delete', [StaffsController::class, 'deleteAdherent'])->name('staffs.adherent.delete');
-    Route::post('staffs/panel/adherents/{id}/delete/photo', [StaffsController::class, 'deletePhotoAdherent'])->name('staffs.adherent.delete.photo');
+    Route::delete('staffs/adherents/{id}/delete', [StaffsController::class, 'deleteAdherent'])->name('staffs.adherent.delete');
+    Route::post('staffs/adherents/{id}/delete/photo', [StaffsController::class, 'deletePhotoAdherent'])->name('staffs.adherent.delete.photo');
+
+    Route::get('staffs/calendriers', [StaffsController::class, 'calendars'])->name('staffs.calendars');
+    Route::get('staffs/calendriers/{structures_id}', [CalendarController::class, 'calendar'])->name('staffs.calendar');
+    Route::get('staffs/calendrier/{structures_id}/edit', [CalendarController::class, 'editCalendar'])->name('staffs.calendar.edit');
+    Route::post('staffs/calendrier/livraison/edit', [CalendarController::class, 'updateLivraison'])->name('staffs.livraison.update');
+    Route::post('staffs/calendrier/livraison/delete', [CalendarController::class, 'deleteLivraison'])->name('staffs.livraison.delete');
+    Route::post('staffs/calendrier/livraison/store', [CalendarController::class, 'storeLivraison'])->name('staffs.livraison.store');
+
 
 });
 

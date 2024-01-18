@@ -1,10 +1,30 @@
-@extends('layouts.app-adherent')
+@extends('layouts.app-staffs')
 
 @section('body')
+
+
 
 <div class="antialiased sans-serif">
 	<div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
 		<div class="container mx-auto px-4 py-2">
+
+            <div class="py-2 flex justify-between">
+                <a href="{{route('staffs.calendar.edit', ['structures_id' => $structure->id])}}">
+                    <button class="py-1.5 px-2 bg-green-800 hover:bg-green-600 text-white rounded-lg">
+                        Modifier
+                    </button>
+                </a>
+
+                <a href="">
+                    <button class="py-1.5 px-2 bg-green-800 hover:bg-green-600 text-white rounded-lg">
+                        Générer un calendrier
+                    </button>
+                </a>
+            </div>
+
+			<!-- <div class="font-bold text-gray-800 text-xl mb-4">
+				Schedule Tasks
+			</div> -->
 
 			<div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
 
@@ -152,7 +172,9 @@
         const MONTH_NAMES = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
         const DAYS = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
 
-        const livraisons = @json($livraisons);
+        const livraisonsData = @json($livraisons);
+
+        const livraisons = [].concat(...livraisonsData);
 
         const feries = @json($feries);
 
@@ -247,7 +269,7 @@
                         case 'vendredi':
                             return 'bg-green-600';
                         default:
-                            return 'gray';
+                            return 'bg-blue-600';
                     }
                 },
 
@@ -338,5 +360,8 @@
         }
     </script>
   </div>
+
+
+
 
 @endsection

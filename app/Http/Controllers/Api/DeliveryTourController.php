@@ -29,7 +29,7 @@ class DeliveryTourController extends Controller
      *         @OA\JsonContent(
      *             required={"structures_id", "jour_preparation", "jour_livraison", "couleur", "point_depots"},
      *             @OA\Property(property="structures_id", type="numeric"),
-     *             @OA\Property(property="jour_preparation", type="string),
+     *             @OA\Property(property="jour_preparation", type="string"),
      *             @OA\Property(property="jour_livraison", type="string"),
      *             @OA\Property(property="couleur", type="string"),
      *             @OA\Property(property="point_depots", type="string"),
@@ -38,7 +38,6 @@ class DeliveryTourController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *
      *     ),
      *     @OA\Response(response=404, description="Operation failed")
      * )
@@ -116,7 +115,7 @@ class DeliveryTourController extends Controller
         $request->validate([
             'structures_id' => 'required|numeric',
             'jour_preparation' => 'required|string',
-            'jour_livraison' => 'required|string',
+            'jour_livraison' => 'required|String',
             'couleur' => 'required|string',
             'point_depots' => 'required|string',
         ]);
