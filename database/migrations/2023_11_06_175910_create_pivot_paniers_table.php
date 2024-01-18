@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('adherents', function (Blueprint $table) {
+        Schema::create('pivot_paniers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->unsignedBigInteger('paniers_id');
+            $table->unsignedBigInteger('produits_id');
+            $table->foreign('paniers_id')->references('id')->on('paniers')->cascadeOnDelete();
+            $table->foreign('produits_id')->references('id')->on('produits')->cascadeOnDelete();
             $table->timestamps();
+
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('adherents');
+        Schema::dropIfExists('pivot_paniers');
     }
 };
