@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Staffs extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, hasApiTokens;
 
     protected $guarded = [];
 
