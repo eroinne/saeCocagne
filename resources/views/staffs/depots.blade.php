@@ -112,7 +112,7 @@
 
                     <div>
                         <label for="code_postal" class="block text-sm font-medium text-gray-700 mb-2">Code Postal<span class="text-red-500">*</span></label>
-                        <input type="number" name="code_postal" id="code_postal" x-model="selectedDepot.code_postal" class="mt-1 p-2 border rounded-md w-full" required>
+                        <input type="text" name="code_postal" id="code_postal" x-model="selectedDepot.code_postal" class="mt-1 p-2 border rounded-md w-full" required>
                         @error('code_postal')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
@@ -270,7 +270,7 @@
 
                     <div>
                         <label for="code_postal" class="block text-sm font-medium text-gray-700 mb-2">Code Postal<span class="text-red-500">*</span></label>
-                        <input type="number" name="code_postal" id="code_postal" class="mt-1 p-2 border rounded-md w-full" required>
+                        <input type="text" name="code_postal" id="code_postal" class="mt-1 p-2 border rounded-md w-full" required>
                         @error('code_postal')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror

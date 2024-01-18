@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('siteWeb', 255)->nullable();
             $table->string('mail_referent', 255);
             $table->string('telephone_referent', 255);
-            $table->date('jour_livraison');
+            $table->string('jour_livraison');
             $table->time('heure_livraison');
             $table->time('heure_paniers');
             $table->string('text_presentation', 255)->nullable();

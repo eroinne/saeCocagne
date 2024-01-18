@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('calendriers', function (Blueprint $table) {
             $table->dropColumn('jours_livraison');
-            $table->integer('annee')->after('id_structure');
+            $table->integer('annee')->after('structures_id');
         });
     }
 

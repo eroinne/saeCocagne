@@ -55,12 +55,13 @@ class Calendriers extends Model
         if (isset($calendrier)) {
             return 0;
         }else{
+
             $calendrier = Calendriers::create([
                 'structures_id' => $structure_id,
-                'annee' => $year,
+                'annee' => (int) $year,
             ]);
-        }
 
+        }
         // Get the start date for the year
         $startDate = Carbon::create($year, 1, 1);
 

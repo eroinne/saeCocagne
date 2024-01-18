@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('depot', function (Blueprint $table) {
-            $table->dropColumn('jour_livraison');
-            $table->string('jour_livraison')->after('telephone_referent');
+            // $table->dropColumn('jour_livraison');
+            // $table->string('jour_livraison')->after('telephone_referent');
         });
     }
 

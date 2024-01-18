@@ -128,13 +128,6 @@ class CalendarController extends Controller
                 return back()->with('error', 'Livraison non trouvée');
             }
 
-            // Check if the structure->id is the same than livraison->structure_id
-            if($structure->id != $livraison->calendrier->structure->id){
-                // If not the same
-                return back()->with('error', 'Vous n\'avez pas les droits pour modifier cette livraison');
-            }
-
-
 
             if(!$request->input('newDate')){
                 // If nothing found
@@ -146,6 +139,8 @@ class CalendarController extends Controller
 
             // Get the calendrier of the year for the structure
             $calendrier = Calendriers::where('structures_id', $structure->id)->where('annee', date('Y', strtotime($request->input('newDate'))))->first();
+
+
 
             if(!$calendrier){
                 // If nothing found
@@ -313,12 +308,6 @@ class CalendarController extends Controller
             if (!$livraison) {
                 // If nothing found
                 return back()->with('error', 'Livraison non trouvée');
-            }
-
-            // Check if the structure->id is the same than livraison->structure_id
-            if($structure->id != $livraison->calendrier->structure->id){
-                // If not the same
-                return back()->with('error', 'Vous n\'avez pas les droits pour modifier cette livraison');
             }
 
             // Delete the livraison

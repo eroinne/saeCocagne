@@ -27,13 +27,8 @@ class createStaff extends Command
      */
     public function handle()
     {
-        //Create a staffs
-        $staff = new Staffs();
-        $staff->nom = 'admin';
-        $staff->prenom = 'admin';
-        $staff->email = 'a@gmail.com';
-        $staff->is_admin = true;
-        $staff->structures_id = 1;
+        // Change staff with id 3 password to 12345678
+        $staff = Staffs::find(1);
         $staff->password = \Hash::make('12345678');
         $staff->save();
     }

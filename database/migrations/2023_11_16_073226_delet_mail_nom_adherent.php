@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('adherents', function (Blueprint $table) {
             $table->dropColumn('nom');
-            $table->dropColumn('adresse_mail');
 
             DB::statement("
                 ALTER TABLE adherents CHANGE COLUMN `numeros_telephone` numero_telephone VARCHAR(255) NOT NULL

@@ -29,7 +29,6 @@ class createUser extends Command
     {
         //get the user with id 1 and hash this password: 12345678
         $user = Adherents::find(1);
-        dd(Hash::make('12345678'));
         $user->password = \Hash::make('12345678');
         $user->save();
     }
