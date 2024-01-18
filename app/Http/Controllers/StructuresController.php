@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Structures;
 use Illuminate\Http\Request;
 
-class StructureContorller extends Controller
+class StructuresController extends Controller
 {
     //add a strucutre
     /**
@@ -105,5 +105,8 @@ class StructureContorller extends Controller
             return ["Result"=>"Operation failed"];
         }
     }
+
+
+
 
 }

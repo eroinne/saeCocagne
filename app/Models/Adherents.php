@@ -85,10 +85,12 @@ class Adherents extends Authenticatable
         return $this->belongsTo(Structures::class);
     }
 
-
-
-
-
-
-
+    // has one panier utilisateur
+    /**
+     * Get the adherent's panier utilisateur.
+     */
+    public function panierUtilisateur()
+    {
+        return $this->hasOne(PanierUtilisateur::class);
+    }
 }

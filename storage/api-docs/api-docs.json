@@ -1,0 +1,2800 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Documentation jardin de cocagne",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/adherents/update": {
+            "post": {
+                "tags": [
+                    "Adherents"
+                ],
+                "summary": "Update user's profile",
+                "description": "Updates the user's profile information",
+                "operationId": "updateProfile",
+                "requestBody": {
+                    "description": "User's profile data for update",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "prenom": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "raison_sociale": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "civilite": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "enum": [
+                                            "mme",
+                                            "mr"
+                                        ]
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "maxLength": 255
+                                    },
+                                    "ville": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "adresse": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "code_postal": {
+                                        "type": "numeric"
+                                    },
+                                    "numero_telephone": {
+                                        "type": "numeric",
+                                        "pattern": "/^0[1-9]\\d{8}$/"
+                                    },
+                                    "numero_telephone2": {
+                                        "type": "numeric",
+                                        "pattern": "/^0[1-9]\\d{8}$/",
+                                        "nullable": true
+                                    },
+                                    "numero_telephone3": {
+                                        "type": "numeric",
+                                        "pattern": "/^0[1-9]\\d{8}$/",
+                                        "nullable": true
+                                    },
+                                    "profession": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "nullable": true
+                                    },
+                                    "date_naissance": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    },
+                                    "photo": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "maxLength": 2048,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Profile updated successfully"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Error updating profile"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/adherents/store": {
+            "put": {
+                "tags": [
+                    "Adherents"
+                ],
+                "summary": "Store a new adherent",
+                "description": "Stores a new adherent with the provided data",
+                "operationId": "storeAdherent",
+                "requestBody": {
+                    "description": "Adherent data for storage",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "prenom": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "raison_sociale": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "civilite": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "maxLength": 255
+                                    },
+                                    "ville": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "adresse": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "code_postal": {
+                                        "type": "numeric"
+                                    },
+                                    "numero_telephone": {
+                                        "type": "numeric",
+                                        "pattern": "/^0[1-9]\\d{8}$/"
+                                    },
+                                    "numero_telephone2": {
+                                        "type": "numeric",
+                                        "pattern": "/^0[1-9]\\d{8}$/",
+                                        "nullable": true
+                                    },
+                                    "numero_telephone3": {
+                                        "type": "numeric",
+                                        "pattern": "/^0[1-9]\\d{8}$/",
+                                        "nullable": true
+                                    },
+                                    "profession": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "nullable": true
+                                    },
+                                    "date_naissance": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    },
+                                    "photo": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "maxLength": 2048,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Adherent stored successfully"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Error storing adherent"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/adherents": {
+            "get": {
+                "tags": [
+                    "Adherents"
+                ],
+                "summary": "Get a list of adherents",
+                "description": "Returns a list of all adherents",
+                "operationId": "getAdherents",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/adherents/{id}": {
+            "get": {
+                "tags": [
+                    "Adherents"
+                ],
+                "summary": "Get details of a specific adherent",
+                "description": "Returns details of a specific adherent by ID",
+                "operationId": "getAdherentById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the adherent to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Adherent not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Adherents"
+                ],
+                "summary": "Delete a specific adherent",
+                "description": "Deletes a specific adherent by ID",
+                "operationId": "deleteAdherent",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the adherent to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Adherent deleted successfully"
+                    },
+                    "404": {
+                        "description": "Adherent not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/calendrier": {
+            "get": {
+                "tags": [
+                    "Calendriers"
+                ],
+                "summary": "Get all calendars",
+                "description": "Get all calendars",
+                "operationId": "getAllCalendars",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "No calendars found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Calendriers"
+                ],
+                "summary": "Add a new calendar",
+                "description": "Add a new calendar for a structure",
+                "operationId": "addNewCalendar",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "structures_id",
+                                    "annee",
+                                    "semaines_non_livrable",
+                                    "tournee_id"
+                                ],
+                                "properties": {
+                                    "structures_id": {
+                                        "type": "numeric"
+                                    },
+                                    "annee": {
+                                        "type": "numeric"
+                                    },
+                                    "semaines_non_livrable": {
+                                        "type": "string"
+                                    },
+                                    "tournee_id": {
+                                        "type": "numeric"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/calendrier/{id}": {
+            "get": {
+                "tags": [
+                    "Calendriers"
+                ],
+                "summary": "Get a calendar",
+                "description": "Get a calendar by ID",
+                "operationId": "getCalendarById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the calendar to return",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Calendar not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Calendriers"
+                ],
+                "summary": "Update a calendar",
+                "description": "Update details of a calendar by ID",
+                "operationId": "updateCalendar",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the calendar to update",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "structures_id",
+                                    "annee",
+                                    "semaines_non_livrable",
+                                    "tournee_id"
+                                ],
+                                "properties": {
+                                    "structures_id": {
+                                        "type": "numeric"
+                                    },
+                                    "annee": {
+                                        "type": "numeric"
+                                    },
+                                    "semaines_non_livrable": {
+                                        "type": "string"
+                                    },
+                                    "tournee_id": {
+                                        "type": "numeric"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Calendriers"
+                ],
+                "summary": "Delete a calendar",
+                "description": "Delete a calendar by ID",
+                "operationId": "deleteCalendar",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the calendar to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/panier": {
+            "get": {
+                "tags": [
+                    "Panier"
+                ],
+                "summary": "Get all shopping carts",
+                "description": "Get a list of all shopping carts",
+                "operationId": "getAllCarts",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Panier"
+                ],
+                "summary": "Add an item to the shopping cart",
+                "description": "Add an item to the shopping cart",
+                "operationId": "addItemToCart",
+                "requestBody": {
+                    "description": "Item details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_structure": {
+                                        "description": "ID of the structure",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "name": {
+                                        "description": "Name of the item",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Item A"
+                                    },
+                                    "type": {
+                                        "description": "Type of the item",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Type A"
+                                    },
+                                    "abonnements": {
+                                        "description": "Abonnements information",
+                                        "type": "string",
+                                        "example": "Abonnement A, Abonnement B"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/panier/{id}": {
+            "get": {
+                "tags": [
+                    "Panier"
+                ],
+                "summary": "Show a shopping cart",
+                "description": "Show details of a shopping cart by ID",
+                "operationId": "showCartById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the shopping cart to show",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Shopping cart not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Panier"
+                ],
+                "summary": "Update a shopping cart item",
+                "description": "Update a shopping cart item by ID",
+                "operationId": "updateCartItem",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the shopping cart item to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Item details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_structure": {
+                                        "description": "ID of the structure",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "name": {
+                                        "description": "Name of the item",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Item A"
+                                    },
+                                    "type": {
+                                        "description": "Type of the item",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Type A"
+                                    },
+                                    "abonnements": {
+                                        "description": "Abonnements information",
+                                        "type": "string",
+                                        "example": "Abonnement A, Abonnement B"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Shopping cart item not found"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Panier"
+                ],
+                "summary": "Delete a shopping cart item",
+                "description": "Delete a shopping cart item by ID",
+                "operationId": "deleteCartItem",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the shopping cart item to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Shopping cart item deleted successfully"
+                    },
+                    "404": {
+                        "description": "Shopping cart item not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/commande": {
+            "get": {
+                "tags": [
+                    "Commandes"
+                ],
+                "summary": "Get all orders",
+                "description": "Get all orders",
+                "operationId": "getAllOrders",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Commandes"
+                ],
+                "summary": "Add a new order",
+                "description": "Add a new order for a structure",
+                "operationId": "addNewOrder",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "structure_id",
+                                    "adherents_id",
+                                    "tournee_id",
+                                    "abonnements_id",
+                                    "produits_id",
+                                    "date_commande",
+                                    "date_preparation"
+                                ],
+                                "properties": {
+                                    "structure_id": {
+                                        "type": "numeric"
+                                    },
+                                    "adherents_id": {
+                                        "type": "numeric"
+                                    },
+                                    "tournee_id": {
+                                        "type": "numeric"
+                                    },
+                                    "abonnements_id": {
+                                        "type": "numeric"
+                                    },
+                                    "produits_id": {
+                                        "type": "numeric"
+                                    },
+                                    "date_commande": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "date_preparation": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/commande/{id}": {
+            "get": {
+                "tags": [
+                    "Commandes"
+                ],
+                "summary": "Get an order",
+                "description": "Get an order by ID",
+                "operationId": "getOrderById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the order to return",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Commandes"
+                ],
+                "summary": "Update an order",
+                "description": "Update details of an order by ID",
+                "operationId": "updateOrder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the order to update",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "structure_id",
+                                    "adherents_id",
+                                    "tournee_id",
+                                    "abonnements_id",
+                                    "produits_id",
+                                    "date_commande",
+                                    "date_preparation"
+                                ],
+                                "properties": {
+                                    "structure_id": {
+                                        "type": "numeric"
+                                    },
+                                    "adherents_id": {
+                                        "type": "numeric"
+                                    },
+                                    "tournee_id": {
+                                        "type": "numeric"
+                                    },
+                                    "abonnements_id": {
+                                        "type": "numeric"
+                                    },
+                                    "produits_id": {
+                                        "type": "numeric"
+                                    },
+                                    "date_commande": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "date_preparation": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Commandes"
+                ],
+                "summary": "Delete an order",
+                "description": "Delete an order by ID",
+                "operationId": "deleteOrder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the order to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/livraisons": {
+            "get": {
+                "tags": [
+                    "Livraisons"
+                ],
+                "summary": "Show all deliveries",
+                "description": "Get a list of all deliveries",
+                "operationId": "indexDeliveries",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Livraisons"
+                ],
+                "summary": "Add a delivery",
+                "description": "Add a delivery",
+                "operationId": "addDelivery",
+                "requestBody": {
+                    "description": "Delivery details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_structure": {
+                                        "description": "ID of the structure",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "days_delivery": {
+                                        "description": "Delivery date",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-01-15"
+                                    },
+                                    "days_preparation": {
+                                        "description": "Preparation date",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-01-14"
+                                    },
+                                    "color": {
+                                        "description": "Color of the delivery",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Blue"
+                                    },
+                                    "repositories": {
+                                        "description": "Repositories information",
+                                        "type": "string",
+                                        "maxLength": 500,
+                                        "example": "Repository A, Repository B"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/livraisons/{id}": {
+            "get": {
+                "tags": [
+                    "Livraisons"
+                ],
+                "summary": "Show a delivery",
+                "description": "Get a delivery by ID",
+                "operationId": "showDelivery",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the delivery to show",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Delivery not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Livraisons"
+                ],
+                "summary": "Update a delivery",
+                "description": "Update a delivery by ID",
+                "operationId": "updateDelivery",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the delivery to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Delivery details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_structure": {
+                                        "description": "ID of the structure",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "days_delivery": {
+                                        "description": "Delivery date",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-01-15"
+                                    },
+                                    "days_preparation": {
+                                        "description": "Preparation date",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-01-14"
+                                    },
+                                    "color": {
+                                        "description": "Color of the delivery",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Blue"
+                                    },
+                                    "repositories": {
+                                        "description": "Repositories information",
+                                        "type": "string",
+                                        "maxLength": 500,
+                                        "example": "Repository A, Repository B"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Delivery not found"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Livraisons"
+                ],
+                "summary": "Delete a delivery",
+                "description": "Delete a delivery by ID",
+                "operationId": "deleteDelivery",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the delivery to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delivery deleted successfully"
+                    },
+                    "404": {
+                        "description": "Delivery not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tourneLivraison": {
+            "get": {
+                "tags": [
+                    "Tourne-Livraison"
+                ],
+                "summary": "Get all delivery tours",
+                "description": "Get all delivery tours",
+                "operationId": "getAllDeliveryTours",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tourne-Livraison"
+                ],
+                "summary": "Add a new delivery tour",
+                "description": "Add a new delivery tour for a structure",
+                "operationId": "addNewDeliveryTour",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "structures_id",
+                                    "jour_preparation",
+                                    "jour_livraison",
+                                    "couleur",
+                                    "point_depots"
+                                ],
+                                "properties": {
+                                    "structures_id": {
+                                        "type": "numeric"
+                                    },
+                                    "jour_preparation": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "jour_livraison": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "couleur": {
+                                        "type": "string"
+                                    },
+                                    "point_depots": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tourneLivraison/{id}": {
+            "get": {
+                "tags": [
+                    "Tourne-Livraison"
+                ],
+                "summary": "Get a delivery tour",
+                "description": "Get a delivery tour by ID",
+                "operationId": "getDeliveryTourById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the delivery tour to return",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tourne-Livraison"
+                ],
+                "summary": "Update a delivery tour",
+                "description": "Update details of a delivery tour by ID",
+                "operationId": "updateDeliveryTour",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the delivery tour to update",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "structures_id",
+                                    "jour_preparation",
+                                    "jour_livraison",
+                                    "couleur",
+                                    "point_depots"
+                                ],
+                                "properties": {
+                                    "structures_id": {
+                                        "type": "numeric"
+                                    },
+                                    "jour_preparation": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "jour_livraison": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "couleur": {
+                                        "type": "string"
+                                    },
+                                    "point_depots": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Tourne-Livraison"
+                ],
+                "summary": "Delete a delivery tour",
+                "description": "Delete a delivery tour by ID",
+                "operationId": "deleteDeliveryTour",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the delivery tour to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/depot": {
+            "post": {
+                "tags": [
+                    "Depots"
+                ],
+                "summary": "Add a new depository",
+                "description": "Add a new depository for a structure",
+                "operationId": "addNewDepository",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_structure",
+                                    "name",
+                                    "city",
+                                    "address",
+                                    "zip_code",
+                                    "phone",
+                                    "mail",
+                                    "web_site",
+                                    "delivery_day",
+                                    "delivery_hour",
+                                    "basket_hour",
+                                    "presentation_text",
+                                    "image_path",
+                                    "comment"
+                                ],
+                                "properties": {
+                                    "id_structure": {
+                                        "type": "numeric"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "zip_code": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "mail": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "web_site": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "delivery_day": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "delivery_hour": {
+                                        "type": "date_format:H:i"
+                                    },
+                                    "basket_hour": {
+                                        "type": "date_format:H:i"
+                                    },
+                                    "presentation_text": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "image_path": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "comment": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/depot/{id}": {
+            "get": {
+                "tags": [
+                    "Depots"
+                ],
+                "summary": "Get a depository",
+                "description": "Get a depository by ID",
+                "operationId": "getDepositoryById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the depository to return",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Depots"
+                ],
+                "summary": "Update a depository",
+                "description": "Update details of a depository by ID",
+                "operationId": "updateDepository",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the depository to update",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_structure",
+                                    "name",
+                                    "city",
+                                    "address",
+                                    "zip_code",
+                                    "phone",
+                                    "mail",
+                                    "web_site",
+                                    "delivery_day",
+                                    "delivery_hour",
+                                    "basket_hour",
+                                    "presentation_text",
+                                    "image_path",
+                                    "comment"
+                                ],
+                                "properties": {
+                                    "id_structure": {
+                                        "type": "numeric"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "zip_code": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "mail": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "web_site": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "delivery_day": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "delivery_hour": {
+                                        "type": "date_format:H:i"
+                                    },
+                                    "basket_hour": {
+                                        "type": "date_format:H:i"
+                                    },
+                                    "presentation_text": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "image_path": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "comment": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Depots"
+                ],
+                "summary": "Delete a depository",
+                "description": "Delete a depository by ID",
+                "operationId": "deleteDepository",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the depository to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/depots": {
+            "get": {
+                "tags": [
+                    "Depots"
+                ],
+                "summary": "Get all depositories",
+                "description": "Get all depositories",
+                "operationId": "getAllDepositories",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                }
+            }
+        },
+        "/api/produit": {
+            "get": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Show all products",
+                "description": "Get a list of all products",
+                "operationId": "indexProducts",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Add a product",
+                "description": "Add a product",
+                "operationId": "addProduct",
+                "requestBody": {
+                    "description": "Product details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "price": {
+                                        "type": "number"
+                                    },
+                                    "unit": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "nullable": true
+                                    },
+                                    "unit_value": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/produit/{id}": {
+            "get": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Show a product",
+                "description": "Get a product by ID",
+                "operationId": "showProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the product to show",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Update a product",
+                "description": "Update a product by ID",
+                "operationId": "updateProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the product to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Product details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "price": {
+                                        "type": "number"
+                                    },
+                                    "unit": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "nullable": true
+                                    },
+                                    "unit_value": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Delete a product",
+                "description": "Delete a product by ID",
+                "operationId": "deleteProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the product to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product deleted successfully"
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Staffs Auth"
+                ],
+                "summary": "Register a new staff",
+                "description": "Register a new staff",
+                "operationId": "register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nom",
+                                    "prenom",
+                                    "email",
+                                    "password",
+                                    "is_admin",
+                                    "structures_id"
+                                ],
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "is_admin": {
+                                        "type": "boolean"
+                                    },
+                                    "structures_id": {
+                                        "type": "numeric"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Staff Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Staff Created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Invalid Staff Data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "nom": [
+                                                    "The nom field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Staffs Auth"
+                ],
+                "summary": "Login a staff",
+                "description": "Login a staff",
+                "operationId": "login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Staff Logged",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid Credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid Credentials"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "Staffs Auth"
+                ],
+                "summary": "Get the current staff",
+                "description": "Get the current staff",
+                "operationId": "user",
+                "responses": {
+                    "200": {
+                        "description": "Staff Logged",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "numeric",
+                                            "example": "1"
+                                        },
+                                        "nom": {
+                                            "type": "string",
+                                            "example": "John"
+                                        },
+                                        "prenom": {
+                                            "type": "string",
+                                            "example": "Doe"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "truck@mail.com"
+                                        },
+                                        "is_admin": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        },
+                                        "structures_id": {
+                                            "type": "numeric",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/staffs": {
+            "get": {
+                "tags": [
+                    "Staffs"
+                ],
+                "summary": "Get a list of staffs",
+                "description": "Returns a list of staffs",
+                "operationId": "getStaffs",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/api/staffs/{id}": {
+            "get": {
+                "tags": [
+                    "Staffs"
+                ],
+                "summary": "Get a staff member",
+                "description": "Returns a staff member by ID",
+                "operationId": "getStaffById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the staff member",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Staff member not found"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Staffs"
+                ],
+                "summary": "Delete a staff member",
+                "description": "Deletes a staff member by ID",
+                "operationId": "deleteStaff",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the staff member",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Staff member not found"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/api/staffs/update": {
+            "post": {
+                "tags": [
+                    "Staffs"
+                ],
+                "summary": "Update a staff member",
+                "description": "Updates a staff member's account",
+                "operationId": "updateStaff",
+                "requestBody": {
+                    "description": "Staff data for update",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "nom": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "prenom": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/api/staffs/store": {
+            "put": {
+                "tags": [
+                    "Staffs"
+                ],
+                "summary": "Store a staff member",
+                "description": "Stores a staff member",
+                "operationId": "storeStaff",
+                "requestBody": {
+                    "description": "Staff data for store",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "prenom": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/api/structures": {
+            "get": {
+                "tags": [
+                    "Structures"
+                ],
+                "summary": "Get all structures",
+                "description": "Get all structures",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Structures"
+                ],
+                "summary": "Add a structure",
+                "description": "Add a structure",
+                "operationId": "store",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "name of structure",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "in": "path",
+                        "description": "city of structure",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "social_reason",
+                        "in": "path",
+                        "description": "social reason of structure",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "social_headquarters",
+                        "in": "path",
+                        "description": "social headquarters of structure",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "manager_address",
+                        "in": "path",
+                        "description": "manager address of structure",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "phone of structure",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "mail",
+                        "in": "path",
+                        "description": "mail of structure",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "referent_name",
+                        "in": "path",
+                        "description": "referent name of structure",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "web_site",
+                        "in": "path",
+                        "description": "web site of structure",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "422": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/structures/{id}": {
+            "get": {
+                "tags": [
+                    "Structures"
+                ],
+                "summary": "Get a structure",
+                "description": "Get a structure",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of structure to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "Structure not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Structures"
+                ],
+                "summary": "Mettre à jour une structure",
+                "description": "Met à jour les informations d'une structure en fonction de l'ID fourni",
+                "operationId": "7671c75fb2de5bc36bc02fbb25d722f6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la structure à mettre à jour",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Données de mise à jour de la structure",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "mail": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "web_site": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "social_reason": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "social_headquarters": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "referent_name": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "nullable": true
+                                    },
+                                    "manager_address": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Opération réussie - La structure a été mise à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "La structure [nom] a bien été modifiée"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Structure non trouvée - Aucune structure trouvée avec l'ID fourni"
+                    },
+                    "422": {
+                        "description": "Erreur de validation des données - Vérifiez les contraintes de validation dans la documentation"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Structures"
+                ],
+                "summary": "Delete a structure",
+                "description": "Delete a structure",
+                "operationId": "50df1a9648b483349a667711ba848451",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of structure to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "Structure not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/abonnement": {
+            "get": {
+                "tags": [
+                    "Abonnements"
+                ],
+                "summary": "Get all subscriptions",
+                "description": "Get a list of all subscriptions",
+                "operationId": "getAllSubscriptions",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Abonnements"
+                ],
+                "summary": "Add a new subscription",
+                "description": "Add a new subscription for an adherent to a structure",
+                "operationId": "addNewSubscription",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_structure",
+                                    "id_adherent",
+                                    "duree",
+                                    "periodicite",
+                                    "type_abonnement",
+                                    "moyen_paiement"
+                                ],
+                                "properties": {
+                                    "id_structure": {
+                                        "type": "integer"
+                                    },
+                                    "id_adherent": {
+                                        "type": "integer"
+                                    },
+                                    "duree": {
+                                        "type": "integer"
+                                    },
+                                    "periodicite": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "type_abonnement": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "moyen_paiement": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/abonnement/{id}": {
+            "get": {
+                "tags": [
+                    "Abonnements"
+                ],
+                "summary": "Get a subscription by ID",
+                "description": "Get details of a subscription by ID",
+                "operationId": "getSubscriptionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the subscription to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Subscription not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Abonnements"
+                ],
+                "summary": "Update a subscription",
+                "description": "Update details of a subscription by ID",
+                "operationId": "updateSubscription",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the subscription to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_structure",
+                                    "id_adherent",
+                                    "duree",
+                                    "periodicite",
+                                    "type_abonnement",
+                                    "moyen_paiement"
+                                ],
+                                "properties": {
+                                    "id_structure": {
+                                        "type": "integer"
+                                    },
+                                    "id_adherent": {
+                                        "type": "integer"
+                                    },
+                                    "duree": {
+                                        "type": "integer"
+                                    },
+                                    "periodicite": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "type_abonnement": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "moyen_paiement": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Abonnements"
+                ],
+                "summary": "Delete a subscription",
+                "description": "Delete a subscription by ID",
+                "operationId": "deleteSubscription",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the subscription to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Operation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Adherents",
+            "description": "API Endpoints of Adherents"
+        },
+        {
+            "name": "Calendriers",
+            "description": "API Endpoints of Calendar Controller"
+        },
+        {
+            "name": "Panier",
+            "description": "API Endpoints of Cart Controller"
+        },
+        {
+            "name": "Commandes",
+            "description": "API Endpoints of Order Controller"
+        },
+        {
+            "name": "Livraisons",
+            "description": "API Endpoints of Delivery Controller"
+        },
+        {
+            "name": "Tourne-Livraison",
+            "description": "API Endpoints of Delivery Tour Controller"
+        },
+        {
+            "name": "Depots",
+            "description": "API Endpoints of Depositories Controller"
+        },
+        {
+            "name": "Produits",
+            "description": "API Endpoints of Product Controller"
+        },
+        {
+            "name": "Staffs Auth",
+            "description": "API Endpoints of Staffs Authentification"
+        },
+        {
+            "name": "Staffs",
+            "description": "API Endpoints of Staffs Controller"
+        },
+        {
+            "name": "Structures",
+            "description": "API Endpoints of Structures Controller"
+        },
+        {
+            "name": "Abonnements",
+            "description": "API Endpoints of Subscriptions Controller"
+        }
+    ]
+}
