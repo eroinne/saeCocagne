@@ -25,8 +25,8 @@ class AdherentController extends Controller
 {
     /**
      *
-     * @OA\Post(
-     *     path="/api/adherents/update",
+     * @OA\Put(
+     *     path="/api/adherents/{id}",
      *     tags={"Adherents"},
      *     summary="Update user's profile",
      *     description="Updates the user's profile information",
@@ -35,25 +35,25 @@ class AdherentController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         description="User's profile data for update",
-     *         @OA\MediaType(
-     *             mediaType="application/x-www-form-urlencoded",
-     *             @OA\Schema(
-     *                 @OA\Property(property="name", type="string", maxLength=255),
-     *                 @OA\Property(property="prenom", type="string", maxLength=255),
-     *                 @OA\Property(property="raison_sociale", type="string", maxLength=255),
-     *                 @OA\Property(property="civilite", type="string", maxLength=255, enum={"mme", "mr"}),
-     *                 @OA\Property(property="email", type="string", format="email", maxLength=255),
-     *                 @OA\Property(property="ville", type="string", maxLength=255),
-     *                 @OA\Property(property="adresse", type="string", maxLength=255),
-     *                 @OA\Property(property="code_postal", type="numeric"),
-     *                 @OA\Property(property="numero_telephone", type="numeric", pattern="/^0[1-9]\d{8}$/"),
-     *                 @OA\Property(property="numero_telephone2", type="numeric", pattern="/^0[1-9]\d{8}$/", nullable=true),
-     *                 @OA\Property(property="numero_telephone3", type="numeric", pattern="/^0[1-9]\d{8}$/", nullable=true),
-     *                 @OA\Property(property="profession", type="string", maxLength=255, nullable=true),
-     *                 @OA\Property(property="date_naissance", type="date", nullable=true),
-     *                 @OA\Property(property="photo", type="string", format="binary", maxLength=2048, nullable=true),
-     *             )
-     *         )
+     *        @OA\JsonContent(
+     *     required={"name", "prenom", "raison_sociale", "civilite", "email", "ville", "adresse", "code_postal", "numero_telephone"},
+     *     @OA\Property(property="name", type="string", maxLength=255),
+     *     @OA\Property(property="prenom", type="string", maxLength=255),
+     *     @OA\Property(property="raison_sociale", type="string", maxLength=255),
+     *     @OA\Property(property="civilite", type="string", maxLength=255, enum={"mme", "mr"}),
+     *     @OA\Property(property="email", type="string", format="email", maxLength=255),
+     *     @OA\Property(property="ville", type="string", maxLength=255),
+     *     @OA\Property(property="adresse", type="string", maxLength=255),
+     *     @OA\Property(property="code_postal", type="numeric"),
+     *     @OA\Property(property="numero_telephone", type="numeric", pattern="/^0[1-9]\d{8}$/"),
+     *     @OA\Property(property="numero_telephone2", type="numeric", pattern="/^0[1-9]\d{8}$/", nullable=true),
+     *     @OA\Property(property="numero_telephone3", type="numeric", pattern="/^0[1-9]\d{8}$/", nullable=true),
+     *     @OA\Property(property="profession", type="string", maxLength=255, nullable=true),
+     *     @OA\Property(property="date_naissance", type="date", nullable=true),
+     *     @OA\Property(property="photo", type="string", format="binary", maxLength=2048, nullable=true),
+     *     )
+     *
+     *
      *     ),
      *     @OA\Response(response="200", description="Profile updated successfully"),
      *     @OA\Response(response="422", description="Validation error"),
@@ -119,8 +119,8 @@ class AdherentController extends Controller
 
     /**
      *
-     * * @OA\Put(
-     * *     path="/api/adherents/store",
+     * * @OA\Post(
+     * *     path="/api/adherents",
      * *     tags={"Adherents"},
      * *     summary="Store a new adherent",
      * *     description="Stores a new adherent with the provided data",
@@ -130,25 +130,25 @@ class AdherentController extends Controller
      * *     @OA\RequestBody(
      * *         required=true,
      * *         description="Adherent data for storage",
-     * *         @OA\MediaType(
-     * *             mediaType="application/x-www-form-urlencoded",
-     * *             @OA\Schema(
-     * *                 @OA\Property(property="name", type="string", maxLength=255),
-     * *                 @OA\Property(property="prenom", type="string", maxLength=255),
-     * *                 @OA\Property(property="raison_sociale", type="string", maxLength=255),
-     * *                 @OA\Property(property="civilite", type="string", maxLength=255),
-     * *                 @OA\Property(property="email", type="string", format="email", maxLength=255),
-     * *                 @OA\Property(property="ville", type="string", maxLength=255),
-     * *                 @OA\Property(property="adresse", type="string", maxLength=255),
-     * *                 @OA\Property(property="code_postal", type="numeric"),
-     * *                 @OA\Property(property="numero_telephone", type="numeric", pattern="/^0[1-9]\d{8}$/"),
-     * *                 @OA\Property(property="numero_telephone2", type="numeric", pattern="/^0[1-9]\d{8}$/", nullable=true),
-     * *                 @OA\Property(property="numero_telephone3", type="numeric", pattern="/^0[1-9]\d{8}$/", nullable=true),
-     * *                 @OA\Property(property="profession", type="string", maxLength=255, nullable=true),
-     * *                 @OA\Property(property="date_naissance", type="date", nullable=true),
-     * *                 @OA\Property(property="photo", type="string", format="binary", maxLength=2048, nullable=true),
-     * *             )
+     * *         @OA\JsonContent(
+     *         required={"name", "prenom", "raison_sociale", "civilite", "email", "ville", "adresse", "code_postal", "numero_telephone"},
+     *     @OA\Property(property="name", type="string", maxLength=255),
+     *     @OA\Property(property="prenom", type="string", maxLength=255),
+     *     @OA\Property(property="raison_sociale", type="string", maxLength=255),
+     *     @OA\Property(property="civilite", type="string", maxLength=255, enum={"mme", "mr"}),
+     *     @OA\Property(property="email", type="string", format="email", maxLength=255),
+     *     @OA\Property(property="ville", type="string", maxLength=255),
+     *     @OA\Property(property="adresse", type="string", maxLength=255),
+     *     @OA\Property(property="code_postal", type="numeric"),
+     *     @OA\Property(property="numero_telephone", type="numeric", pattern="/^0[1-9]\d{8}$/"),
+     *     @OA\Property(property="numero_telephone2", type="numeric", pattern="/^0[1-9]\d{8}$/", nullable=true),
+     *     @OA\Property(property="numero_telephone3", type="numeric", pattern="/^0[1-9]\d{8}$/", nullable=true),
+     *     @OA\Property(property="profession", type="string", maxLength=255, nullable=true),
+     *     @OA\Property(property="date_naissance", type="date", nullable=true),
+     *     @OA\Property(property="photo", type="string", format="binary", maxLength=2048, nullable=true),
+     *
      * *         )
+     *
      * *     ),
      * *     @OA\Response(response="200", description="Adherent stored successfully"),
      * *     @OA\Response(response="422", description="Validation error"),

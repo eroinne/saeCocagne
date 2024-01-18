@@ -28,9 +28,7 @@ class StaffsController
      *         response=200,
      *         description="Successful operation",
      *     ),
-     *     security={
-     *         {"api_key": {}}
-     *     }
+     *
      * )
      */
     public function index()
@@ -60,9 +58,7 @@ class StaffsController
      *         response=404,
      *         description="Staff member not found",
      *     ),
-     *     security={
-     *         {"api_key": {}}
-     *     }
+     *
      * )
      */
     public function show($id)
@@ -92,9 +88,7 @@ class StaffsController
      *     ),
      *     @OA\Response(response="200", description="Successful operation"),
      *     @OA\Response(response="404", description="Staff member not found"),
-     *     security={
-     *         {"api_key": {}}
-     *     }
+     *
      * )
      */
     public function delete($id)
@@ -111,43 +105,50 @@ class StaffsController
     }
 
     /**
-     * @OA\Post(
-     *     path="/api/staffs/update",
+     * @OA\Put(
+     *     path="/api/staffs/{id}",
      *     tags={"Staffs"},
      *     summary="Update a staff member",
      *     description="Updates a staff member's account",
-     *     operationId="updateStaff",
      *     security={{"bearerAuth":{}}},
+     *          @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="ID du staffs à mettre à jour",
+     *          required=true,
+     *          @OA\Schema(type="integer", format="int64")
+     *      ),
      *     @OA\RequestBody(
      *         required=true,
      *         description="Staff data for update",
-     *         @OA\MediaType(
-     *             mediaType="application/x-www-form-urlencoded",
-     *             @OA\Schema(
-     *                 @OA\Property(property="id", type="integer"),
-     *                 @OA\Property(property="nom", type="string", maxLength=255),
-     *                 @OA\Property(property="prenom", type="string", maxLength=255),
-     *                 @OA\Property(property="email", type="string", format="email"),
-     *             )
-     *         )
+     *         @OA\JsonContent(
+     *     required={"nom","prenom","email"},
+     *     @OA\Property(property="nom", type="string"),
+     *     @OA\Property(property="prenom", type="string"),
+     *     @OA\Property(property="email", type="string"),
+     *     )
      *     ),
-     *     @OA\Response(response="200", description="Successful operation"),
-     *     @OA\Response(response="422", description="Validation error"),
-     *     security={
-     *         {"api_key": {}}
-     *     }
+     *     @OA\Response(response="200", description="Successful operation", @OA\JsonContent(
+     *         @OA\Property(property="message", type="string", example="Staff member updated successfully")
+     *    )
+     *     ),
+     *     @OA\Response(response="422", description="Validation error", @OA\JsonContent(
+     *         @OA\Property(property="message", type="string", example="Error updating staff member")
+     *   )
+     *     ),
+     *
+     *
      * )
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'id' => 'required|integer',
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'email' => 'required|email',
         ]);
 
-        $staff = Staffs::find($request->id);
+        $staff = Staffs::find($id);
         if (!$staff) {
             return response()->json(['message' => 'Staff member not found'], 404);
         }
@@ -166,8 +167,8 @@ class StaffsController
     //store a staff member
 
     /**
-     * @OA\Put(
-     *     path="/api/staffs/store",
+     * @OA\Post(
+     *     path="/api/staffs",
      *     tags={"Staffs"},
      *     summary="Store a staff member",
      *     description="Stores a staff member",
@@ -176,22 +177,26 @@ class StaffsController
      *     @OA\RequestBody(
      *         required=true,
      *         description="Staff data for store",
-     *         @OA\MediaType(
-     *             mediaType="application/x-www-form-urlencoded",
-     *             @OA\Schema(
-     *                 @OA\Property(property="nom", type="string", maxLength=255),
-     *                 @OA\Property(property="prenom", type="string", maxLength=255),
-     *                 @OA\Property(property="email", type="string", format="email"),
-     *                 @OA\Property(property="password", type="string", maxLength=255),
-     *                 @OA\Property(property="password_confirmation", type="string", maxLength=255),
-     *             )
-     *         )
+     *         @OA\JsonContent(
+     *         required={"nom","prenom","email","password","structures_id","is_admin"},
+     *     @OA\Property(property="nom", type="string"),
+     *     @OA\Property(property="prenom", type="string"),
+     *     @OA\Property(property="email", type="string"),
+     *     @OA\Property(property="password", type="string"),
+     *     @OA\Property(property="structures_id", type="integer"),
+     *     @OA\Property(property="is_admin", type="boolean"),
+     *     )
+     *
      *     ),
-     *     @OA\Response(response="200", description="Successful operation"),
-     *     @OA\Response(response="422", description="Validation error"),
-     *     security={
-     *         {"api_key": {}}
-     *     }
+     *     @OA\Response(response="200", description="Successful operation", @OA\JsonContent(
+     *         @OA\Property(property="message", type="string", example="Staff member created successfully")
+     *     )
+     * ),
+     *     @OA\Response(response="422", description="Validation error", @OA\JsonContent(
+     *         @OA\Property(property="message", type="string", example="Error creating staff member")
+     *    )
+     *     ),
+     *
      * )
      */
     public function store(Request $request)
@@ -200,7 +205,9 @@ class StaffsController
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'email' => 'required|email',
-            'password' => 'required|string|max:255|confirmed',
+            'password' => 'required|string|max:255',
+            'structures_id' => 'required|integer',
+            'is_admin' => 'required|boolean',
         ]);
 
         $staff = new Staffs();
@@ -208,6 +215,8 @@ class StaffsController
         $staff->prenom = $request->prenom;
         $staff->email = $request->email;
         $staff->password = bcrypt($request->password);
+        $staff->structures_id = $request->structures_id;
+        $staff->is_admin = $request->is_admin;
         $result = $staff->save();
 
         if ($result) {

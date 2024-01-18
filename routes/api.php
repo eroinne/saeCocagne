@@ -59,9 +59,9 @@ use Illuminate\Support\Facades\Route;
     Route::prefix('staffs')->group(function () {
         Route::get('/', [\App\Http\Controllers\Api\StaffsController::class, 'index'])->name('index');
         Route::post('/', [\App\Http\Controllers\Api\StaffsController::class, 'store'])->name('store')->middleware('auth:sanctum');
-        Route::get('/{staff}', [\App\Http\Controllers\Api\StaffsController::class, 'show'])->name('show');
-        Route::put('/{staff}', [\App\Http\Controllers\Api\StaffsController::class, 'update'])->name('update')->middleware('auth:sanctum');
-        Route::delete('/{staff}', [\App\Http\Controllers\Api\StaffsController::class, 'delete'])->name('delete')->middleware('auth:sanctum');
+        Route::get('/{staffs}', [\App\Http\Controllers\Api\StaffsController::class, 'show'])->name('show');
+        Route::put('/{staffs}', [\App\Http\Controllers\Api\StaffsController::class, 'update'])->name('update')->middleware('auth:sanctum');
+        Route::delete('/{staffs}', [\App\Http\Controllers\Api\StaffsController::class, 'delete'])->name('delete')->middleware('auth:sanctum');
     });
 
 

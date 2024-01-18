@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Hash;
 class StaffsApiAuthController extends Controller
 {
     /**
+     *
      * @OA\Post(
      *      path="/api/register",
      *      operationId="register",
