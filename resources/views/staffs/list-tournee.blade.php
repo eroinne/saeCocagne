@@ -5,13 +5,6 @@
 
 <div x-data="myApp()">
 
-    <div class="flex justify-center mb-4">
-        <button @click="openGenerateModal" class="py-1.5 px-2 bg-green-800 hover:bg-green-600 text-white rounded-lg">
-            Générer une tournée
-        </button>
-    </div>
-
-
     <div class="mb-4">
         <label for="search" class="block font-medium text-gray-700 text-md">Rechercher :</label>
         <input type="text" id="search" name="search" class="mt-1 p-2 border rounded-md w-full focus:ring-green-600 focus:border-green-600">

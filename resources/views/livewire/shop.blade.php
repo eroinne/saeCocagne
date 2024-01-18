@@ -145,8 +145,8 @@
 
             <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:max-w-7xl lg:px-8">
                 <div class="py-10">
-                    <h1 class="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
-                    <p class="mx-auto mt-4 max-w-3xl text-base text-gray-500">Thoughtfully designed objects for the workspace, home, and travel.</p>
+                    <h1 class="text-4xl font-bold tracking-tight text-gray-900">Boutique</h1>
+                    <p class="mx-auto mt-4 max-w-3xl text-base text-gray-500">Achetez les produits des jardins de cocagne.</p>
                 </div>
 
                 <section aria-labelledby="filter-heading" class="border-t border-gray-200 py-6">
@@ -315,7 +315,7 @@
                                             {{ $product->nom }}
                                         </a>
                                     </h3>
-                                    <p class="text-sm text-gray-500">Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.</p>
+                                    <p class="text-sm text-gray-500">Test de produit</p>
                                     <div class="flex flex-1 flex-col justify-end">
                                         <p class="text-sm italic text-gray-500"> {{$product->valeur_unite}} {{$product->unite}} </p>
                                         <p class="text-base font-medium text-gray-900">{{ $product->prix }} €</p>

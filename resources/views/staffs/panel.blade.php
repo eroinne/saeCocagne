@@ -44,7 +44,7 @@
                         Calendriers
                     </a>
                 </h3>
-                <p class="mt-2 text-sm text-gray-500">Accédez au calendrier de livraisons.</p>
+                <p class="mt-2 text-sm text-gray-500">Accédez à la liste des calendriers.</p>
             </div>
             <span class="pointer-events-none absolute right-6 top-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -62,7 +62,7 @@
             </div>
             <div class="mt-8">
                 <h3 class="text-base font-semibold leading-6 text-gray-900">
-                    <a href="#" class="focus:outline-none">
+                    <a href="{{route('staffs.adherents')}}" class="focus:outline-none">
                         <!-- Extend touch target to entire panel -->
                         <span class="absolute inset-0" aria-hidden="true"></span>
                         Liste des adhérents
@@ -86,7 +86,7 @@
             </div>
             <div class="mt-8">
                 <h3 class="text-base font-semibold leading-6 text-gray-900">
-                    <a href="{{ route('dashboard.shop') }}" class="focus:outline-none">
+                    <a href="" class="focus:outline-none">
                         <!-- Extend touch target to entire panel -->
                         <span class="absolute inset-0" aria-hidden="true"></span>
                         Boutique
@@ -110,13 +110,13 @@
             </div>
             <div class="mt-8">
                 <h3 class="text-base font-semibold leading-6 text-gray-900">
-                    <a href="#" class="focus:outline-none">
+                    <a href="{{route('staffs.depots')}}" class="focus:outline-none">
                         <!-- Extend touch target to entire panel -->
                         <span class="absolute inset-0" aria-hidden="true"></span>
-                        Submit an expense
+                        Dépôts
                     </a>
                 </h3>
-                <p class="mt-2 text-sm text-gray-500">Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae.</p>
+                <p class="mt-2 text-sm text-gray-500">Accédez à la liste des dépôts.</p>
             </div>
             <span class="pointer-events-none absolute right-6 top-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -134,13 +134,13 @@
             </div>
             <div class="mt-8">
                 <h3 class="text-base font-semibold leading-6 text-gray-900">
-                    <a href="#" class="focus:outline-none">
+                    <a href="{{route('staffs.tournees')}}" class="focus:outline-none">
                         <!-- Extend touch target to entire panel -->
                         <span class="absolute inset-0" aria-hidden="true"></span>
-                        Training
+                        Tournées
                     </a>
                 </h3>
-                <p class="mt-2 text-sm text-gray-500">Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae.</p>
+                <p class="mt-2 text-sm text-gray-500">Accédez à la liste des tournées.</p>
             </div>
             <span class="pointer-events-none absolute right-6 top-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">

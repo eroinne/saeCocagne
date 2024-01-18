@@ -1,7 +1,6 @@
 @extends('layouts.app-adherent')
 
 @section('body')
-
 <div class="antialiased sans-serif">
 	<div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
 		<div class="container mx-auto px-4 py-2">
@@ -152,7 +151,9 @@
         const MONTH_NAMES = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
         const DAYS = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
 
-        const livraisons = @json($livraisons);
+        const livraisonsData = @json($livraisons);
+
+        const livraisons = [].concat(...livraisonsData);
 
         const feries = @json($feries);
 
@@ -247,7 +248,7 @@
                         case 'vendredi':
                             return 'bg-green-600';
                         default:
-                            return 'gray';
+                            return 'bg-blue-600';
                     }
                 },
 

@@ -154,10 +154,10 @@ class AdherentController extends Controller
     public function calendar(){
 
         //Get the calendar of the structure of the user
-        $calendrier = Calendriers::where('id', 1)->first();
+        $calendriers = Calendriers::where('structures_id', Auth::user()->structures_id)->get();
 
         //Get the structure of the calendrier
-        $structure = Structures::where('id', $calendrier->structures_id)->first();
+        $structure = Structures::where('id', Auth::user()->structures_id)->first();
 
         $cal = new Calendriers();
 
@@ -166,8 +166,11 @@ class AdherentController extends Controller
 
         $feries = array_keys($feries);
 
-        //Get the livraisons
-        $livraisons = Livraisons::where('calendriers_id', $calendrier->id)->get();
+        //Get the livraisons of all calendrier in calendriers
+        $livraisons = array();
+        foreach($calendriers as $calendrier){
+            $livraisons[] = Livraisons::where('calendriers_id', $calendrier->id)->get();
+        }
 
 
         return view('adherents.calendar',

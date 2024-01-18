@@ -6,7 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-        <title>Document</title>
+        <link rel="icon" type="image/x-icon" href="{{asset('images/jardin.ico')}}">
+        <title>Jardin de cocagne</title>
 
         @vite('resources/css/app.css')
 
@@ -71,7 +72,7 @@
                         <!-- Sidebar component, swap this element with another sidebar if you like -->
                         <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-green-900 px-6 pb-4 ring-1 ring-white/10">
                             <div class="flex h-16 shrink-0 items-center">
-                                <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
+                                <img class="h-8 w-auto" src="{{asset('images/jardin.ico')}}" alt="Logo cocagne">
                             </div>
                             <nav class="flex flex-1 flex-col">
                                 <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -124,31 +125,7 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
                                                     </svg>
-                                                    Tournees
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <div class="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
-                                        <ul role="list" class="-mx-2 mt-2 space-y-1">
-                                            <li>
-                                                <!-- Current: "bg-green-900 text-white", Default: "text-gray-400 hover:text-white hover:bg-green-900" -->
-                                                <a href="#" class="text-gray-400 hover:text-white hover:bg-green-900 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-green-700 bg-green-900 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">H</span>
-                                                    <span class="truncate">Heroicons</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="text-gray-400 hover:text-white hover:bg-green-900 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-green-700 bg-green-900 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">T</span>
-                                                    <span class="truncate">Tailwind Labs</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="text-gray-400 hover:text-white hover:bg-green-900 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-green-700 bg-green-900 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">W</span>
-                                                    <span class="truncate">Workcation</span>
+                                                    Touréees
                                                 </a>
                                             </li>
                                         </ul>
@@ -174,7 +151,7 @@
                 <!-- Sidebar component, swap this element with another sidebar if you like -->
                 <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-green-900 px-6 pb-4">
                     <div class="flex h-16 shrink-0 items-center">
-                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
+                        <img class="h-8 w-auto" src="{{asset('images/jardin.ico')}}" alt="Logo cocagne">
                     </div>
                     <nav class="flex flex-1 flex-col">
                         <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -227,31 +204,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
                                             </svg>
-                                            Tournees
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <div class="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
-                                <ul role="list" class="-mx-2 mt-2 space-y-1">
-                                    <li>
-                                        <!-- Current: "bg-green-900 text-white", Default: "text-gray-400 hover:text-white hover:bg-green-900" -->
-                                        <a href="#" class="text-gray-400 hover:text-white hover:bg-green-900 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-green-700 bg-green-900 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">H</span>
-                                            <span class="truncate">Heroicons</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-gray-400 hover:text-white hover:bg-green-900 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-green-700 bg-green-900 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">T</span>
-                                            <span class="truncate">Tailwind Labs</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-gray-400 hover:text-white hover:bg-green-900 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-green-700 bg-green-900 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">W</span>
-                                            <span class="truncate">Workcation</span>
+                                            Tournées
                                         </a>
                                     </li>
                                 </ul>
@@ -282,14 +235,7 @@
                     <!-- Separator -->
                     <div class="h-6 w-px bg-green-900/10 lg:hidden" aria-hidden="true"></div>
 
-                    <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-                        <form class="relative flex flex-1" action="#" method="GET">
-                            <label for="search-field" class="sr-only">Search</label>
-                            <svg class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
-                            </svg>
-                            <input id="search-field" class="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm" placeholder="Search..." type="search" name="search">
-                        </form>
+                    <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 justify-end">
                         <div class="flex items-center gap-x-4 lg:gap-x-6"  >
                             <button type="button" class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
                                 <span class="sr-only">View notifications</span>
