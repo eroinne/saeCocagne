@@ -8,6 +8,17 @@
 Faire les commandes:
 - composer install
 - npm install
+
+
+### Base de données:
+
+#### Option 1:
+
+Prendre le fichier .sql disponible.
+
+
+#### Option 2:
+
 - php artisan migrate
 - php artisan migrate --seeder
 
@@ -16,6 +27,7 @@ Pour accèder au panel adherent ou staffs -> modifier le mot de passe d'un utili
 - php artisan command:create-user
 
 Prendre l'email du staffs ou de l'adhérent d'id 1
+
 
 ## Outils
 
