@@ -5,8 +5,36 @@
         "version": "0.1"
     },
     "paths": {
-        "/api/adherents/update": {
-            "post": {
+        "/api/adherents/{id}": {
+            "get": {
+                "tags": [
+                    "Adherents"
+                ],
+                "summary": "Get details of a specific adherent",
+                "description": "Returns details of a specific adherent by ID",
+                "operationId": "getAdherentById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the adherent to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Adherent not found"
+                    }
+                }
+            },
+            "put": {
                 "tags": [
                     "Adherents"
                 ],
@@ -17,8 +45,19 @@
                     "description": "User's profile data for update",
                     "required": true,
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "application/json": {
                             "schema": {
+                                "required": [
+                                    "name",
+                                    "prenom",
+                                    "raison_sociale",
+                                    "civilite",
+                                    "email",
+                                    "ville",
+                                    "adresse",
+                                    "code_postal",
+                                    "numero_telephone"
+                                ],
                                 "properties": {
                                     "name": {
                                         "type": "string",
@@ -108,10 +147,56 @@
                         "bearerAuth": []
                     }
                 ]
+            },
+            "delete": {
+                "tags": [
+                    "Adherents"
+                ],
+                "summary": "Delete a specific adherent",
+                "description": "Deletes a specific adherent by ID",
+                "operationId": "deleteAdherent",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the adherent to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Adherent deleted successfully"
+                    },
+                    "404": {
+                        "description": "Adherent not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
-        "/api/adherents/store": {
-            "put": {
+        "/api/adherents": {
+            "get": {
+                "tags": [
+                    "Adherents"
+                ],
+                "summary": "Get a list of adherents",
+                "description": "Returns a list of all adherents",
+                "operationId": "getAdherents",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
                 "tags": [
                     "Adherents"
                 ],
@@ -122,8 +207,19 @@
                     "description": "Adherent data for storage",
                     "required": true,
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "application/json": {
                             "schema": {
+                                "required": [
+                                    "name",
+                                    "prenom",
+                                    "raison_sociale",
+                                    "civilite",
+                                    "email",
+                                    "ville",
+                                    "adresse",
+                                    "code_postal",
+                                    "numero_telephone"
+                                ],
                                 "properties": {
                                     "name": {
                                         "type": "string",
@@ -139,7 +235,11 @@
                                     },
                                     "civilite": {
                                         "type": "string",
-                                        "maxLength": 255
+                                        "maxLength": 255,
+                                        "enum": [
+                                            "mme",
+                                            "mr"
+                                        ]
                                     },
                                     "email": {
                                         "type": "string",
@@ -202,84 +302,6 @@
                     },
                     "500": {
                         "description": "Error storing adherent"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/adherents": {
-            "get": {
-                "tags": [
-                    "Adherents"
-                ],
-                "summary": "Get a list of adherents",
-                "description": "Returns a list of all adherents",
-                "operationId": "getAdherents",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    }
-                }
-            }
-        },
-        "/api/adherents/{id}": {
-            "get": {
-                "tags": [
-                    "Adherents"
-                ],
-                "summary": "Get details of a specific adherent",
-                "description": "Returns details of a specific adherent by ID",
-                "operationId": "getAdherentById",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the adherent to retrieve",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "404": {
-                        "description": "Adherent not found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Adherents"
-                ],
-                "summary": "Delete a specific adherent",
-                "description": "Deletes a specific adherent by ID",
-                "operationId": "deleteAdherent",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the adherent to delete",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Adherent deleted successfully"
-                    },
-                    "404": {
-                        "description": "Adherent not found"
                     }
                 },
                 "security": [
@@ -2042,10 +2064,91 @@
                     "200": {
                         "description": "Successful operation"
                     }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Staffs"
+                ],
+                "summary": "Store a staff member",
+                "description": "Stores a staff member",
+                "operationId": "storeStaff",
+                "requestBody": {
+                    "description": "Staff data for store",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nom",
+                                    "prenom",
+                                    "email",
+                                    "password",
+                                    "structures_id",
+                                    "is_admin"
+                                ],
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "structures_id": {
+                                        "type": "integer"
+                                    },
+                                    "is_admin": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Staff member created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error creating staff member"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -2077,10 +2180,91 @@
                     "404": {
                         "description": "Staff member not found"
                     }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Staffs"
+                ],
+                "summary": "Update a staff member",
+                "description": "Updates a staff member's account",
+                "operationId": "3d80ff40acb77dd9cb83cc6b9173c074",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du staffs à mettre à jour",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Staff data for update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nom",
+                                    "prenom",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Staff member updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error updating staff member"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -2113,135 +2297,12 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "bearerAuth": []
                     }
                 ]
             }
         },
-        "/api/staffs/update": {
-            "post": {
-                "tags": [
-                    "Staffs"
-                ],
-                "summary": "Update a staff member",
-                "description": "Updates a staff member's account",
-                "operationId": "updateStaff",
-                "requestBody": {
-                    "description": "Staff data for update",
-                    "required": true,
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "properties": {
-                                    "id": {
-                                        "type": "integer"
-                                    },
-                                    "nom": {
-                                        "type": "string",
-                                        "maxLength": 255
-                                    },
-                                    "prenom": {
-                                        "type": "string",
-                                        "maxLength": 255
-                                    },
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "422": {
-                        "description": "Validation error"
-                    }
-                },
-                "security": [
-                    {
-                        "api_key": []
-                    }
-                ]
-            }
-        },
-        "/api/staffs/store": {
-            "put": {
-                "tags": [
-                    "Staffs"
-                ],
-                "summary": "Store a staff member",
-                "description": "Stores a staff member",
-                "operationId": "storeStaff",
-                "requestBody": {
-                    "description": "Staff data for store",
-                    "required": true,
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "properties": {
-                                    "nom": {
-                                        "type": "string",
-                                        "maxLength": 255
-                                    },
-                                    "prenom": {
-                                        "type": "string",
-                                        "maxLength": 255
-                                    },
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "maxLength": 255
-                                    },
-                                    "password_confirmation": {
-                                        "type": "string",
-                                        "maxLength": 255
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "422": {
-                        "description": "Validation error"
-                    }
-                },
-                "security": [
-                    {
-                        "api_key": []
-                    }
-                ]
-            }
-        },
-        "/api/structures": {
-            "get": {
-                "tags": [
-                    "Structures"
-                ],
-                "summary": "Get all structures",
-                "description": "Get all structures",
-                "operationId": "index",
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "405": {
-                        "description": "Invalid input"
-                    }
-                }
-            },
+        "/api/structures/": {
             "post": {
                 "tags": [
                     "Structures"
@@ -2249,95 +2310,87 @@
                 "summary": "Add a structure",
                 "description": "Add a structure",
                 "operationId": "store",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "path",
-                        "description": "name of structure",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "city",
-                        "in": "path",
-                        "description": "city of structure",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "social_reason",
-                        "in": "path",
-                        "description": "social reason of structure",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "social_headquarters",
-                        "in": "path",
-                        "description": "social headquarters of structure",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "manager_address",
-                        "in": "path",
-                        "description": "manager address of structure",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "phone",
-                        "in": "path",
-                        "description": "phone of structure",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "mail",
-                        "in": "path",
-                        "description": "mail of structure",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "referent_name",
-                        "in": "path",
-                        "description": "referent name of structure",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "web_site",
-                        "in": "path",
-                        "description": "web site of structure",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                "requestBody": {
+                    "description": "Structure details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "city",
+                                    "mail",
+                                    "phone",
+                                    "web_site",
+                                    "social_reason",
+                                    "social_headquarters",
+                                    "referent_name",
+                                    "manager_address"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "mail": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "web_site": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "social_reason": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "social_headquarters": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "referent_name": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "nullable": true
+                                    },
+                                    "manager_address": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "zone": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
-                        "description": "successful operation"
-                    },
-                    "422": {
-                        "description": "Invalid input"
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Structure ajoutée avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -2399,8 +2452,19 @@
                     "description": "Données de mise à jour de la structure",
                     "required": true,
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "application/json": {
                             "schema": {
+                                "required": [
+                                    "name",
+                                    "city",
+                                    "mail",
+                                    "phone",
+                                    "web_site",
+                                    "social_reason",
+                                    "social_headquarters",
+                                    "referent_name",
+                                    "manager_address"
+                                ],
                                 "properties": {
                                     "name": {
                                         "type": "string",
@@ -2438,6 +2502,10 @@
                                     "manager_address": {
                                         "type": "string",
                                         "maxLength": 255
+                                    },
+                                    "zone": {
+                                        "type": "string",
+                                        "maxLength": 255
                                     }
                                 },
                                 "type": "object"
@@ -2471,7 +2539,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -2507,6 +2575,24 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        },
+        "/api/structures": {
+            "get": {
+                "tags": [
+                    "Structures"
+                ],
+                "summary": "Get all structures",
+                "description": "Get all structures",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
             }
         },
         "/api/abonnement": {
@@ -2721,6 +2807,33 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        }
+    },
+    "components": {
+        "responses": {
+            "422": {
+                "description": "Invalid input",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Erreur de validation des données"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     },

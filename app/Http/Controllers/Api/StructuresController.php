@@ -17,81 +17,50 @@ use Illuminate\Http\Request;
  */
 class StructuresController extends Controller
 {
-    //add a strucutre
     /**
+     * @OA\SecurityScheme(
+     *      type="apiKey",
+     *      in="header",
+     *      name="Authorization",
+     *      securityScheme="bearerAuth",
+     *  )
      * @OA\Post(
-     *     path="/api/structures",
-     *     summary="Add a structure",
-     *     tags={"Structures"},
-     *     description="Add a structure",
-     *     operationId="store",
-     *     security={{"bearerAuth":{}}},
-     *     @OA\Parameter(
-     *         name="name",
-     *         in="path",
-     *         description="name of structure",
-     *         required=true,
-     *         @OA\Schema(type="string"),
+     * *     path="/api/structures/",
+     * *     summary="Add a structure",
+     * *     tags={"Structures"},
+     * *     description="Add a structure",
+     * *     operationId="store",
+     * *     security={{"bearerAuth":{}}},
+     * *     @OA\RequestBody(
+     * *         required=true,
+     * *         description="Structure details",
+     * *         @OA\JsonContent(
+     *             required={"name", "city", "mail", "phone", "web_site", "social_reason", "social_headquarters", "referent_name", "manager_address"},
+     *             @OA\Property(property="name", type="string", maxLength=255),
+     *             @OA\Property(property="city", type="string", maxLength=255),
+     *             @OA\Property(property="mail", type="string", maxLength=255),
+     *             @OA\Property(property="phone", type="string", maxLength=255),
+     *             @OA\Property(property="web_site", type="string", maxLength=255),
+     *             @OA\Property(property="social_reason", type="string", maxLength=255),
+     *             @OA\Property(property="social_headquarters", type="string", maxLength=255),
+     *             @OA\Property(property="referent_name", type="string", maxLength=255, nullable=true),
+     *             @OA\Property(property="manager_address", type="string", maxLength=255),
+     *             @OA\Property(property="zone", type="string", maxLength=255),
+     *         )
      *     ),
-     *     @OA\Parameter(
-     *         name="city",
-     *         in="path",
-     *         description="city of structure",
-     *         required=true,
-     *         @OA\Schema(type="string"),
+     *     @OA\Response(response="200", description="successful operation", @OA\JsonContent(
+     *         type="object",
+     *     @OA\Property(property="message", type="string", example="Structure ajoutée avec succès")
+     *    )),
      *     ),
-     *     @OA\Parameter(
-     *         name="social_reason",
-     *         in="path",
-     *         description="social reason of structure",
-     *         required=true,
-     *         @OA\Schema(type="string"),
+     *     @OA\Response(response="422", description="Invalid input", @OA\JsonContent(
+     *         type="object",
+     *     @OA\Property(property="message", type="string", example="Erreur de validation des données")
      *     ),
-     *     @OA\Parameter(
-     *         name="social_headquarters",
-     *         in="path",
-     *         description="social headquarters of structure",
-     *         required=true,
-     *         @OA\Schema(type="string"),
-     *     ),
-     *     @OA\Parameter(
-     *         name="manager_address",
-     *         in="path",
-     *         description="manager address of structure",
-     *         required=true,
-     *         @OA\Schema(type="string"),
-     *     ),
-     *     @OA\Parameter(
-     *         name="phone",
-     *         in="path",
-     *         description="phone of structure",
-     *         required=true,
-     *         @OA\Schema(type="string"),
-     *     ),
-     *     @OA\Parameter(
-     *         name="mail",
-     *         in="path",
-     *         description="mail of structure",
-     *         required=true,
-     *         @OA\Schema(type="string"),
-     *     ),
-     *     @OA\Parameter(
-     *         name="referent_name",
-     *         in="path",
-     *         description="referent name of structure",
-     *         required=true,
-     *         @OA\Schema(type="string"),
-     *     ),
-     *     @OA\Parameter(
-     *         name="web_site",
-     *         in="path",
-     *         description="web site of structure",
-     *         required=true,
-     *         @OA\Schema(type="string"),
-     *     ),
-     *     @OA\Response(response="200", description="successful operation"),
-     *     @OA\Response(response="422", description="Invalid input"),
      * )
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
 
     public function store(Request $request){
@@ -105,11 +74,12 @@ class StructuresController extends Controller
             'mail' => 'required|string|max:255',
             'referent_name' => 'required|string|max:255|nullable',
             'web_site' => 'required|string|max:255',
+            'zone' => 'required|string|max:255',
         ]);
 
         $structure = new Structures();
         $structure->nom = $request->name;
-        $structure->type = $request->city;
+        $structure->ville = $request->city;
         $structure->mail = $request->mail;
         $structure->telephone = $request->phone;
         $structure->site_web = $request->web_site;
@@ -117,8 +87,8 @@ class StructuresController extends Controller
         $structure->siege_social = $request->social_headquarters;
         $structure->nom_referent = $request->referent_name;
         $structure->adresse_gestion = $request->manager_address;
+        $structure->zone = $request->zone;
         $result = $structure->save();
-
 
         if($result){
             return response()->json(['message' => 'Structure added successfully'], 200);
@@ -127,7 +97,6 @@ class StructuresController extends Controller
         }
     }
 
-    //update a structure
     /**
      * @OA\Put(
      *     path="/api/structures/{id}",
@@ -138,29 +107,25 @@ class StructuresController extends Controller
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         required=true,
      *         description="ID de la structure à mettre à jour",
-     *         @OA\Schema(
-     *             type="integer",
-     *             format="int64"
-     *         )
+     *         required=true,
+     *         @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\RequestBody(
      *         required=true,
      *         description="Données de mise à jour de la structure",
-     *         @OA\MediaType(
-     *             mediaType="application/x-www-form-urlencoded",
-     *             @OA\Schema(
-     *                 @OA\Property(property="name", type="string", maxLength=255),
-     *                 @OA\Property(property="city", type="string", maxLength=255),
-     *                 @OA\Property(property="mail", type="string", maxLength=255),
-     *                 @OA\Property(property="phone", type="string", maxLength=255),
-     *                 @OA\Property(property="web_site", type="string", maxLength=255),
-     *                 @OA\Property(property="social_reason", type="string", maxLength=255),
-     *                 @OA\Property(property="social_headquarters", type="string", maxLength=255),
-     *                 @OA\Property(property="referent_name", type="string", maxLength=255, nullable=true),
-     *                 @OA\Property(property="manager_address", type="string", maxLength=255),
-     *             )
+     *         @OA\JsonContent(
+     *             required={"name", "city", "mail", "phone", "web_site", "social_reason", "social_headquarters", "referent_name", "manager_address"},
+     *             @OA\Property(property="name", type="string", maxLength=255),
+     *             @OA\Property(property="city", type="string", maxLength=255),
+     *             @OA\Property(property="mail", type="string", maxLength=255),
+     *             @OA\Property(property="phone", type="string", maxLength=255),
+     *             @OA\Property(property="web_site", type="string", maxLength=255),
+     *             @OA\Property(property="social_reason", type="string", maxLength=255),
+     *             @OA\Property(property="social_headquarters", type="string", maxLength=255),
+     *             @OA\Property(property="referent_name", type="string", maxLength=255, nullable=true),
+     *             @OA\Property(property="manager_address", type="string", maxLength=255),
+     *             @OA\Property(property="zone", type="string", maxLength=255),
      *         )
      *     ),
      *     @OA\Response(
@@ -179,15 +144,10 @@ class StructuresController extends Controller
      *         response=422,
      *         description="Erreur de validation des données - Vérifiez les contraintes de validation dans la documentation",
      *     ),
-     *     security={
-     *         {"api_key": {}}
-     *     }
-     *     )
      * )
      */
     public function update(Request $request, $id){
         $request->validate([
-            'id' => 'required|integer',
             'name' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'social_reason' => 'required|string|max:255',
@@ -195,29 +155,39 @@ class StructuresController extends Controller
             'manager_address' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
             'mail' => 'required|string|max:255',
-            'referent_name' => 'required|string|max:255|nullable',
+            'referent_name' => 'nullable|string|max:255',
             'web_site' => 'required|string|max:255',
+            'zone' => 'required|string|max:255',
         ]);
 
         $structure = Structures::find($id);
-        $structure->nom = $request->name;
-        $structure->type = $request->city;
-        $structure->mail = $request->mail;
-        $structure->telephone = $request->phone;
-        $structure->site_web = $request->web_site;
-        $structure->raison_sociale = $request->social_reason;
-        $structure->siege_social = $request->social_headquarters;
-        $structure->nom_referent = $request->referent_name;
-        $structure->adresse_gestion = $request->manager_address;
-        $result = $structure->save();
 
-        //TODO change wen view is complete
-        if($result){
-            return response()->json(['message' => 'Structure updated successfully'], 200);
-        }else{
-            return response()->json(['message' => 'Error updating structure'], 500);
+        if ($structure) {
+            // La structure a été trouvée, vous pouvez mettre à jour ses propriétés
+            $structure->nom = $request->name;
+            $structure->ville = $request->city;
+            $structure->mail = $request->mail;
+            $structure->telephone = $request->phone;
+            $structure->site_web = $request->web_site;
+            $structure->raison_sociale = $request->social_reason;
+            $structure->siege_social = $request->social_headquarters;
+            $structure->nom_referent = $request->referent_name;
+            $structure->adresse_gestion = $request->manager_address;
+            $structure->zone = $request->zone;
+
+            $result = $structure->save();
+
+            if ($result) {
+                return response()->json(['message' => 'Structure updated successfully'], 200);
+            } else {
+                return response()->json(['message' => 'Error updating structure'], 500);
+            }
+        } else {
+            // La structure n'a pas été trouvée, renvoyez une réponse appropriée
+            return response()->json(['message' => 'Structure not found'], 404);
         }
     }
+
 
     /**
      * @OA\Delete(
@@ -242,12 +212,12 @@ class StructuresController extends Controller
         $structure = Structures::find($id);
 
         if (!$structure) {
-            return response()->json(['message' => 'Abonnement non trouvée'], 404);
+            return response()->json(['message' => 'Structure non trouvée'], 404);
         }
 
         $structure->delete();
 
-        return response()->json(['message' => 'Abonnement supprimée'], 200);
+        return response()->json(['message' => 'Structure supprimée'], 200);
     }
 
 
