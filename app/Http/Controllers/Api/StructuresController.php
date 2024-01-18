@@ -119,7 +119,7 @@ class StructuresController extends Controller
         $structure->adresse_gestion = $request->manager_address;
         $result = $structure->save();
 
-        //TODO change wen view is complete
+
         if($result){
             return response()->json(['message' => 'Structure added successfully'], 200);
         }else{

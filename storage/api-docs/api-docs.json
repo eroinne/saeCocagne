@@ -906,14 +906,14 @@
                 ]
             }
         },
-        "/api/livraisons": {
+        "/api/livraison": {
             "get": {
                 "tags": [
-                    "Livraisons"
+                    "Livraison"
                 ],
-                "summary": "Show all deliveries",
+                "summary": "Get all deliveries",
                 "description": "Get a list of all deliveries",
-                "operationId": "indexDeliveries",
+                "operationId": "getAllDeliveries",
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -922,46 +922,38 @@
             },
             "post": {
                 "tags": [
-                    "Livraisons"
+                    "Livraison"
                 ],
-                "summary": "Add a delivery",
-                "description": "Add a delivery",
-                "operationId": "addDelivery",
+                "summary": "Add a new delivery",
+                "description": "Add a new delivery",
+                "operationId": "addNewDelivery",
                 "requestBody": {
-                    "description": "Delivery details",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
+                                "required": [
+                                    "jour",
+                                    "mois",
+                                    "date",
+                                    "numero_semaine",
+                                    "calendrier_id"
+                                ],
                                 "properties": {
-                                    "id_structure": {
-                                        "description": "ID of the structure",
-                                        "type": "integer",
-                                        "example": 1
+                                    "jour": {
+                                        "type": "string"
                                     },
-                                    "days_delivery": {
-                                        "description": "Delivery date",
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "2024-01-15"
+                                    "mois": {
+                                        "type": "string"
                                     },
-                                    "days_preparation": {
-                                        "description": "Preparation date",
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "2024-01-14"
+                                    "date": {
+                                        "type": "string"
                                     },
-                                    "color": {
-                                        "description": "Color of the delivery",
-                                        "type": "string",
-                                        "maxLength": 255,
-                                        "example": "Blue"
+                                    "numero_semaine": {
+                                        "type": "integer"
                                     },
-                                    "repositories": {
-                                        "description": "Repositories information",
-                                        "type": "string",
-                                        "maxLength": 500,
-                                        "example": "Repository A, Repository B"
+                                    "calendrier_id": {
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -973,8 +965,8 @@
                     "200": {
                         "description": "Successful operation"
                     },
-                    "405": {
-                        "description": "Invalid input"
+                    "404": {
+                        "description": "Operation failed"
                     }
                 },
                 "security": [
@@ -984,14 +976,14 @@
                 ]
             }
         },
-        "/api/livraisons/{id}": {
+        "/api/livraison/{id}": {
             "get": {
                 "tags": [
-                    "Livraisons"
+                    "Livraison"
                 ],
-                "summary": "Show a delivery",
+                "summary": "Get a delivery",
                 "description": "Get a delivery by ID",
-                "operationId": "showDelivery",
+                "operationId": "getDeliveryById",
                 "parameters": [
                     {
                         "name": "id",
@@ -1015,11 +1007,11 @@
             },
             "put": {
                 "tags": [
-                    "Livraisons"
+                    "Livraison"
                 ],
                 "summary": "Update a delivery",
                 "description": "Update a delivery by ID",
-                "operationId": "updateDelivery",
+                "operationId": "updateDeliveryById",
                 "parameters": [
                     {
                         "name": "id",
@@ -1033,40 +1025,32 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "Delivery details",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
+                                "required": [
+                                    "jour",
+                                    "mois",
+                                    "date",
+                                    "numero_semaine",
+                                    "calendrier_id"
+                                ],
                                 "properties": {
-                                    "id_structure": {
-                                        "description": "ID of the structure",
-                                        "type": "integer",
-                                        "example": 1
+                                    "jour": {
+                                        "type": "string"
                                     },
-                                    "days_delivery": {
-                                        "description": "Delivery date",
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "2024-01-15"
+                                    "mois": {
+                                        "type": "string"
                                     },
-                                    "days_preparation": {
-                                        "description": "Preparation date",
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "2024-01-14"
+                                    "date": {
+                                        "type": "string"
                                     },
-                                    "color": {
-                                        "description": "Color of the delivery",
-                                        "type": "string",
-                                        "maxLength": 255,
-                                        "example": "Blue"
+                                    "numero_semaine": {
+                                        "type": "integer"
                                     },
-                                    "repositories": {
-                                        "description": "Repositories information",
-                                        "type": "string",
-                                        "maxLength": 500,
-                                        "example": "Repository A, Repository B"
+                                    "calendrier_id": {
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -1080,9 +1064,6 @@
                     },
                     "404": {
                         "description": "Delivery not found"
-                    },
-                    "405": {
-                        "description": "Invalid input"
                     }
                 },
                 "security": [
@@ -1093,11 +1074,11 @@
             },
             "delete": {
                 "tags": [
-                    "Livraisons"
+                    "Livraison"
                 ],
                 "summary": "Delete a delivery",
                 "description": "Delete a delivery by ID",
-                "operationId": "deleteDelivery",
+                "operationId": "deleteDeliveryById",
                 "parameters": [
                     {
                         "name": "id",
@@ -1112,7 +1093,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Delivery deleted successfully"
+                        "description": "Successful operation"
                     },
                     "404": {
                         "description": "Delivery not found"
@@ -1166,12 +1147,10 @@
                                         "type": "numeric"
                                     },
                                     "jour_preparation": {
-                                        "type": "string",
-                                        "format": "date"
+                                        "type": "string"
                                     },
                                     "jour_livraison": {
-                                        "type": "string",
-                                        "format": "date"
+                                        "type": "string"
                                     },
                                     "couleur": {
                                         "type": "string"
@@ -1263,12 +1242,10 @@
                                         "type": "numeric"
                                     },
                                     "jour_preparation": {
-                                        "type": "string",
-                                        "format": "date"
+                                        "type": "string"
                                     },
                                     "jour_livraison": {
-                                        "type": "string",
-                                        "format": "date"
+                                        "type": "string"
                                     },
                                     "couleur": {
                                         "type": "string"
@@ -2765,8 +2742,8 @@
             "description": "API Endpoints of Order Controller"
         },
         {
-            "name": "Livraisons",
-            "description": "API Endpoints of Delivery Controller"
+            "name": "Livraison",
+            "description": "API Endpoints for Delivery Controller"
         },
         {
             "name": "Tourne-Livraison",
