@@ -153,5 +153,30 @@ class StaffsController extends Controller
         }
 
     }
+
+    /**
+    * to delete a staff membe
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     * @return RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy($id)
+    {
+        $staff = Staffs::find($id);
+        $nom_staff = $staff->nom;
+        $result = $staff->delete();
+
+
+        if ($result) {
+            return redirect()->route('staffs.list')->with('success', "Le membre du staff $nom_staff a été supprimé");
+        } else {
+            return redirect()->route('staffs.list')->with('error', "Une erreur est survenue lors de la suppression du membre du staff $nom_staff");
+        }
+
+    }
+
+
 }
 

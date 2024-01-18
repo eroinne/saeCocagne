@@ -5,12 +5,13 @@ namespace App\Models;
 use App\Models\Structures;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\Staffs as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 
 class Staffs extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory,  HasApiTokens;
 
     protected $guarded = [];
 

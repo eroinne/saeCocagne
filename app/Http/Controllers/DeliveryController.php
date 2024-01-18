@@ -7,11 +7,8 @@ use Illuminate\Http\Request;
 
 class DeliveryController extends Controller
 {
-    //add a delivery
-    /**
-     * @param Request $request
-     * @return string[]
-     */
+
+
     public function store(Request $request){
         $request->validate([
             'id_structure' => 'required|numeric',
@@ -39,11 +36,7 @@ class DeliveryController extends Controller
     }
 
     //update a delivery
-/**
-     * @param Request $request
-     * @param $id
-     * @return string[]
-     */
+
     public function update(Request $request, $id){
         $request->validate([
             'id_structure' => 'required|numeric',
@@ -71,10 +64,7 @@ class DeliveryController extends Controller
     }
 
     //delete a delivery
-    /**
-     * @param $id
-     * @return string[]
-     */
+
     public function destroy($id){
         $delivery = TournerLivraison::find($id);
         $id_delivery = $delivery->id;
@@ -87,5 +77,23 @@ class DeliveryController extends Controller
             return ["Result"=>"Operation failed"];
         }
     }
+
+    //show a delivery
+
+    public function show($id)
+    {
+        $delivery = TournerLivraison::find($id);
+        return $delivery;
+    }
+
+    //show all delivery
+
+    public function index()
+    {
+        $delivery = TournerLivraison::all();
+        return $delivery;
+    }
+
+
 
 }
