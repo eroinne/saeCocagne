@@ -34,9 +34,6 @@ return new class extends Migration
             $table->foreign('structures_id')->references('id')->on('structures')->cascadeOnDelete();
             $table->rememberToken();
             $table->timestamps();
-
-            $table->string("adresse_mail",255);
-
         });
     }
 
