@@ -109,6 +109,7 @@ class CartController extends Controller
             'nom' => 'required|string|max:255',
             'type' => 'required|string|max:255',
             'id_structure' => 'required|numeric',
+            'abonnements' => 'required|string|max:255',
         ]);
 
         $panier = Paniers::find($id);
@@ -149,9 +150,8 @@ class CartController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        // Implementation
         $panier = Paniers::find($id);
         $nom_panier = $panier->nom;
         $result = $panier->delete();

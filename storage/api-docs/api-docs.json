@@ -1983,44 +1983,24 @@
                 }
             }
         },
-        "/api/user": {
-            "get": {
+        "/api/logout": {
+            "post": {
                 "tags": [
                     "Staffs Auth"
                 ],
                 "summary": "Get the current staff",
                 "description": "Get the current staff",
-                "operationId": "user",
+                "operationId": "logout",
                 "responses": {
                     "200": {
-                        "description": "Staff Logged",
+                        "description": "Staff Logged out",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "id": {
-                                            "type": "numeric",
-                                            "example": "1"
-                                        },
-                                        "nom": {
+                                        "message": {
                                             "type": "string",
-                                            "example": "John"
-                                        },
-                                        "prenom": {
-                                            "type": "string",
-                                            "example": "Doe"
-                                        },
-                                        "email": {
-                                            "type": "string",
-                                            "example": "truck@mail.com"
-                                        },
-                                        "is_admin": {
-                                            "type": "boolean",
-                                            "example": "false"
-                                        },
-                                        "structures_id": {
-                                            "type": "numeric",
-                                            "example": "1"
+                                            "example": "Staff Logged out"
                                         }
                                     },
                                     "type": "object"

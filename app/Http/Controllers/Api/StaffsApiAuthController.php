@@ -134,25 +134,21 @@ class StaffsApiAuthController extends Controller
 
 
     /**
-     * @OA\Get(
-     *      path="/api/user",
-     *      operationId="user",
+     * @OA\Post(
+     *      path="/api/logout",
+     *      operationId="logout",
      *      tags={"Staffs Auth"},
      *      summary="Get the current staff",
      *      description="Get the current staff",
      *      security={{"bearerAuth":{}}},
-     *      @OA\Response(
-     *          response=200,
-     *          description="Staff Logged",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="id", type="numeric", example="1"),
-     *              @OA\Property(property="nom", type="string", example="John"),
-     *              @OA\Property(property="prenom", type="string", example="Doe"),
-     *              @OA\Property(property="email", type="string", example="truck@mail.com"),
-     *              @OA\Property(property="is_admin", type="boolean", example="false"),
-     *              @OA\Property(property="structures_id", type="numeric", example="1"),
-     *          ),
-     *      ),
+     *     @OA\Response(
+     *     response=200,
+     *     description="Staff Logged out",
+     *   @OA\JsonContent(
+     *     @OA\Property(property="message", type="string", example="Staff Logged out"),
+     *     ),
+     *     ),
+     *
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
@@ -162,8 +158,6 @@ class StaffsApiAuthController extends Controller
      *      ),
      * )
      */
-
-
     public function logout(){
         auth()->user()->tokens()->delete();
 

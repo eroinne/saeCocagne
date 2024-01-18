@@ -32,6 +32,14 @@ class AdherentController extends Controller
      *     description="Updates the user's profile information",
      *     operationId="updateProfile",
      *      security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="ID of the user to update",
+     *     required=true,
+     *     @OA\Schema(type="integer", format="int64")
+     *    ),
+     *
      *     @OA\RequestBody(
      *         required=true,
      *         description="User's profile data for update",
@@ -52,8 +60,6 @@ class AdherentController extends Controller
      *     @OA\Property(property="date_naissance", type="date", nullable=true),
      *     @OA\Property(property="photo", type="string", format="binary", maxLength=2048, nullable=true),
      *     )
-     *
-     *
      *     ),
      *     @OA\Response(response="200", description="Profile updated successfully"),
      *     @OA\Response(response="422", description="Validation error"),
@@ -62,9 +68,9 @@ class AdherentController extends Controller
      * )
      *
      */
-    public function update(Request $request): \Illuminate\Http\JsonResponse
+    public function update(Request $request,$id): \Illuminate\Http\JsonResponse
     {
-        $user = Auth::user();
+        $user = Adherents::find($id);
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -80,32 +86,22 @@ class AdherentController extends Controller
             'numero_telephone3' => ['nullable', 'numeric', 'regex:/^0[1-9]\d{8}$/'],
             'profession' => ['nullable', 'string', 'max:255'],
             'date_naissance' => ['nullable', 'date'],
-            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         ]);
 
-        $photo = $request->file('photo');
+        $user->name = $request->name;
+        $user->prenom = $request->prenom;
+        $user->raison_sociale = $request->raison_sociale;
+        $user->civilite = $request->civilite;
+        $user->email = $request->email;
+        $user->ville = $request->ville;
+        $user->adresse = $request->adresse;
+        $user->code_postal = $request->code_postal;
+        $user->numero_telephone = $request->numero_telephone;
+        $user->numero_telephone2 = $request->numero_telephone2;
+        $user->numero_telephone3 = $request->numero_telephone3;
+        $user->profession = $request->profession;
+        $user->date_naissance = $request->date_naissance;
 
-        if($photo != null)
-            $base64Photo = base64_encode(file_get_contents($photo));
-        else
-            $base64Photo = $user->photo;
-
-        $user->update([
-            'name' => $request->name,
-            'prenom' => $request->prenom,
-            'raison_sociale' => $request->raison_sociale,
-            'civilite' => $request->civilite,
-            'email' => $request->email,
-            'ville' => $request->ville,
-            'adresse' => $request->adresse,
-            'code_postal' => $request->code_postal,
-            'numero_telephone' => $request->numero_telephone,
-            'numero_telephone2' => $request->numero_telephone2,
-            'numero_telephone3' => $request->numero_telephone3,
-            'profession' => $request->profession,
-            'date_naissance' => $request->date_naissance,
-            'photo' => $base64Photo,
-        ]);
 
         if($user->save()){
             return response()->json(['message' => 'Profile updated successfully'], 200);
@@ -191,21 +187,6 @@ class AdherentController extends Controller
         $adherent->profession = $request->profession;
         $adherent->date_naissance = $request->date_naissance;
 
-        $adherent->update([
-            'name' => $request->name,
-            'prenom' => $request->prenom,
-            'raison_sociale' => $request->raison_sociale,
-            'civilite' => $request->civilite,
-            'email' => $request->email,
-            'ville' => $request->ville,
-            'adresse' => $request->adresse,
-            'code_postal' => $request->code_postal,
-            'numero_telephone' => $request->numero_telephone,
-            'numero_telephone2' => $request->numero_telephone2,
-            'numero_telephone3' => $request->numero_telephone3,
-            'profession' => $request->profession,
-            'date_naissance' => $request->date_naissance,
-        ]);
 
         if ($adherent->save()) {
             return response()->json(['message' => 'Adherent stored successfully'], 200);
