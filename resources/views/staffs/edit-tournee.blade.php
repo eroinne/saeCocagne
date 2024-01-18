@@ -45,7 +45,7 @@
                                 </div>
 
                                 <div>
-                                    <label for="jour_livraison" class="block text-sm font-medium text-gray-700 mb-2">Jour de preparation<span class="text-red-500">*</span></label>
+                                    <label for="jour_livraison" class="block text-sm font-medium text-gray-700 mb-2">Jour de livraison<span class="text-red-500">*</span></label>
                                     <select name="jour_livraison" id="jour_livraison" class="mt-1 p-2 border rounded-md w-full" required>
                                         <option value="lundi" {{ $tournee->jour_livraison === 'lundi' ? 'selected' : '' }}>lundi</option>
                                         <option value="mardi" {{ $tournee->jour_livraison === 'mardi' ? 'selected' : '' }}>mardi</option>
