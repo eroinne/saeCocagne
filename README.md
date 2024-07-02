@@ -1,7 +1,7 @@
 # SAE Cocagne
 
-- Nathan Berthaud
-- Baptiste Lambey
+## Principe
+Crée un site web qui fonctionnerait sous le même principe que les Jardins de Cocagne, où un client pourrait s'inscrire à un jardin, commander des paniers, et qui comporterait une partie admin permettant de créer les pages, les produits, les livraisons, et d'ajouter des dépôts.
 
 ## Installation
 
@@ -37,3 +37,4 @@ Fais avec:
 - Livewire
 - Swagger
 - Maria DB
+
